@@ -68,7 +68,8 @@ html, body {
          width: .3em;
          height: .3em;
          border-radius: 50%;
-         background: rgba(255,255,255,0.8);
+         //background: rgba(255,255,255,0.8);
+         background: transparentize(#FF6B6B, 0)
        }
 
      }
@@ -87,7 +88,7 @@ html, body {
      .ingredients h1.title,
      .preparation h1.title{
        position: relative;
-       margin: 0 0 calc(25px + 15px) 0;//Add space between line and title
+       margin: 0 0 calc(30px + 15px) 0;//Add space between line and title
        font-size: 2.3em;
        text-align: center;
 
@@ -99,7 +100,7 @@ html, body {
          content : "";
          width: 60%;
          border-bottom: solid 2px #FF6B6B;
-         border-bottom: solid 1px transparentize(#FF6B6B, 0.3);
+         border-bottom: solid 2px transparentize(#FF6B6B, 0);
          //border-bottom: solid 2px rgba(0,0,0,0.1);
        }
 

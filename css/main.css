@@ -73,7 +73,7 @@ body {
   width: .3em;
   height: .3em;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.8);
+  background: #ff6b6b;
 }
 
 .main-container .main-content {
@@ -90,7 +90,7 @@ body {
 .main-container .main-content .ingredients h1.title,
 .main-container .main-content .preparation h1.title {
   position: relative;
-  margin: 0 0 calc(25px + 15px) 0;
+  margin: 0 0 calc(30px + 15px) 0;
   font-size: 2.3em;
   text-align: center;
 }
@@ -104,7 +104,7 @@ body {
   content: "";
   width: 60%;
   border-bottom: solid 2px #FF6B6B;
-  border-bottom: solid 1px rgba(255, 107, 107, 0.7);
+  border-bottom: solid 2px #ff6b6b;
 }
 
 .main-container .main-content .ingredients h1.title img,
