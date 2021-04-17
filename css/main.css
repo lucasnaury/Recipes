@@ -21,7 +21,6 @@ body {
 }
 
 .main-container .header {
-  padding: 0;
   background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.75)), url("https://source.unsplash.com/featured/?cooking");
   background-size: cover;
   background-position: center;
@@ -72,7 +71,7 @@ body {
   padding: 75px 100px;
   background: white;
   font-size: 20px;
-  min-height: 200%;
+  min-height: 70%;
   border-top-left-radius: 75px;
   border-top-right-radius: 75px;
   transform: translateY(-75px);
@@ -81,8 +80,8 @@ body {
 .main-container .main-content .ingredients h1.title,
 .main-container .main-content .preparation h1.title {
   position: relative;
-  margin: 0 0 calc(20px + 15px) 0;
-  font-size: 2.2em;
+  margin: 0 0 calc(25px + 15px) 0;
+  font-size: 2.3em;
   text-align: center;
 }
 
@@ -99,4 +98,30 @@ body {
 
 .main-container .main-content .ingredients {
   margin-bottom: 50px;
+}
+
+.main-container .main-content .ingredients ul li {
+  font-size: 1.3em;
+  line-height: 1.8em;
+}
+
+.main-container .main-content .preparation ul {
+  padding: 0;
+  list-style-type: none;
+}
+
+.main-container .main-content .preparation ul li {
+  margin-bottom: 30px;
+}
+
+.main-container .main-content .preparation ul li h2 {
+  margin: 0 0 10px 0;
+  text-transform: uppercase;
+  font-size: 1.4em;
+  font-weight: 700;
+}
+
+.main-container .main-content .preparation ul li p {
+  margin: 0;
+  font-size: 1.3em;
 }
