@@ -27,6 +27,7 @@ html, body {
      flex-direction: column;
      align-items: center;
      padding: 100px 0 calc(50px + 75px);//add the border radius
+     padding: 100px 0 -webkit-calc(50px + 75px);//add the border radius
 
      h1{
        color: white;
@@ -49,7 +50,8 @@ html, body {
        justify-content: space-around;
        color: rgba(255,255,255,0.8);
        width: 80%;
-      font-weight: 500;
+       font-weight: 500;
+       padding: 0;
        margin: 50px 10% 0;
        font-size: 1.8em;
 
@@ -65,13 +67,42 @@ html, body {
    }
 
    .main-content{
-     padding: 60px;
+     color: #111;
+     padding: 75px 100px;
      background: white;
      font-size: 20px;
      min-height: 200%;
      border-top-left-radius: 75px;
      border-top-right-radius: 75px;
      transform: translateY(-75px);
+
+     .ingredients h1.title,
+     .preparation h1.title{
+       position: relative;
+       margin: 0 0 calc(20px + 15px) 0;//Add space between line and title
+       font-size: 2.2em;
+       text-align: center;
+
+       &::after{
+         position: absolute;
+         bottom: -15px;
+         left: 50%;
+         transform: translateX(-50%);
+         content : "";
+         width: 50%;
+         border-bottom: solid rgba(0,0,0,0.1);
+       }
+
+     }
+
+     .ingredients{
+       margin-bottom: 50px;
+
+     }
+
+     .preparation{
+
+     }
 
    }
  }
