@@ -103,8 +103,8 @@ body {
   transform: translateX(-50%);
   content: "";
   width: 60%;
-  border-bottom: solid #FF6B6B;
-  border-bottom: solid rgba(255, 107, 107, 0.7);
+  border-bottom: solid 2px #FF6B6B;
+  border-bottom: solid 2px rgba(255, 107, 107, 0.7);
 }
 
 .main-container .main-content .ingredients h1.title img,
