@@ -101,7 +101,7 @@ body {
 }
 
 .main-container .main-content .ingredients ul li {
-  font-size: 1.3em;
+  font-size: 1.5em;
   line-height: 1.8em;
 }
 
@@ -117,11 +117,11 @@ body {
 .main-container .main-content .preparation ul li h2 {
   margin: 0 0 10px 0;
   text-transform: uppercase;
-  font-size: 1.4em;
+  font-size: 1.6em;
   font-weight: 700;
 }
 
 .main-container .main-content .preparation ul li p {
   margin: 0;
-  font-size: 1.3em;
+  font-size: 1.5em;
 }
