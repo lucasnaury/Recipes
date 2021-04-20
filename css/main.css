@@ -11,15 +11,16 @@ body {
   font-family: Montserrat, sans-serif;
   padding: 0;
   margin: 0;
-}
-
-.header {
-  height: 100%;
-  width: 100%;
   background: url("../img/bg.svg");
   background-attachment: fixed;
   background-size: cover;
   background-position: center;
+}
+
+.header {
+  position: absolute;
+  height: 100%;
+  width: 100%;
 }
 
 .header h1 {
@@ -41,10 +42,7 @@ body {
 }
 
 .main-container {
-  /*background: url("../img/bg.svg");
-  background-size: cover;
-  background-position: center;*/
-  display: flex;
-  flex-direction: column;
+  background: #fafafa;
+  padding: 75px;
   height: 100%;
 }
