@@ -1,24 +1,30 @@
 $accent-color : #FF6B6B;
+$dark-color : #222;
 
 html, body {
   margin:0;
   padding:0;
   width:100%;
   height:100%;
-  overflow: none;
+  overflow-x: hidden;
+
+  overflow-y:hidden;
+  animation: overflow 1s 3s forwards;
+}
+*{
+  box-sizing: border-box;
 }
  body{
-   box-sizing: border-box;
    font-family: Montserrat, sans-serif;
    padding: 0;
    margin: 0;
-   background: #111;
+   background: $dark-color;
  }
 
  .main-container{
    display: flex;
    flex-direction: column;
-   height: 100%;
+   min-height: 100%;
 
    .header{
      background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.75)), url("https://source.unsplash.com/featured/?cooking");
@@ -27,8 +33,12 @@ html, body {
      display: flex;
      flex-direction: column;
      align-items: center;
+     justify-content: space-around;
      padding: 100px 0 calc(50px + 75px);//add the border radius
      padding: 100px 0 -webkit-calc(50px + 75px);//add the border radius
+
+     min-height: calc(100vh + 75px);
+     animation: headerShrinkDown 1s 3s ease-in-out forwards;
 
      h1{
        color: white;
@@ -36,6 +46,10 @@ html, body {
        text-align: center;
        font-size: 5em;
        margin: 0 10%;
+
+       //font-size: 8em;
+       transform: scale(1.3);
+       animation: headerTitleShrinkDown 1s 3s ease forwards;
      }
      h2{
        color: rgba(255,255,255,0.8);
@@ -78,14 +92,18 @@ html, body {
    }
 
    .main-content{
-     color: #111;
+     color: $dark-color;
      padding: 75px 100px;
      background: white;
      font-size: 20px;
-     min-height: 70%;
+     //flex: 1 1 auto;
+     height: 1600px;// maybe use ::after header to set the bg to same width but height +75px and flex 1 1 auto will do the job without this line
      border-top-left-radius: 75px;
      border-top-right-radius: 75px;
+
+
      transform: translateY(-75px);
+
 
      .ingredients h1.title,
      .preparation h1.title{
@@ -149,3 +167,38 @@ html, body {
 
    }
  }
+
+ //ANIMATIONS
+ //Header
+ @keyframes headerShrinkDown{
+   0%{
+     min-height: calc(100vh + 75px);
+   }
+   100%{
+     min-height: 380px;
+   }
+ }
+ @keyframes headerTitleShrinkDown{
+   0%{
+     //font-size: 8em;
+     transform: scale(1.3);
+   }
+   100%{
+     //font-size: 5em;
+     transform: scale(1);
+   }
+ }
+ @keyframes headerSubitleShrinkDown{
+   0%{
+
+   }
+   100%{
+
+   }
+ }
+ //Body
+@keyframes overflow {
+  100%{
+    overflow-y:visible;
+  }
+}
