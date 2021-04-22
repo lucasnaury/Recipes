@@ -6,7 +6,12 @@ html, body {
   padding: 0;
   width: 100%;
   height: 100%;
-  overflow: none;
+  overflow: hidden;
+  user-select: none; /* supported by Chrome and Opera */
+   -webkit-user-select: none; /* Safari */
+   -khtml-user-select: none; /* Konqueror HTML */
+   -moz-user-select: none; /* Firefox */
+   -ms-user-select: none; /* Internet Explorer/Edge */
 }
 
 body {
@@ -14,18 +19,21 @@ body {
   font-family: Montserrat, sans-serif;
   padding: 0;
   margin: 0;
-  //header bg
-  background: url("../img/bg.svg");//Bg : fafafa and max-color:fde3e3
-  //background: linear-gradient(rgba(0, 0, 0, 0) 90%, rgba(0, 0, 0, 0.15) 100%), url("../img/bg.svg");//Bg : fafafa and max-color:fde3e3
-  background-attachment: fixed;
-  background-size: cover;
-  background-position: center;
+  background: $bg-color;
+
 }
 .header{
   position: absolute;
   height: 100%;
   width: 100%;
 
+  background: url("../img/bg-top.svg"),url("../img/bg-bottom.svg");//Accent max-color:fde3e3
+  background-attachment: fixed;
+  background-size: contain;
+  background-position: center -200px, center bottom;
+  background-repeat: no-repeat;
+
+  animation: hideHomeBg 1.5s 1.5s ease forwards;
 
   h1{
     font-size: 10em;
@@ -34,23 +42,118 @@ body {
     position: absolute;
     left: 50%;
     bottom: 50%;
-    transform: translate(-50%,0);
+    transform: translate(-50%,-50%);
     color: $accent-color;
+    text-shadow: 0 0 5px rgba(0,0,0,0.2);
+
+    animation: hideHomeTitle 1.5s 1.5s ease forwards;
   }
   img{
     position: absolute;
     top: 48%;
     left: 50%;
     transform: translate(-50%,0);
+
+    animation: hideHomeImg 1.5s 1.5s ease forwards;
   }
 }
 .main-container {
-  background: $bg-color;
-  padding: 75px;
-  //display: flex;
-  //flex-direction: column;
+  position: absolute;
+  box-sizing: border-box;
+  top: 0;
+  left: 0;
+  width: 100%;
   height: 100%;
+  padding: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+
+  .btn{
+    position: relative;
+    opacity: 0;
+    width: 400px;
+    height: 400px;
+    border-radius: 25px;
+    background: none;
+    box-sizing: border-box;
+    box-shadow: 0 0 20px rgba(0,0,0,.1),0 0 0 2px $accent-color; //Alternative to border
+
+    cursor: pointer;
+    animation: buttonPopUp 600ms 3.2s ease-in-out forwards;
+    &:first-of-type,
+    &:last-of-type{
+      animation: buttonPopUp 600ms 3.3s ease-in-out forwards;
+    }
+
+    transition: box-shadow 150ms ease-in-out;
+    &:hover{
+      box-shadow: 0 0 20px rgba(0,0,0,.1),0 0 0 5px $accent-color;//Alternative to border
+    }
+
+    img{
+      width: 180px;
+      position: absolute;
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+    }
+    p{
+      margin: 0;
+      position: absolute;
+      bottom: 40px;
+      width: 100%;
+      font-size: 2em;
+      text-align: center;
+    }
+  }
+
+
 }
 
-//Add animation to hide first screen
+//ANIMATIONS
+@keyframes hideHomeBg{
+  0%{
+    opacity: 1;
+    background-position: center -200px, center bottom;
+  }
+  100%{
+    //opacity: 0;
+    background-position: center -50%, center 150%;
+  }
+}
+@keyframes hideHomeTitle{
+  0%{
+    opacity: 1;
+  }
+  100%{
+    opacity: 0;
+    bottom: 100%;
+    transform: translate(-50%,100%);
+  }
+}
+@keyframes hideHomeImg{
+  0%{
+    opacity: 1;
+  }
+  100%{
+    opacity: 0;
+    top: 100%;
+  }
+}
+
+@keyframes buttonPopUp{
+  0%{
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  70%{
+    transform: scale(1.1);
+  }
+  100%{
+    opacity: 1;
+    transform: scale(1);
+  }
+}
 //Hide animation to show the recipe name on the entire screen and then scale down and make the ingredients+steps pannel move up
