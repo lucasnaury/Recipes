@@ -26,17 +26,27 @@ body {
 }
 
 .main-container .header {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.75)), url("https://source.unsplash.com/featured/?cooking");
-  background-size: cover;
-  background-position: center;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  padding: 100px 0 calc(50px + 75px);
-  padding: 100px 0 -webkit-calc(50px + 75px);
-  min-height: calc(100vh + 75px);
+  padding: 100px 0 50px;
+  min-height: 100vh;
   animation: headerShrinkDown 1s 3s ease-in-out forwards;
+}
+
+.main-container .header::after {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: -75px;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.75)), url("https://source.unsplash.com/featured/?cooking");
+  background-size: cover;
+  background-position: center;
 }
 
 .main-container .header h1 {
@@ -91,10 +101,9 @@ body {
   padding: 75px 100px;
   background: white;
   font-size: 20px;
-  height: 1600px;
+  flex: 1 1 auto;
   border-top-left-radius: 75px;
   border-top-right-radius: 75px;
-  transform: translateY(-75px);
 }
 
 .main-container .main-content .ingredients h1.title,
@@ -114,7 +123,6 @@ body {
   content: "";
   width: 60%;
   border-bottom: solid 2px #FF6B6B;
-  border-bottom: solid 2px #ff6b6b;
 }
 
 .main-container .main-content .ingredients h1.title img,
@@ -128,8 +136,8 @@ body {
 }
 
 .main-container .main-content .ingredients ul li {
-  font-size: 1.5em;
-  line-height: 1.8em;
+  font-size: .8em;
+  line-height: 3em;
 }
 
 .main-container .main-content .preparation ul {
@@ -144,18 +152,18 @@ body {
 .main-container .main-content .preparation ul li h2 {
   margin: 0 0 10px 0;
   text-transform: uppercase;
-  font-size: 1.6em;
+  font-size: 1em;
   font-weight: 700;
 }
 
 .main-container .main-content .preparation ul li p {
   margin: 0;
-  font-size: 1.5em;
+  font-size: .8em;
 }
 
 @keyframes headerShrinkDown {
   0% {
-    min-height: calc(100vh + 75px);
+    min-height: 100vh;
   }
   100% {
     min-height: 380px;
