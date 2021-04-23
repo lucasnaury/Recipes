@@ -146,13 +146,13 @@ body {
 }
 
 .main-container .main-content .preparation ul li {
-  margin-bottom: 30px;
+  margin-bottom: 35px;
 }
 
 .main-container .main-content .preparation ul li h2 {
-  margin: 0 0 10px 0;
+  margin: 0 0 5px 0;
   text-transform: uppercase;
-  font-size: 1em;
+  font-size: .9em;
   font-weight: 700;
 }
 
