@@ -1,5 +1,6 @@
 $accent-color : #FF6B6B;
 $dark-color : #222;
+$bg-color: white;
 
 html, body {
   margin:0;
@@ -109,7 +110,7 @@ html, body {
    .main-content{
      color: $dark-color;
      padding: 75px 100px;
-     background: white;
+     background: $bg-color;
      font-size: 20px;
      flex: 1 1 auto;
      //height: 1600px;// maybe use ::after header to set the bg to same width but height +75px and flex 1 1 auto will do the job without this line

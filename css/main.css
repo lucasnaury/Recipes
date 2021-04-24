@@ -23,6 +23,7 @@ body {
   padding: 0;
   margin: 0;
   position: relative;
+  background: white;
 }
 
 body .overlay {
@@ -93,7 +94,7 @@ body .overlay {
   border-radius: 25px;
   background: none;
   box-sizing: border-box;
-  background: #fafafa;
+  background: white;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1), 0 0 0 2px #FF6B6B;
   cursor: pointer;
   outline: none;
