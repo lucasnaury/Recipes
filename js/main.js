@@ -7,7 +7,7 @@ $(document).ready(function () {
     $(".overlay").css("animation","showOverlay 1.5s ease-in-out forwards");
     $(".header").css("animation","hideBgEnd 1.5s ease-in-out forwards");
     setTimeout(()=>{
-      window.location.href = window.location.href + "recipes.html";
+      window.location.href = "recipes.html";
     },1500);
   });
   $("#add").click(()=>{
