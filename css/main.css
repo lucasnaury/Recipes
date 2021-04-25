@@ -34,7 +34,7 @@ body .overlay {
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 2;
+  z-index: 10;
   background: #222;
 }
 
@@ -71,68 +71,124 @@ body .overlay {
   animation: hideHomeImg 1.5s 1.5s ease forwards;
 }
 
-.main-container {
+.main-container,
+.main-container-random {
   position: absolute;
   box-sizing: border-box;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  padding: 150px;
+  padding: 150px 0;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
 }
 
-.main-container .btn {
+.main-container .btn,
+.main-container-random .btn {
   position: relative;
   pointer-events: none;
   opacity: 0;
-  width: 400px;
-  height: 400px;
+  min-width: 20vh;
+  min-height: 20vh;
   border-radius: 25px;
   background: none;
   box-sizing: border-box;
   background: white;
+  margin: 50px 0;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1), 0 0 0 2px #FF6B6B;
-  cursor: pointer;
   outline: none;
-  animation: buttonPopUp 600ms 3.2s ease-in-out forwards;
   transition: box-shadow 150ms ease-in-out;
 }
 
-.main-container .btn:first-of-type, .main-container .btn:last-of-type {
-  animation: buttonPopUp 600ms 3.3s ease-in-out forwards;
-}
-
-.main-container .btn.hide {
-  animation: buttonPopOut 600ms ease-in-out forwards;
-}
-
-.main-container .btn.hide:first-of-type, .main-container .btn.hide:last-of-type {
-  animation: buttonPopOut 600ms 100ms ease-in-out forwards;
-}
-
-.main-container .btn:hover {
+.main-container .btn:hover,
+.main-container-random .btn:hover {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1), 0 0 0 5px #FF6B6B;
 }
 
-.main-container .btn img {
-  width: 180px;
+.main-container .btn img,
+.main-container-random .btn img {
+  width: 45%;
   position: absolute;
   top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
-.main-container .btn p {
+.main-container .btn p,
+.main-container-random .btn p {
   margin: 0;
   position: absolute;
-  bottom: 40px;
+  bottom: 10%;
   width: 100%;
-  font-size: 2em;
+  font-size: 2vh;
   text-align: center;
+}
+
+.main-container.show .btn,
+.main-container-random.show .btn {
+  visibility: visible;
+  animation: buttonPopUp 600ms 3.2s ease-in-out forwards;
+}
+
+.main-container.show .btn:first-of-type, .main-container.show .btn:last-of-type,
+.main-container-random.show .btn:first-of-type,
+.main-container-random.show .btn:last-of-type {
+  animation: buttonPopUp 600ms 3.3s ease-in-out forwards;
+}
+
+.main-container.hide .btn,
+.main-container-random.hide .btn {
+  pointer-events: none;
+  animation: buttonPopOut 600ms ease-in-out forwards;
+}
+
+.main-container.hide .btn:first-of-type, .main-container.hide .btn:last-of-type,
+.main-container-random.hide .btn:first-of-type,
+.main-container-random.hide .btn:last-of-type {
+  animation: buttonPopOut 600ms 100ms ease-in-out forwards;
+}
+
+.main-container {
+  z-index: 1;
+}
+
+.main-container .btn {
+  visibility: hidden;
+}
+
+.main-container.show {
+  z-index: 2;
+}
+
+.main-container.show .btn {
+  animation-delay: 3.2s;
+}
+
+.main-container.show .btn:first-of-type, .main-container.show .btn:last-of-type {
+  animation-delay: 3.3s;
+}
+
+.main-container-random {
+  z-index: 1;
+}
+
+.main-container-random .btn {
+  visibility: hidden;
+}
+
+.main-container-random.show {
+  z-index: 2;
+}
+
+.main-container-random.show .btn {
+  animation-delay: 600ms;
+}
+
+.main-container-random.show .btn:first-of-type, .main-container-random.show .btn:last-of-type {
+  animation-delay: 700ms;
 }
 
 @keyframes hideHomeBg {
@@ -187,13 +243,20 @@ body .overlay {
 
 @keyframes buttonPopOut {
   0% {
+    visibility: visible;
+    pointer-events: none;
     opacity: 1;
     transform: scale(1);
   }
   30% {
     transform: scale(1.1);
   }
+  99% {
+    visibility: visible;
+  }
   100% {
+    visibility: hidden;
+    pointer-events: none;
     opacity: 0;
     transform: scale(0.6);
   }

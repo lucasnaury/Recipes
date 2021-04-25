@@ -33,7 +33,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 2;
+    z-index: 10;
     background: $dark-color;
   }
 
@@ -73,14 +73,15 @@ body {
     animation: hideHomeImg 1.5s 1.5s ease forwards;
   }
 }
-.main-container {
+.main-container,
+.main-container-random {
   position: absolute;
   box-sizing: border-box;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  padding: 150px;
+  padding: 150px 0;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -90,29 +91,17 @@ body {
     position: relative;
     pointer-events: none;
     opacity: 0;
-    width: 400px;
-    height: 400px;
+    min-width: 20vh;
+    min-height: 20vh;
     border-radius: 25px;
     background: none;
     box-sizing: border-box;
     background: $bg-color;
+    margin: 50px 0;
     box-shadow: 0 0 20px rgba(0,0,0,.1),0 0 0 2px $accent-color; //Alternative to border
 
-    cursor: pointer;
-    outline: none;
-    animation: buttonPopUp 600ms 3.2s ease-in-out forwards;
-    &:first-of-type,
-    &:last-of-type{
-      animation: buttonPopUp 600ms 3.3s ease-in-out forwards;
-    }
 
-    &.hide{
-      animation: buttonPopOut 600ms ease-in-out forwards;
-      &:first-of-type,
-      &:last-of-type{
-        animation: buttonPopOut 600ms 100ms ease-in-out forwards;
-      }
-    }
+    outline: none;
 
 
     transition: box-shadow 150ms ease-in-out;
@@ -121,7 +110,7 @@ body {
     }
 
     img{
-      width: 180px;
+      width: 45%;
       position: absolute;
       top: 45%;
       left: 50%;
@@ -130,14 +119,67 @@ body {
     p{
       margin: 0;
       position: absolute;
-      bottom: 40px;
+      bottom: 10%;
       width: 100%;
-      font-size: 2em;
+      font-size: 2vh;
       text-align: center;
     }
   }
 
+  &.show .btn{
+    visibility: visible;
+    animation: buttonPopUp 600ms 3.2s ease-in-out forwards;
+    &:first-of-type,
+    &:last-of-type{
+      animation: buttonPopUp 600ms 3.3s ease-in-out forwards;
+    }
+  }
+  &.hide .btn{
+    pointer-events: none;
+    animation: buttonPopOut 600ms ease-in-out forwards;
+    &:first-of-type,
+    &:last-of-type{
+      animation: buttonPopOut 600ms 100ms ease-in-out forwards;
+    }
+  }
 
+
+}
+
+.main-container{
+  z-index: 1;
+  .btn{
+    visibility: hidden;
+  }
+  &.show{
+    z-index: 2;
+    
+    .btn{
+      animation-delay: 3.2s;
+      &:first-of-type,
+      &:last-of-type{
+        animation-delay: 3.3s;
+      }
+    }
+
+  }
+}
+.main-container-random{
+  z-index: 1;
+  .btn{
+    visibility: hidden;
+  }
+  &.show{
+    z-index: 2;
+
+    .btn{
+      animation-delay: 600ms;
+      &:first-of-type,
+      &:last-of-type{
+        animation-delay: 700ms;
+      }
+    }
+  }
 }
 
 //ANIMATIONS
@@ -191,13 +233,20 @@ body {
 }
 @keyframes buttonPopOut{
   0%{
+    visibility: visible;
+    pointer-events: none;
     opacity: 1;
     transform: scale(1);
   }
   30%{
     transform: scale(1.1);
   }
+  99%{
+    visibility: visible;
+  }
   100%{
+    visibility: hidden;
+    pointer-events: none;
     opacity: 0;
     transform: scale(0.6);
   }
