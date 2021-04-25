@@ -39,7 +39,7 @@ html, body {
      padding: 100px 0 50px;
 
      min-height: 100vh;
-     animation: headerShrinkDown 1s 3s ease-in-out forwards;
+     animation: headerShrinkDown 1s 3s cubic-bezier(0.4, 0, 0.45, 1) forwards;
 
      &::after{//BG
        content: "";

@@ -1,7 +1,8 @@
 $(document).ready(function () {
   //MAIN BUTTONS
   $("#search").click(()=>{ //Show serach bar + filters
-    console.log("Search");
+    hideMainBtns();
+    $(".main-container-search").addClass("show");
   });
   $("#list").click(()=>{ //Show list
     console.log("List");
@@ -13,16 +14,19 @@ $(document).ready(function () {
 
   //RANDOM
   $("#entree").click(()=>{
-    console.log("Entree");
     loadRecipePage("entree");
   });
   $("#plate").click(()=>{
-    console.log("Plate");
     loadRecipePage("plate");
   });
   $("#dessert").click(()=>{
-    console.log("Dessert");
     loadRecipePage("dessert");
+  });
+
+  //SEARCH
+  $("#search-btn").click(()=>{
+    value = $("#search-input").val();
+    loadRecipePage(null,value);
   });
 });
 
@@ -31,15 +35,21 @@ function hideMainBtns(){
   $(".main-container").addClass("hide");
 }
 
-function loadRecipePage(plateType){
+function loadRecipePage(type,searchValue,id){
   //Hide active menu
   $(".show").addClass("hide");
   $(".show").removeClass("show");
   //Make the overlay + BG fade out
   $(".overlay").css("animation","showOverlay 1.5s ease-in-out forwards");
   $(".header").css("animation","hideBgEnd 1.5s ease-in-out forwards");
+  //Pass the params to the recipes page
+  var query = "";
+
+  if(type) query += "#type=" + type;
+  if(searchValue) query += "#search=" + searchValue;
+  if(id) query += "#id=" + id;
   //Load page after animations
   setTimeout(()=>{
-    window.location.href = "recipes.html" + "#id="+"39495";
+    window.location.href = "recipes.html" + query;
   },1500);
 }

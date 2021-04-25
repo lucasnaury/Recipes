@@ -100,6 +100,7 @@ body .overlay {
   margin: 50px 0;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1), 0 0 0 2px #FF6B6B;
   outline: none;
+  cursor: pointer;
   transition: box-shadow 150ms ease-in-out;
 }
 
@@ -189,6 +190,113 @@ body .overlay {
 
 .main-container-random.show .btn:first-of-type, .main-container-random.show .btn:last-of-type {
   animation-delay: 700ms;
+}
+
+.main-container-search {
+  z-index: 1;
+  position: absolute;
+  box-sizing: border-box;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 150px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-container-search h2 {
+  position: relative;
+  font-size: 5em;
+  color: #222;
+  margin-bottom: 75px;
+}
+
+.main-container-search h2::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 60%;
+  transform: translateX(-50%);
+  bottom: -20px;
+  border-bottom: solid 2px #FF6B6B;
+}
+
+.main-container-search .input-container {
+  opacity: 0;
+  position: relative;
+  width: 75%;
+  margin-bottom: 75px;
+}
+
+.main-container-search .input-container input {
+  outline: none;
+  border: 1px solid #FF6B6B;
+  border-radius: 1000px;
+  width: calc(100% - 100px);
+  height: 100px;
+  font-size: 2.8em;
+  color: rgba(34, 34, 34, 0.8);
+  padding: 10px 50px;
+}
+
+.main-container-search .input-container img {
+  outline: none;
+  pointer-events: none;
+  position: absolute;
+  opacity: .2;
+  left: 50px;
+  top: 50%;
+  height: 50px;
+  transform: translateY(-50%);
+  transition: left 600ms ease;
+  padding: 15px;
+}
+
+.main-container-search .input-container input:focus + img,
+.main-container-search .input-container input:active + img,
+.main-container-search .input-container input:valid + img {
+  left: calc(100% - 100px);
+}
+
+.main-container-search button {
+  opacity: 0;
+  box-shadow: 0 0 25px rgba(255, 107, 107, 0.5);
+  position: absolute;
+  bottom: 200px;
+  border: none;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: #FF6B6B;
+  cursor: pointer;
+}
+
+.main-container-search button img {
+  fill: white;
+  width: 50%;
+}
+
+.main-container-search.show {
+  z-index: 2;
+}
+
+.main-container-search.show .input-container {
+  animation: buttonPopUp 600ms 600ms ease-in-out forwards;
+}
+
+.main-container-search.show button {
+  animation: buttonPopUp 600ms 700ms ease-in-out forwards;
+}
+
+.main-container-search.hide .input-container {
+  animation: buttonPopOut 600ms ease-in-out forwards;
+}
+
+.main-container-search.hide button {
+  animation: buttonPopOut 600ms ease-in-out forwards;
 }
 
 @keyframes hideHomeBg {
