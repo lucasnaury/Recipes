@@ -185,7 +185,7 @@ body .overlay {
   width: 50px;
   padding: 30px;
   opacity: 0;
-  --end-opacity:0.5;
+  --end-opacity: 0.5;
 }
 
 .main-container-random .btn {
@@ -234,9 +234,8 @@ body .overlay {
   left: 25px;
   width: 50px;
   padding: 30px;
-  opacity: .5;
   opacity: 0;
-  --end-opacity:0.5;
+  --end-opacity: 0.5;
 }
 
 .main-container-search h2 {
@@ -348,7 +347,7 @@ body .overlay {
 }
 
 .main-container-search.hide img#search-back-btn {
-  animation: backBtbuttonPopOutnUp 600ms ease-in-out forwards;
+  animation: buttonPopOut 600ms ease-in-out forwards;
 }
 
 .main-container-list {
@@ -578,8 +577,7 @@ body .overlay {
 }
 
 .main-container-list.hide li {
-  pointer-events: none;
-  animation: buttonPopout 600ms ease-in-out forwards;
+  animation: buttonPopOut 600ms ease-in-out forwards;
 }
 
 @keyframes hideHomeBg {
