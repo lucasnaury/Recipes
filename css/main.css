@@ -184,9 +184,8 @@ body .overlay {
   left: 25px;
   width: 50px;
   padding: 30px;
-  opacity: .5;
   opacity: 0;
-  transform: translateY(-100%);
+  --end-opacity:0.5;
 }
 
 .main-container-random .btn {
@@ -206,11 +205,11 @@ body .overlay {
 }
 
 .main-container-random.show img#random-back-btn {
-  animation: backBtnDown 600ms 700ms ease-in-out forwards;
+  animation: buttonPopUp 600ms 700ms ease-in-out forwards;
 }
 
 .main-container-random.hide img#random-back-btn {
-  animation: backBtnUp 600ms ease-in-out forwards;
+  animation: buttonPopOut 600ms ease-in-out forwards;
 }
 
 .main-container-search {
@@ -237,7 +236,7 @@ body .overlay {
   padding: 30px;
   opacity: .5;
   opacity: 0;
-  transform: translateY(-100%);
+  --end-opacity:0.5;
 }
 
 .main-container-search h2 {
@@ -337,7 +336,7 @@ body .overlay {
 }
 
 .main-container-search.show img#search-back-btn {
-  animation: backBtnDown 600ms 700ms ease-in-out forwards;
+  animation: buttonPopUp 600ms 700ms ease-in-out forwards;
 }
 
 .main-container-search.hide .input-container {
@@ -349,7 +348,7 @@ body .overlay {
 }
 
 .main-container-search.hide img#search-back-btn {
-  animation: backBtnUp 600ms ease-in-out forwards;
+  animation: backBtbuttonPopOutnUp 600ms ease-in-out forwards;
 }
 
 .main-container-list {
@@ -417,11 +416,11 @@ body .overlay {
   width: 50%;
   height: 0;
   border-bottom: 4px solid #FF6B6B;
-  transition: left 300ms ease;
+  transition: transform 300ms ease;
 }
 
 .main-container-list .top.active .tabs h2::after {
-  left: 50%;
+  transform: translateX(100%);
 }
 
 .main-container-list .panels {
@@ -447,6 +446,7 @@ body .overlay {
 .main-container-list .panels .my-panel ul#recipe-list,
 .main-container-list .panels .favorites-panel ul#recipe-list {
   list-style-type: none;
+  flex: 1 1 auto;
   margin: 0;
   padding: 0;
 }
@@ -456,7 +456,7 @@ body .overlay {
   opacity: 0;
   box-sizing: border-box;
   width: calc(100% - 60px);
-  height: 150px;
+  height: 180px;
   background: white;
   display: flex;
   align-items: center;
@@ -472,6 +472,7 @@ body .overlay {
 .main-container-list .panels .favorites-panel ul#recipe-list li.recipe-item img {
   height: 100px;
   width: 100px;
+  flex: 1 1 1;
   object-fit: cover;
   border-radius: 10px;
 }
@@ -495,14 +496,14 @@ body .overlay {
 
 .main-container-list .panels .my-panel ul#recipe-list li.recipe-item .content .titles h4,
 .main-container-list .panels .favorites-panel ul#recipe-list li.recipe-item .content .titles h4 {
-  font-size: 2.2em;
+  font-size: 2.4em;
   display: inline-block;
-  margin: 0 10px 0 0;
+  margin: 0 15px 0 0;
 }
 
 .main-container-list .panels .my-panel ul#recipe-list li.recipe-item .content .titles span,
 .main-container-list .panels .favorites-panel ul#recipe-list li.recipe-item .content .titles span {
-  font-size: 1.7em;
+  font-size: 1.9em;
 }
 
 .main-container-list .panels .my-panel ul#recipe-list li.recipe-item .content .desc ul,
@@ -523,15 +524,15 @@ body .overlay {
 
 .main-container-list .panels .my-panel ul#recipe-list li.recipe-item .content .desc ul li img,
 .main-container-list .panels .favorites-panel ul#recipe-list li.recipe-item .content .desc ul li img {
-  width: 25px;
-  height: 25px;
+  width: 30px;
+  height: 30px;
   margin-right: 10px;
 }
 
 .main-container-list .panels .my-panel ul#recipe-list li.recipe-item .content .desc ul li span,
 .main-container-list .panels .favorites-panel ul#recipe-list li.recipe-item .content .desc ul li span {
   transform: translateY(-2px);
-  font-size: 1.5em;
+  font-size: 1.7em;
 }
 
 .main-container-list .panels .my-panel button#add-btn {
@@ -624,7 +625,7 @@ body .overlay {
   }
   100% {
     pointer-events: all;
-    opacity: 1;
+    opacity: var(--end-opacity, 1);
     transform: scale(1);
   }
 }
@@ -633,7 +634,7 @@ body .overlay {
   0% {
     visibility: visible;
     pointer-events: none;
-    opacity: 1;
+    opacity: var(--end-opacity, 1);
     transform: scale(1);
   }
   30% {

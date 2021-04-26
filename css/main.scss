@@ -174,10 +174,9 @@ body {
     left: 25px;
     width: 50px;
     padding: 30px;
-    opacity: .5;
 
     opacity: 0;
-    transform: translateY(-100%);
+    --end-opacity:0.5;
   }
   .btn{
     visibility: hidden;
@@ -192,13 +191,13 @@ body {
       }
     }
     img#random-back-btn{
-      animation: backBtnDown 600ms 700ms ease-in-out forwards;
+      animation: buttonPopUp 600ms 700ms ease-in-out forwards;
     }
 
   }
   &.hide{
     img#random-back-btn{
-      animation: backBtnUp 600ms ease-in-out forwards;
+      animation: buttonPopOut 600ms ease-in-out forwards;
     }
   }
 }
@@ -227,7 +226,7 @@ body {
     opacity: .5;
 
     opacity: 0;
-    transform: translateY(-100%);
+    --end-opacity:0.5;
   }
 
   h2{
@@ -323,7 +322,7 @@ body {
       animation: buttonPopUp 600ms 700ms ease-in-out forwards;
     }
     img#search-back-btn{
-      animation: backBtnDown 600ms 700ms ease-in-out forwards;
+      animation: buttonPopUp 600ms 700ms ease-in-out forwards;
     }
   }
   &.hide{
@@ -334,7 +333,7 @@ body {
       animation: buttonPopOut 600ms ease-in-out forwards;
     }
     img#search-back-btn{
-      animation: backBtnUp 600ms ease-in-out forwards;
+      animation: backBtbuttonPopOutnUp 600ms ease-in-out forwards;
     }
   }
 
@@ -401,13 +400,13 @@ body {
           width: 50%;
           height: 0;
           border-bottom: 4px solid $accent-color;
-          transition: left 300ms ease;
+          transition: transform 300ms ease;
         }
       }
     }
 
     &.active .tabs h2::after{
-      left: 50%;
+      transform: translateX(100%);
     }
   }
   .panels{
@@ -430,13 +429,14 @@ body {
 
       ul#recipe-list{
         list-style-type: none;
+        flex: 1 1 auto;
         margin: 0;
         padding: 0;
         li.recipe-item{
           opacity: 0; //For animation
           box-sizing: border-box;
           width: calc(100% - 60px);
-          height: 150px;
+          height: 180px;
           background: $bg-color;
           display: flex;
           align-items: center;
@@ -451,6 +451,7 @@ body {
           img{
             height: 100px;
             width: 100px;
+            flex: 1 1 1;
             object-fit: cover;
             border-radius: 10px;
           }
@@ -458,7 +459,6 @@ body {
             box-sizing: border-box;
             padding: 0 35px;
             height: 100%;
-            //width: 100%;
             display: flex;
             flex-direction: column;
             justify-content: space-around;
@@ -468,12 +468,12 @@ body {
               display: flex;
               align-items: center;
               h4{
-                font-size: 2.2em;
+                font-size: 2.4em;
                 display: inline-block;
-                margin: 0 10px 0 0;
+                margin: 0 15px 0 0;
               }
               span{
-                font-size: 1.7em;
+                font-size: 1.9em;
               }
             }
             .desc{
@@ -489,13 +489,13 @@ body {
                   justify-content: center;
                   margin: 0 25px 0 0;
                   img{
-                    width: 25px;
-                    height: 25px;
+                    width: 30px;
+                    height: 30px;
                     margin-right: 10px;
                   }
                   span{
                     transform: translateY(-2px);
-                    font-size: 1.5em;
+                    font-size: 1.7em;
                   }
                 }
               }
@@ -592,7 +592,7 @@ body {
   }
   100%{
     pointer-events: all;
-    opacity: 1;
+    opacity: var(--end-opacity,1);
     transform: scale(1);
   }
 }
@@ -600,7 +600,7 @@ body {
   0%{
     visibility: visible;
     pointer-events: none;
-    opacity: 1;
+    opacity: var(--end-opacity,1);
     transform: scale(1);
   }
   30%{
