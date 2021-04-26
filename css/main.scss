@@ -148,6 +148,7 @@ body {
 }
 
 .main-container{
+  --anim-delay : 3.2s;
   z-index: 1;
   .btn{
     visibility: hidden;
@@ -155,10 +156,10 @@ body {
   &.show{
     z-index: 2;
     .btn{
-      animation-delay: 3.2s;
+      animation-delay: var(--anim-delay);
       &:first-of-type,
       &:last-of-type{
-        animation-delay: 3.3s;
+        animation-delay: calc(var(--anim-delay) + 0.1s);
       }
     }
 
@@ -166,6 +167,18 @@ body {
 }
 .main-container-random{
   z-index: 1;
+  img#random-back-btn{
+    z-index: 10;
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    width: 50px;
+    padding: 30px;
+    opacity: .5;
+
+    opacity: 0;
+    transform: translateY(-100%);
+  }
   .btn{
     visibility: hidden;
   }
@@ -177,6 +190,15 @@ body {
       &:last-of-type{
         animation-delay: 700ms;
       }
+    }
+    img#random-back-btn{
+      animation: backBtnDown 600ms 700ms ease-in-out forwards;
+    }
+
+  }
+  &.hide{
+    img#random-back-btn{
+      animation: backBtnUp 600ms ease-in-out forwards;
     }
   }
 }
@@ -194,6 +216,19 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  img#search-back-btn{
+    z-index: 10;
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    width: 50px;
+    padding: 30px;
+    opacity: .5;
+
+    opacity: 0;
+    transform: translateY(-100%);
+  }
 
   h2{
     position: relative;
@@ -245,9 +280,23 @@ body {
       left: calc(100% - 100px);
     }
 
+    p{
+      margin: 0;
+      position: absolute;
+      top: calc(100% + 20px);
+      width: 100%;
+      text-align: center;
+      font-size: 1.8em;
+      //color: transparentize(red,0.5);
+      color: $accent-color;
+
+      opacity: 0;
+      transition: opacity 300ms ease;
+    }
+
   }
 
-  button{
+  button#search-btn{
     opacity: 0;
     box-shadow: 0 0 25px transparentize($accent-color,0.5);
     position: absolute;
@@ -273,6 +322,9 @@ body {
     button{
       animation: buttonPopUp 600ms 700ms ease-in-out forwards;
     }
+    img#search-back-btn{
+      animation: backBtnDown 600ms 700ms ease-in-out forwards;
+    }
   }
   &.hide{
     .input-container{
@@ -281,8 +333,218 @@ body {
     button{
       animation: buttonPopOut 600ms ease-in-out forwards;
     }
+    img#search-back-btn{
+      animation: backBtnUp 600ms ease-in-out forwards;
+    }
   }
 
+}
+
+.main-container-list{
+  z-index: 1;
+  position: absolute;
+  box-sizing: border-box;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  //padding: 150px 0;
+  display: flex;
+  flex-direction: column;
+  //justify-content: center;
+  align-items: center;
+
+  .top{
+    position: static;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: relative;
+    background: $bg-color;
+    transform: translateY(calc(-100% - 4px));//+border-bottom
+
+    .title{
+      position: relative;
+      img{
+        z-index: 2;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 10px;
+        width: 50px;
+        height: 50px;
+        padding: 30px;
+      }
+      h1{
+        text-align: center;
+        font-size: 3em;
+        //color: $dark-color;
+      }
+    }
+
+    .tabs{
+      width: 100%;
+      display: flex;
+      h2{
+        margin: 30px 0 0 0;
+        padding: 0px 0 30px 0;
+        width: 50%;
+        font-size: 2.5em;
+        text-align: center;
+        border-bottom: 4px solid lightgrey;
+
+        &::after{
+          content: "";
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 50%;
+          height: 0;
+          border-bottom: 4px solid $accent-color;
+          transition: left 300ms ease;
+        }
+      }
+    }
+
+    &.active .tabs h2::after{
+      left: 50%;
+    }
+  }
+  .panels{
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: row;
+    width: 200vw;
+    height: 150%;
+    transition: transform 300ms ease;
+    transform: translateX(25%);
+    overflow-y: scroll;
+
+    .my-panel,
+    .favorites-panel{
+      width: 50%;
+      min-height: 100%;
+      overflow-y: scroll;
+      display: flex;
+      flex-direction: column;
+
+      ul#recipe-list{
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        li.recipe-item{
+          opacity: 0; //For animation
+          box-sizing: border-box;
+          width: calc(100% - 60px);
+          height: 150px;
+          background: $bg-color;
+          display: flex;
+          align-items: center;
+          padding: 35px 35px;
+          margin: 30px 30px 30px 30px;
+          border-radius: 10px;
+          border: 1px solid lightgrey;
+          //box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+          box-shadow: rgba(0, 0, 0, 0.1) 0px 18px 35px -10px;
+          cursor: pointer;
+
+          img{
+            height: 100px;
+            width: 100px;
+            object-fit: cover;
+            border-radius: 10px;
+          }
+          .content{
+            box-sizing: border-box;
+            padding: 0 35px;
+            height: 100%;
+            //width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+
+            .titles{
+              width: 100%;
+              display: flex;
+              align-items: center;
+              h4{
+                font-size: 2.2em;
+                display: inline-block;
+                margin: 0 10px 0 0;
+              }
+              span{
+                font-size: 1.7em;
+              }
+            }
+            .desc{
+              ul{
+                list-style-type: none;
+                display: flex;
+                margin: 0;
+                padding: 0;
+
+                li{
+                  pointer-events: none;
+                  display: flex;
+                  justify-content: center;
+                  margin: 0 25px 0 0;
+                  img{
+                    width: 25px;
+                    height: 25px;
+                    margin-right: 10px;
+                  }
+                  span{
+                    transform: translateY(-2px);
+                    font-size: 1.5em;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .my-panel{
+      button#add-btn{
+        margin: 30px auto 50px auto;
+        //opacity: 0;
+        box-shadow: 0 0 25px transparentize($accent-color,0.5);
+        border: none;
+        min-width: 120px;
+        min-height: 120px;
+        border-radius: 100px;
+        background: $accent-color;
+        cursor: pointer;
+
+        img{
+          height: 50%;
+        }
+      }
+    }
+    &.active{
+      transform: translateX(-25%);
+    }
+  }
+  &.show{
+    z-index: 2;
+    .top{
+      animation: tabsSlideDown 300ms 600ms ease-in-out forwards;
+    }
+    li{
+      pointer-events: all;
+      animation: buttonPopUp 600ms 900ms ease-in-out forwards;
+    }
+  }
+  &.hide{
+    z-index: 1;
+    .top{
+      animation: tabsSlideUp 300ms ease-in-out forwards;
+    }
+    li{
+      pointer-events: none;
+      animation: buttonPopout 600ms ease-in-out forwards;
+    }
+  }
 }
 
 //ANIMATIONS
@@ -354,7 +616,7 @@ body {
     transform: scale(0.6);
   }
 }
-//Hide at the end
+//Hide at the end to load recipe page
 @keyframes showOverlay{
   0%{
     opacity: 0;
@@ -371,5 +633,43 @@ body {
   100%{
     opacity: 0;
     background-position: center -150%, center 250%;
+  }
+}
+//Show recipe list tabs
+@keyframes tabsSlideDown{
+  0%{
+    transform: translateY(calc(-100% - 4px));
+  }
+  100%{
+    transform: translateY(0);
+  }
+}
+@keyframes tabsSlideUp{
+  0%{
+    transform: translateY(0);
+  }
+  100%{
+    transform: translateY(calc(-100% - 4px));
+  }
+}
+//Back buttons
+@keyframes backBtnDown{
+  0%{
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  100%{
+    opacity: 0.5;
+    transform: translateY(0);
+  }
+}
+@keyframes backBtnUp{
+  0%{
+    opacity: 0.5;
+    transform: translateY(0);
+  }
+  100%{
+    opacity: 0;
+    transform: translateY(-100%);
   }
 }

@@ -3,13 +3,17 @@ $(document).ready(function () {
   $("#search").click(()=>{ //Show serach bar + filters
     hideMainBtns();
     $(".main-container-search").addClass("show");
+    $(".main-container-search").removeClass("hide");
   });
   $("#list").click(()=>{ //Show list
-    console.log("List");
+    hideMainBtns();
+    $(".main-container-list").addClass("show");
+    $(".main-container-list").removeClass("hide");
   });
   $("#random").click(()=>{ //Show random btns
     hideMainBtns();
     $(".main-container-random").addClass("show");
+    $(".main-container-random").removeClass("hide");
   });
 
   //RANDOM
@@ -22,17 +26,67 @@ $(document).ready(function () {
   $("#dessert").click(()=>{
     loadRecipePage("dessert");
   });
+  $("#random-back-btn").click(()=>{
+    //Hide search btns
+    $(".main-container-random").removeClass("show");
+    $(".main-container-random").addClass("hide");
+    //Show main btns
+    showMainBtns();
+  });
 
   //SEARCH
   $("#search-btn").click(()=>{
     value = $("#search-input").val();
-    loadRecipePage(null,value);
+    if(value){
+      $(".main-container-search .input-container p").css("opacity",0);
+      loadRecipePage(null,value);
+    }else{
+      $(".main-container-search .input-container p").css("opacity",1);
+      setTimeout(()=>{
+        $(".main-container-search .input-container p").css("opacity",0);
+      },5000);
+    }
+  });
+  $("#search-back-btn").click(()=>{
+    //Hide search btns
+    $(".main-container-search").removeClass("show");
+    $(".main-container-search").addClass("hide");
+    //Show main btns
+    showMainBtns();
+  });
+
+  //MY RECIPES
+  //Top buttons
+  $("#my-recipes-btn").click(()=>{
+    $(".top").removeClass("active");
+    $(".panels").removeClass("active");
+  });
+  $("#favorites-btn").click(()=>{
+    $(".top").addClass("active");
+    $(".panels").addClass("active");
+  });
+  $("#list-back-btn").click(()=>{
+    //Hide list
+    $(".main-container-list").removeClass("show");
+    $(".main-container-list").addClass("hide");
+    //Show main btns
+    showMainBtns();
   });
 });
+
+
+
+
+
 
 function hideMainBtns(){
   $(".main-container").removeClass("show");
   $(".main-container").addClass("hide");
+}
+function showMainBtns(){
+  $(".main-container").css("--anim-delay","600ms");
+  $(".main-container").removeClass("hide");
+  $(".main-container").addClass("show");
 }
 
 function loadRecipePage(type,searchValue,id){
