@@ -8,6 +8,7 @@ $(document).ready(function () {
     params[key] = value;
   }
   window.location.hash = ""; //Clear url
+  //when you do the request, set the hash to the id to keep the recipe even when you refresh
 
   for (const param of Object.entries(params)) {
     console.log("Do a request by type with " +param[0] + " : " + param[1]);
@@ -15,11 +16,10 @@ $(document).ready(function () {
   /*if(params.type){
     //Do request by type
     console.log("Do a request by type with type : "+params.type);
-  }
-  if(params.id){
-    //Do request by ID
-    console.log("Do a request by id with id : "+params.id);
   }*/
+  if(params.id){
+    window.location.hash = "id=" + params.id;
+  }
 });
 
 //http://127.0.0.1:3000/recipes.html#type=plate&id=39495

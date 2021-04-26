@@ -16,23 +16,6 @@ $(document).ready(function () {
     $(".main-container-random").removeClass("hide");
   });
 
-  //RANDOM
-  $("#entree").click(()=>{
-    loadRecipePage("entree");
-  });
-  $("#plate").click(()=>{
-    loadRecipePage("plate");
-  });
-  $("#dessert").click(()=>{
-    loadRecipePage("dessert");
-  });
-  $("#random-back-btn").click(()=>{
-    //Hide search btns
-    $(".main-container-random").removeClass("show");
-    $(".main-container-random").addClass("hide");
-    //Show main btns
-    showMainBtns();
-  });
 
   //SEARCH
   $("#search-btn").click(()=>{
@@ -56,7 +39,7 @@ $(document).ready(function () {
   });
 
   //MY RECIPES
-  //Top buttons
+  //Top tab buttons
   $("#my-recipes-btn").click(()=>{
     $(".top").removeClass("active");
     $(".panels").removeClass("active");
@@ -69,6 +52,29 @@ $(document).ready(function () {
     //Hide list
     $(".main-container-list").removeClass("show");
     $(".main-container-list").addClass("hide");
+    //Show main btns
+    showMainBtns();
+  });
+  //List items
+  $(".recipe-item").click((event)=>{
+    var id= event.currentTarget.dataset.id; //Get the data-id element in HTML
+    loadRecipePage(null,null,id);
+  });
+
+  //RANDOM
+  $("#entree").click(()=>{
+    loadRecipePage("entree");
+  });
+  $("#plate").click(()=>{
+    loadRecipePage("plate");
+  });
+  $("#dessert").click(()=>{
+    loadRecipePage("dessert");
+  });
+  $("#random-back-btn").click(()=>{
+    //Hide search btns
+    $(".main-container-random").removeClass("show");
+    $(".main-container-random").addClass("hide");
     //Show main btns
     showMainBtns();
   });

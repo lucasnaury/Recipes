@@ -352,6 +352,7 @@ body .overlay {
 }
 
 .main-container-list {
+  color: #111;
   z-index: 1;
   position: absolute;
   box-sizing: border-box;
@@ -443,16 +444,16 @@ body .overlay {
   flex-direction: column;
 }
 
-.main-container-list .panels .my-panel ul#recipe-list,
-.main-container-list .panels .favorites-panel ul#recipe-list {
+.main-container-list .panels .my-panel ul.recipe-list,
+.main-container-list .panels .favorites-panel ul.recipe-list {
   list-style-type: none;
   flex: 1 1 auto;
   margin: 0;
   padding: 0;
 }
 
-.main-container-list .panels .my-panel ul#recipe-list li.recipe-item,
-.main-container-list .panels .favorites-panel ul#recipe-list li.recipe-item {
+.main-container-list .panels .my-panel ul.recipe-list li.recipe-item,
+.main-container-list .panels .favorites-panel ul.recipe-list li.recipe-item {
   opacity: 0;
   box-sizing: border-box;
   width: calc(100% - 60px);
@@ -466,10 +467,11 @@ body .overlay {
   border: 1px solid lightgrey;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 18px 35px -10px;
   cursor: pointer;
+  pointer-events: none;
 }
 
-.main-container-list .panels .my-panel ul#recipe-list li.recipe-item img,
-.main-container-list .panels .favorites-panel ul#recipe-list li.recipe-item img {
+.main-container-list .panels .my-panel ul.recipe-list li.recipe-item img,
+.main-container-list .panels .favorites-panel ul.recipe-list li.recipe-item img {
   height: 100px;
   width: 100px;
   flex: 1 1 1;
@@ -477,8 +479,8 @@ body .overlay {
   border-radius: 10px;
 }
 
-.main-container-list .panels .my-panel ul#recipe-list li.recipe-item .content,
-.main-container-list .panels .favorites-panel ul#recipe-list li.recipe-item .content {
+.main-container-list .panels .my-panel ul.recipe-list li.recipe-item .content,
+.main-container-list .panels .favorites-panel ul.recipe-list li.recipe-item .content {
   box-sizing: border-box;
   padding: 0 35px;
   height: 100%;
@@ -487,50 +489,50 @@ body .overlay {
   justify-content: space-around;
 }
 
-.main-container-list .panels .my-panel ul#recipe-list li.recipe-item .content .titles,
-.main-container-list .panels .favorites-panel ul#recipe-list li.recipe-item .content .titles {
+.main-container-list .panels .my-panel ul.recipe-list li.recipe-item .content .titles,
+.main-container-list .panels .favorites-panel ul.recipe-list li.recipe-item .content .titles {
   width: 100%;
   display: flex;
   align-items: center;
 }
 
-.main-container-list .panels .my-panel ul#recipe-list li.recipe-item .content .titles h4,
-.main-container-list .panels .favorites-panel ul#recipe-list li.recipe-item .content .titles h4 {
+.main-container-list .panels .my-panel ul.recipe-list li.recipe-item .content .titles h4,
+.main-container-list .panels .favorites-panel ul.recipe-list li.recipe-item .content .titles h4 {
   font-size: 2.4em;
   display: inline-block;
   margin: 0 15px 0 0;
 }
 
-.main-container-list .panels .my-panel ul#recipe-list li.recipe-item .content .titles span,
-.main-container-list .panels .favorites-panel ul#recipe-list li.recipe-item .content .titles span {
+.main-container-list .panels .my-panel ul.recipe-list li.recipe-item .content .titles span,
+.main-container-list .panels .favorites-panel ul.recipe-list li.recipe-item .content .titles span {
   font-size: 1.9em;
 }
 
-.main-container-list .panels .my-panel ul#recipe-list li.recipe-item .content .desc ul,
-.main-container-list .panels .favorites-panel ul#recipe-list li.recipe-item .content .desc ul {
+.main-container-list .panels .my-panel ul.recipe-list li.recipe-item .content .desc ul,
+.main-container-list .panels .favorites-panel ul.recipe-list li.recipe-item .content .desc ul {
   list-style-type: none;
   display: flex;
   margin: 0;
   padding: 0;
 }
 
-.main-container-list .panels .my-panel ul#recipe-list li.recipe-item .content .desc ul li,
-.main-container-list .panels .favorites-panel ul#recipe-list li.recipe-item .content .desc ul li {
+.main-container-list .panels .my-panel ul.recipe-list li.recipe-item .content .desc ul li,
+.main-container-list .panels .favorites-panel ul.recipe-list li.recipe-item .content .desc ul li {
   pointer-events: none;
   display: flex;
   justify-content: center;
   margin: 0 25px 0 0;
 }
 
-.main-container-list .panels .my-panel ul#recipe-list li.recipe-item .content .desc ul li img,
-.main-container-list .panels .favorites-panel ul#recipe-list li.recipe-item .content .desc ul li img {
+.main-container-list .panels .my-panel ul.recipe-list li.recipe-item .content .desc ul li img,
+.main-container-list .panels .favorites-panel ul.recipe-list li.recipe-item .content .desc ul li img {
   width: 30px;
   height: 30px;
   margin-right: 10px;
 }
 
-.main-container-list .panels .my-panel ul#recipe-list li.recipe-item .content .desc ul li span,
-.main-container-list .panels .favorites-panel ul#recipe-list li.recipe-item .content .desc ul li span {
+.main-container-list .panels .my-panel ul.recipe-list li.recipe-item .content .desc ul li span,
+.main-container-list .panels .favorites-panel ul.recipe-list li.recipe-item .content .desc ul li span {
   transform: translateY(-2px);
   font-size: 1.7em;
 }
