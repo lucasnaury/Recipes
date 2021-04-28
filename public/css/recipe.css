@@ -1,0 +1,200 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  animation: overflow 1s 3s forwards;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Montserrat, sans-serif;
+  padding: 0;
+  margin: 0;
+  background: #222;
+  opacity: 0;
+  animation: bodyFadeIn 1s ease-in-out forwards;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.main-container .header {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: 100px 0 50px;
+  min-height: 100vh;
+  animation: headerShrinkDown 1s 3s cubic-bezier(0.4, 0, 0.45, 1) forwards;
+}
+
+.main-container .header::after {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: -75px;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.75)), url("https://images.unsplash.com/photo-1482049016688-2d3e1b311543?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=653&q=80");
+  background-size: cover;
+  background-position: center;
+}
+
+.main-container .header .titles {
+  transform: scale(1.3);
+  animation: headerTitlesShrinkDown 1s 3s ease forwards;
+}
+
+.main-container .header .titles h1 {
+  color: white;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+  text-align: center;
+  font-size: 5em;
+  margin: 0 10%;
+}
+
+.main-container .header .titles h2 {
+  color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  font-size: 2em;
+  margin: 30px 10% 0;
+  font-weight: 300;
+  font-family: Raleway, Montserrat, sans-serif;
+  font-style: italic;
+}
+
+.main-container .header ul {
+  display: flex;
+  list-style: none;
+  justify-content: space-around;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.8);
+  width: 80%;
+  font-weight: 500;
+  padding: 0;
+  margin: 50px 10% 0;
+  font-size: 1.8em;
+}
+
+.main-container .header ul li img {
+  transform: translateY(5px);
+  margin-right: 8px;
+  width: 1.1em;
+}
+
+.main-container .header ul .separator {
+  transform: translateY(2px);
+  width: .3em;
+  height: .3em;
+  border-radius: 50%;
+  background: #ff6b6b;
+}
+
+.main-container .main-content {
+  color: #222;
+  padding: 75px 100px;
+  background: white;
+  font-size: 20px;
+  flex: 1 1 auto;
+  border-top-left-radius: 75px;
+  border-top-right-radius: 75px;
+}
+
+.main-container .main-content .ingredients h1.title,
+.main-container .main-content .preparation h1.title {
+  position: relative;
+  margin: 0 0 calc(30px + 15px) 0;
+  font-size: 2.3em;
+  text-align: center;
+}
+
+.main-container .main-content .ingredients h1.title::after,
+.main-container .main-content .preparation h1.title::after {
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  content: "";
+  width: 60%;
+  border-bottom: solid 2px #FF6B6B;
+}
+
+.main-container .main-content .ingredients h1.title img,
+.main-container .main-content .preparation h1.title img {
+  width: 35px;
+  margin: 5px 30px 0 0;
+}
+
+.main-container .main-content .ingredients {
+  margin-bottom: 50px;
+}
+
+.main-container .main-content .ingredients ul li {
+  font-size: .8em;
+  line-height: 3em;
+}
+
+.main-container .main-content .preparation ul {
+  padding: 0;
+  list-style-type: none;
+}
+
+.main-container .main-content .preparation ul li {
+  margin-bottom: 35px;
+}
+
+.main-container .main-content .preparation ul li h2 {
+  margin: 0 0 5px 0;
+  text-transform: uppercase;
+  font-size: .9em;
+  font-weight: 700;
+}
+
+.main-container .main-content .preparation ul li p {
+  margin: 0;
+  font-size: .8em;
+}
+
+@keyframes headerShrinkDown {
+  0% {
+    min-height: 100vh;
+  }
+  100% {
+    min-height: 380px;
+  }
+}
+
+@keyframes headerTitlesShrinkDown {
+  0% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes bodyFadeIn {
+  0% {
+    opacity: 0%;
+  }
+  100% {
+    opacity: 100%;
+  }
+}
+
+@keyframes overflow {
+  100% {
+    overflow-y: visible;
+  }
+}

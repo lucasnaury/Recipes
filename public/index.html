@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Livre de Recettes</title>
+    <link rel="shortcut icon" href="img/icons/icon150.png" />
+    <link rel="apple-touch-icon" href="img/icons/icon150.png" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.min.js"></script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.4.2/firebase-app.js"></script>
+    <!-- SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.2/firebase-analytics.js"></script>
+    <script>
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      var firebaseConfig = {
+        apiKey: "AIzaSyC5eHPaOEHPovSzVUdgJIuqVUWlMvzFYxM",
+        authDomain: "recipes-7a883.firebaseapp.com",
+        projectId: "recipes-7a883",
+        storageBucket: "recipes-7a883.appspot.com",
+        messagingSenderId: "176595005872",
+        appId: "1:176595005872:web:ef945185e18f03c7e1a675",
+        measurementId: "G-GSFB7MS89B"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/main.js" defer></script>
+  </head>
+  <body>
+    <div class="overlay"></div>
+    <section class="header">
+      <h1 class="title">Recipes</h1>
+      <img src="img/cooking-illustation.svg" alt="">
+    </section>
+    <!-- MAIN PAGE -->
+    <section class="main-container-login">
+      <h1>Connexion</h1>
+      <button id="login-btn"><img src="img/login.svg" alt=""></button>
+    </section>
+    <section class="main-container">
+      <img src="img/logout.svg" alt="" id="logout-btn">
+      <div class="auth">
+        <div class="user-info"></div>
+      </div>
+      <div class="btn" id="search">
+        <img src="img/search.svg" alt="">
+        <p>Rechercher</p>
+      </div>
+      <div class="btn" id="list">
+        <img src="img/folder.svg" alt="">
+        <p>Mes recettes</p>
+      </div>
+      <div class="btn" id="random">
+        <img src="img/random.svg" alt="">
+        <p>Aléatoire</p>
+      </div>
+    </section>
+    <!-- SEARCH PAGE -->
+    <section class="main-container-search">
+      <img id="search-back-btn" src="img/back-arrow.svg" alt="">
+      <div class="input-container">
+        <input type="text" name="" value="" id="search-input" required></input>
+        <img src="img/search.svg" alt="">
+        <p>Veuillez saisir une valeur</p>
+      </div>
+
+      <button id="search-btn"><img src="img/search-white.svg" alt=""></button>
+
+    </section>
+    <!-- LIST PAGE -->
+    <section class="main-container-list">
+      <div class="top">
+        <div class="title">
+          <img id="list-back-btn" src="img/back-arrow.svg" alt="">
+          <h1>Liste</h1>
+        </div>
+        <div class="tabs">
+          <h2 id="my-recipes-btn" class="active">Mes recettes</h2>
+          <h2 id="favorites-btn">Favoris</h2>
+        </div>
+      </div>
+      <div class="panels">
+        <div class="my-panel">
+          <ul class="recipe-list">
+            <li class="recipe-item" data-id="1924">
+              <img src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=653&q=80" alt="">
+              <div class="content">
+                <div class="titles">
+                  <h4>Blanquette de veau</h4>
+                  <span>de Cyril Lignac</span>
+                </div>
+                <div class="desc">
+                  <ul>
+                    <li id=time>
+                      <img src="img/time-dark.svg" alt="">
+                      <span>45 min</span>
+                    </li>
+                    <li class="separator"></li>
+                    <li id="difficulty">
+                      <img src="img/difficulty-dark.svg" alt="">
+                      <span>Moyen</span>
+                    </li>
+                    <li class="separator"></li>
+                    <li id="number-of-people">
+                      <img src="img/nb-people-many-dark.svg" alt="">
+                      <span>4 pers.</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+            <li class="recipe-item" data-id="9248">
+              <img src="https://images.unsplash.com/photo-1514516345957-556ca7d90a29?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" alt="">
+              <div class="content">
+                <div class="titles">
+                  <h4>Blanquette de veau</h4>
+                  <span>de Cyril Lignac</span>
+                </div>
+                <div class="desc">
+                  <ul>
+                    <li id=time>
+                      <img src="img/time-dark.svg" alt="">
+                      <span>45 min</span>
+                    </li>
+                    <li class="separator"></li>
+                    <li id="difficulty">
+                      <img src="img/difficulty-dark.svg" alt="">
+                      <span>Moyen</span>
+                    </li>
+                    <li class="separator"></li>
+                    <li id="number-of-people">
+                      <img src="img/nb-people-many-dark.svg" alt="">
+                      <span>4 pers.</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+            <li class="recipe-item" data-id="7429">
+              <img src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=653&q=80" alt="">
+              <div class="content">
+                <div class="titles">
+                  <h4>Blanquette de veau</h4>
+                  <span>de Cyril Lignac</span>
+                </div>
+                <div class="desc">
+                  <ul>
+                    <li id=time>
+                      <img src="img/time-dark.svg" alt="">
+                      <span>45 min</span>
+                    </li>
+                    <li class="separator"></li>
+                    <li id="difficulty">
+                      <img src="img/difficulty-dark.svg" alt="">
+                      <span>Moyen</span>
+                    </li>
+                    <li class="separator"></li>
+                    <li id="number-of-people">
+                      <img src="img/nb-people-many-dark.svg" alt="">
+                      <span>4 pers.</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+            <li class="recipe-item" data-id="4537">
+              <img src="https://images.unsplash.com/photo-1514516345957-556ca7d90a29?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" alt="">
+              <div class="content">
+                <div class="titles">
+                  <h4>Blanquette de veau</h4>
+                  <span>de Cyril Lignac</span>
+                </div>
+                <div class="desc">
+                  <ul>
+                    <li id=time>
+                      <img src="img/time-dark.svg" alt="">
+                      <span>45 min</span>
+                    </li>
+                    <li class="separator"></li>
+                    <li id="difficulty">
+                      <img src="img/difficulty-dark.svg" alt="">
+                      <span>Moyen</span>
+                    </li>
+                    <li class="separator"></li>
+                    <li id="number-of-people">
+                      <img src="img/nb-people-many-dark.svg" alt="">
+                      <span>4 pers.</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+            <li class="recipe-item" data-id="4589">
+              <img src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=653&q=80" alt="">
+              <div class="content">
+                <div class="titles">
+                  <h4>Blanquette de veau</h4>
+                  <span>de Cyril Lignac</span>
+                </div>
+                <div class="desc">
+                  <ul>
+                    <li id=time>
+                      <img src="img/time-dark.svg" alt="">
+                      <span>45 min</span>
+                    </li>
+                    <li class="separator"></li>
+                    <li id="difficulty">
+                      <img src="img/difficulty-dark.svg" alt="">
+                      <span>Moyen</span>
+                    </li>
+                    <li class="separator"></li>
+                    <li id="number-of-people">
+                      <img src="img/nb-people-many-dark.svg" alt="">
+                      <span>4 pers.</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+            <li class="recipe-item" data-id="1387">
+              <img src="https://images.unsplash.com/photo-1514516345957-556ca7d90a29?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" alt="">
+              <div class="content">
+                <div class="titles">
+                  <h4>Blanquette de veau</h4>
+                  <span>de Cyril Lignac</span>
+                </div>
+                <div class="desc">
+                  <ul>
+                    <li id=time>
+                      <img src="img/time-dark.svg" alt="">
+                      <span>45 min</span>
+                    </li>
+                    <li class="separator"></li>
+                    <li id="difficulty">
+                      <img src="img/difficulty-dark.svg" alt="">
+                      <span>Moyen</span>
+                    </li>
+                    <li class="separator"></li>
+                    <li id="number-of-people">
+                      <img src="img/nb-people-many-dark.svg" alt="">
+                      <span>4 pers.</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+            <li class="recipe-item" data-id="5682">
+              <img src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=653&q=80" alt="">
+              <div class="content">
+                <div class="titles">
+                  <h4>Blanquette de veau</h4>
+                  <span>de Cyril Lignac</span>
+                </div>
+                <div class="desc">
+                  <ul>
+                    <li id=time>
+                      <img src="img/time-dark.svg" alt="">
+                      <span>45 min</span>
+                    </li>
+                    <li class="separator"></li>
+                    <li id="difficulty">
+                      <img src="img/difficulty-dark.svg" alt="">
+                      <span>Moyen</span>
+                    </li>
+                    <li class="separator"></li>
+                    <li id="number-of-people">
+                      <img src="img/nb-people-many-dark.svg" alt="">
+                      <span>4 pers.</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+            <li class="recipe-item" data-id="4578">
+              <img src="https://images.unsplash.com/photo-1514516345957-556ca7d90a29?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" alt="">
+              <div class="content">
+                <div class="titles">
+                  <h4>Blanquette de veau</h4>
+                  <span>de Cyril Lignac</span>
+                </div>
+                <div class="desc">
+                  <ul>
+                    <li id=time>
+                      <img src="img/time-dark.svg" alt="">
+                      <span>45 min</span>
+                    </li>
+                    <li class="separator"></li>
+                    <li id="difficulty">
+                      <img src="img/difficulty-dark.svg" alt="">
+                      <span>Moyen</span>
+                    </li>
+                    <li class="separator"></li>
+                    <li id="number-of-people">
+                      <img src="img/nb-people-many-dark.svg" alt="">
+                      <span>4 pers.</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+            <li class="recipe-item" data-id="3767">
+              <img src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=653&q=80" alt="">
+              <div class="content">
+                <div class="titles">
+                  <h4>Blanquette de veau</h4>
+                  <span>de Cyril Lignac</span>
+                </div>
+                <div class="desc">
+                  <ul>
+                    <li id=time>
+                      <img src="img/time-dark.svg" alt="">
+                      <span>45 min</span>
+                    </li>
+                    <li class="separator"></li>
+                    <li id="difficulty">
+                      <img src="img/difficulty-dark.svg" alt="">
+                      <span>Moyen</span>
+                    </li>
+                    <li class="separator"></li>
+                    <li id="number-of-people">
+                      <img src="img/nb-people-many-dark.svg" alt="">
+                      <span>4 pers.</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+            <li class="recipe-item" data-id="0076">
+              <img src="https://images.unsplash.com/photo-1514516345957-556ca7d90a29?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" alt="">
+              <div class="content">
+                <div class="titles">
+                  <h4>Blanquette de veau</h4>
+                  <span>de Cyril Lignac</span>
+                </div>
+                <div class="desc">
+                  <ul>
+                    <li id=time>
+                      <img src="img/time-dark.svg" alt="">
+                      <span>45 min</span>
+                    </li>
+                    <li class="separator"></li>
+                    <li id="difficulty">
+                      <img src="img/difficulty-dark.svg" alt="">
+                      <span>Moyen</span>
+                    </li>
+                    <li class="separator"></li>
+                    <li id="number-of-people">
+                      <img src="img/nb-people-many-dark.svg" alt="">
+                      <span>4 pers.</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+            <li class="recipe-item" data-id="4583">
+              <img src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=653&q=80" alt="">
+              <div class="content">
+                <div class="titles">
+                  <h4>Blanquette de veau</h4>
+                  <span>de Cyril Lignac</span>
+                </div>
+                <div class="desc">
+                  <ul>
+                    <li id=time>
+                      <img src="img/time-dark.svg" alt="">
+                      <span>45 min</span>
+                    </li>
+                    <li class="separator"></li>
+                    <li id="difficulty">
+                      <img src="img/difficulty-dark.svg" alt="">
+                      <span>Moyen</span>
+                    </li>
+                    <li class="separator"></li>
+                    <li id="number-of-people">
+                      <img src="img/nb-people-many-dark.svg" alt="">
+                      <span>4 pers.</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+            <li class="recipe-item" data-id="9102">
+              <img src="https://images.unsplash.com/photo-1514516345957-556ca7d90a29?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" alt="">
+              <div class="content">
+                <div class="titles">
+                  <h4>Blanquette de veau</h4>
+                  <span>de Cyril Lignac</span>
+                </div>
+                <div class="desc">
+                  <ul>
+                    <li id=time>
+                      <img src="img/time-dark.svg" alt="">
+                      <span>45 min</span>
+                    </li>
+                    <li class="separator"></li>
+                    <li id="difficulty">
+                      <img src="img/difficulty-dark.svg" alt="">
+                      <span>Moyen</span>
+                    </li>
+                    <li class="separator"></li>
+                    <li id="number-of-people">
+                      <img src="img/nb-people-many-dark.svg" alt="">
+                      <span>4 pers.</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+            <li class="recipe-item" data-id="6407">
+              <img src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=653&q=80" alt="">
+              <div class="content">
+                <div class="titles">
+                  <h4>Blanquette de veau</h4>
+                  <span>de Cyril Lignac</span>
+                </div>
+                <div class="desc">
+                  <ul>
+                    <li id=time>
+                      <img src="img/time-dark.svg" alt="">
+                      <span>45 min</span>
+                    </li>
+                    <li class="separator"></li>
+                    <li id="difficulty">
+                      <img src="img/difficulty-dark.svg" alt="">
+                      <span>Moyen</span>
+                    </li>
+                    <li class="separator"></li>
+                    <li id="number-of-people">
+                      <img src="img/nb-people-many-dark.svg" alt="">
+                      <span>4 pers.</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+            <li class="recipe-item" data-id="3479">
+              <img src="https://images.unsplash.com/photo-1514516345957-556ca7d90a29?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" alt="">
+              <div class="content">
+                <div class="titles">
+                  <h4>Blanquette de veau</h4>
+                  <span>de Cyril Lignac</span>
+                </div>
+                <div class="desc">
+                  <ul>
+                    <li id=time>
+                      <img src="img/time-dark.svg" alt="">
+                      <span>45 min</span>
+                    </li>
+                    <li class="separator"></li>
+                    <li id="difficulty">
+                      <img src="img/difficulty-dark.svg" alt="">
+                      <span>Moyen</span>
+                    </li>
+                    <li class="separator"></li>
+                    <li id="number-of-people">
+                      <img src="img/nb-people-many-dark.svg" alt="">
+                      <span>4 pers.</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+          </ul>
+          <button id="add-btn"><img src="img/add.svg" alt=""></button>
+        </div>
+        <div class="favorites-panel">
+          <ul class="recipe-list">
+            <li class="recipe-item" data-id="7865">
+              <img src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=653&q=80" alt="">
+              <div class="content">
+                <div class="titles">
+                  <h4>Blanquette de veau</h4>
+                  <span>de Cyril Lignac</span>
+                </div>
+                <div class="desc">
+                  <ul>
+                    <li id=time>
+                      <img src="img/time-dark.svg" alt="">
+                      <span>45 min</span>
+                    </li>
+                    <li class="separator"></li>
+                    <li id="difficulty">
+                      <img src="img/difficulty-dark.svg" alt="">
+                      <span>Moyen</span>
+                    </li>
+                    <li class="separator"></li>
+                    <li id="number-of-people">
+                      <img src="img/nb-people-many-dark.svg" alt="">
+                      <span>4 pers.</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+            </li>
+            <li class="recipe-item" data-id="4018">
+              <img src="https://images.unsplash.com/photo-1514516345957-556ca7d90a29?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" alt="">
+              <div class="content">
+                <div class="titles">
+                  <h4>Blanquette de veau</h4>
+                  <span>de Cyril Lignac</span>
+                </div>
+                <div class="desc">
+                  <ul>
+                    <li id=time>
+                      <img src="img/time-dark.svg" alt="">
+                      <span>45 min</span>
+                    </li>
+                    <li class="separator"></li>
+                    <li id="difficulty">
+                      <img src="img/difficulty-dark.svg" alt="">
+                      <span>Moyen</span>
+                    </li>
+                    <li class="separator"></li>
+                    <li id="number-of-people">
+                      <img src="img/nb-people-many-dark.svg" alt="">
+                      <span>4 pers.</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+            </li>
+            <li class="recipe-item" data-id="6748">
+              <img src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=653&q=80" alt="">
+              <div class="content">
+                <div class="titles">
+                  <h4>Blanquette de veau</h4>
+                  <span>de Cyril Lignac</span>
+                </div>
+                <div class="desc">
+                  <ul>
+                    <li id=time>
+                      <img src="img/time-dark.svg" alt="">
+                      <span>45 min</span>
+                    </li>
+                    <li class="separator"></li>
+                    <li id="difficulty">
+                      <img src="img/difficulty-dark.svg" alt="">
+                      <span>Moyen</span>
+                    </li>
+                    <li class="separator"></li>
+                    <li id="number-of-people">
+                      <img src="img/nb-people-many-dark.svg" alt="">
+                      <span>4 pers.</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <!-- RANDOM PAGE -->
+    <section class="main-container-random">
+      <img id="random-back-btn" src="img/back-arrow.svg" alt="">
+      <div class="btn" id="entree">
+        <img src="img/entree.svg" alt="">
+        <p>Entrée</p>
+      </div>
+      <div class="btn" id="plate">
+        <img src="img/plate.svg" alt="">
+        <p>Plat</p>
+      </div>
+      <div class="btn" id="dessert">
+        <img src="img/dessert.svg" alt="">
+        <p>Dessert</p>
+      </div>
+    </section>
+  </body>
+</html>
