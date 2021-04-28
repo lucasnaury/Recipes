@@ -77,16 +77,16 @@ body .overlay {
 .main-container-random {
   position: absolute;
   box-sizing: border-box;
-  pointer-events: none;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   padding: 150px 0;
-  display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  pointer-events: none;
+  display: none;
 }
 
 .main-container .btn,
@@ -154,6 +154,7 @@ body .overlay {
   z-index: 1;
   animation: turnOffDisplay 600ms ease-in-out forwards;
   pointer-events: none;
+  display: flex;
 }
 
 .main-container.hide .btn,
@@ -172,16 +173,16 @@ body .overlay {
   --anim-delay: 600ms;
   position: absolute;
   box-sizing: border-box;
-  pointer-events: none;
   top: 50%;
   transform: translateY(-50%);
   left: 0;
   width: 100%;
   padding: 150px 0;
-  display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  pointer-events: none;
+  display: none;
 }
 
 .main-container-login h1 {
@@ -190,6 +191,7 @@ body .overlay {
 }
 
 .main-container-login button#login-btn {
+  outline: none;
   opacity: 0;
   box-shadow: 0 0 25px rgba(255, 107, 107, 0.5);
   border: none;
@@ -221,6 +223,7 @@ body .overlay {
 .main-container-login.hide {
   z-index: 1;
   animation: turnOffDisplay 700ms ease-in-out forwards;
+  display: flex;
   pointer-events: none;
 }
 
@@ -310,6 +313,7 @@ body .overlay {
   z-index: 1;
   animation: turnOffDisplay 600ms ease-in-out forwards;
   pointer-events: none;
+  display: flex;
 }
 
 .main-container-random.hide img#random-back-btn {
@@ -320,16 +324,16 @@ body .overlay {
   z-index: 1;
   position: absolute;
   box-sizing: border-box;
-  pointer-events: none;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   padding: 150px 0;
-  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  pointer-events: none;
+  display: none;
 }
 
 .main-container-search img#search-back-btn {
@@ -448,6 +452,7 @@ body .overlay {
 .main-container-search.hide {
   z-index: 1;
   animation: turnOffDisplay 600ms ease-in-out forwards;
+  display: flex;
   pointer-events: none;
 }
 
@@ -468,14 +473,14 @@ body .overlay {
   z-index: 1;
   position: absolute;
   box-sizing: border-box;
-  pointer-events: none;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  display: flex;
   flex-direction: column;
   align-items: center;
+  pointer-events: none;
+  display: none;
 }
 
 .main-container-list .top {
@@ -687,6 +692,7 @@ body .overlay {
 .main-container-list.hide {
   z-index: 1;
   animation: turnOffDisplay 600ms ease-in-out forwards;
+  display: flex;
   pointer-events: none;
 }
 
