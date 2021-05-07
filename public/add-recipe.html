@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Livre de Recettes</title>
+    <link rel="shortcut icon" href="img/icons/icon150.png" />
+    <link rel="apple-touch-icon" href="img/icons/icon150.png" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/add-recipe.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.min.js"></script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.4.2/firebase-app.js"></script>
+    <!-- SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.2/firebase-analytics.js"></script>
+    <script>
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      var firebaseConfig = {
+        apiKey: "AIzaSyC5eHPaOEHPovSzVUdgJIuqVUWlMvzFYxM",
+        authDomain: "recipes-7a883.firebaseapp.com",
+        projectId: "recipes-7a883",
+        storageBucket: "recipes-7a883.appspot.com",
+        messagingSenderId: "176595005872",
+        appId: "1:176595005872:web:ef945185e18f03c7e1a675",
+        measurementId: "G-GSFB7MS89B"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/add-recipe.js" defer></script>
+  </head>
+  <body>
+    <section class="main-container">
+      <h1>Ajouter</h1>
+      <form action="">
+        <label for="title">Nom du plat</label>
+        <input type="text" required placeholder="Nom du plat" name="title">
+        <label for="subtitle">Sous-titre</label>
+        <input type="text" placeholder="Sous titre" name="subtitle">
+        <label for="">Paramètres</label>
+        <div class="btns">
+          <button type="button"><img src="img/time-dark.svg" alt=""></button>
+          <button type="button"><img src="img/difficulty-dark.svg" alt=""></button>
+          <button type="button"><img src="img/nb-people-many-dark.svg" alt=""></button>
+        </div>
+        <label for="">Ingrédients</label>
+        <input type="text" required placeholder="Ingrédient 1" class="ingredient-input">
+        <label for="">étapes</label>
+        <input type="text" required placeholder="étape 1" class="step-input">
+        <button type="submit"><img src="img/add.svg" alt=""></button>
+      </form>
+    </section>
+
+  </body>
+</html>

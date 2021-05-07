@@ -1,11 +1,10 @@
 $(document).ready(function () {
   //console.log(firebase);
   //console.log(faker);
-
   //AUTHENTICATION
   const auth = firebase.auth();
   const provider = new firebase.auth.GoogleAuthProvider();
-
+  //Buttons
   $("#login-btn").click(()=>{
     auth.signInWithPopup(provider);
   });
@@ -17,6 +16,9 @@ $(document).ready(function () {
   auth.onAuthStateChanged(user=>{ //Show user logged in or ask him to log in
     if(!hasCheckedOnPageLoad){
       if(user){//if signed in
+        //Show user info
+        $(".user-info").html(`<span>${user.displayName.split(" ")[0]} ${user.displayName.split(" ")[1].substring(0,1)}.</span>`);
+        //Show elements
         show($("#logout-btn"));
         $(".main-container").addClass("show");
         $(".main-container-login").css("--anim-delay","600ms");//If not loaded first, default delay
@@ -32,10 +34,12 @@ $(document).ready(function () {
 
 
   auth.onAuthStateChanged(user=>{ //Show user logged in or ask him to log in
-    if(hasCheckedOnPageLoad){
+    if(hasCheckedOnPageLoad){ //If not first load
       if(user){//if signed in
-        $(".user-info").html(`<h3>Hello ${user.displayName}</h3><p>UID : ${user.uid}</p>`);
+        //Show user info
+        $(".user-info").html(`<span>${user.displayName.split(" ")[0]} ${user.displayName.split(" ")[1].substring(0,1)}.</span>`);
         //Reset animation delays
+        $("#logout-btn").css("--anim-delay","600ms");
         $(".main-container-login").css("--anim-delay","600ms");
         $(".main-container").css("--anim-delay","600ms");
         //Hide and show elements
@@ -44,7 +48,6 @@ $(document).ready(function () {
         hide($(".main-container-login"));
 
       }else{//if not signed in
-        $(".user-info").html("");
         //Reset animation delays
         $(".main-container-login").css("--anim-delay","600ms");
         $(".main-container").css("--anim-delay","600ms");
@@ -56,20 +59,23 @@ $(document).ready(function () {
     }
   });
 
-  //FIREBASE DATABASE
+
+
+  //FIRESTORE DATABASE
   const db = firebase.firestore();
 
-  let recipesDatabaseReference;
+  let recipesRef;
   let unsubscribe;
 
   auth.onAuthStateChanged(user=>{ //Show user logged in or ask him to log in
     if(user){//if signed in
-      recipesDatabaseReference = db.collection("recipes");
-
+      recipesRef = db.collection("recipes");
+      var types = ["entree","plate","dessert"];
       $("#add-btn").click(()=>{
-        recipesDatabaseReference.add({
+        var type = types[Math.floor(Math.random() * types.length)];
+        recipesRef.add({
           uid: user.uid,
-          type: "Plate",
+          type: type,
           title: faker.commerce.productName(),
           subtitle: "généré par faker",
           preparationTime: faker.random.number(),
@@ -84,12 +90,15 @@ $(document).ready(function () {
             "Mélanger 1 + 2",
             "Mélanger 2 + 4",
             "Mettre au four pendant "+ faker.random.number() + " minutes"
-          ]//,
-          // createdAt: serverTimestamp()
-
+          ],
+          createdAt: firebase.firestore.Timestamp.now().toDate()
         });
       });
-    }else{console.log("User not signed in");}
+    }else{
+      $("#add-btn").click(()=>{
+        console.log("Error - User not signed in");
+      });
+    }
   });
 
 
@@ -99,15 +108,15 @@ $(document).ready(function () {
 
   //MAIN BUTTONS
   $("#search").click(()=>{ //Show serach bar + filters
-    hideMainBtns();
+    hide($(".main-container"));
     show($(".main-container-search"));
   });
   $("#list").click(()=>{ //Show list
-    hideMainBtns();
+    hide($(".main-container"));
     show($(".main-container-list"));
   });
   $("#random").click(()=>{ //Show random btns
-    hideMainBtns();
+    hide($(".main-container"));
     show($(".main-container-random"));
   });
 
@@ -174,23 +183,23 @@ $(document).ready(function () {
 });
 
 
-function hideMainBtns(){
-  $(".main-container").removeClass("show");
-  $(".main-container").addClass("hide");
-}
 function showMainBtns(){
   $(".main-container").css("--anim-delay","600ms");
-  $(".main-container").removeClass("hide");
-  $(".main-container").addClass("show");
+  show($(".main-container"));
 }
 
-function show(mainContainer){
-  mainContainer.addClass("show");
-  mainContainer.removeClass("hide");
+function show(container){
+  container.css("display","flex");
+  container.addClass("show");
+  container.removeClass("hide");
 }
-function hide(mainContainer){
-  mainContainer.addClass("hide");
-  mainContainer.removeClass("show");
+function hide(container){
+  container.addClass("hide");
+  container.removeClass("show");
+  var transitionDuration = 700;
+  setTimeout(()=>{
+    container.css("display","none");
+  },transitionDuration);
 }
 
 
@@ -198,10 +207,9 @@ function hide(mainContainer){
 
 function loadRecipePage(type,searchValue,id){
   //Hide active menu
-  $(".show").addClass("hide");
-  $(".show").removeClass("show");
+  hide($(".show"));
   //Make the overlay + BG fade out
-  $(".overlay").css("animation","showOverlay 1.5s ease-in-out forwards");
+  show($(".overlay"));
   $(".header").css("animation","hideBgEnd 1.5s ease-in-out forwards");
   //Pass the params to the recipes page
   var query = "";

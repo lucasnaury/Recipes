@@ -28,6 +28,8 @@ body {
 
 body .overlay {
   pointer-events: none;
+  display: none;
+  visibility: hidden;
   opacity: 0;
   position: absolute;
   top: 0;
@@ -38,12 +40,45 @@ body .overlay {
   background: #222;
 }
 
-.header {
+body .overlay.show {
+  display: flex;
+  visibility: visible;
+  animation: showOverlay 1.5s ease-in-out forwards;
+}
+
+body #logout-btn {
+  pointer-events: auto;
+  z-index: 100;
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  width: 50px;
+  padding: 30px;
+  opacity: 0;
+  --end-opacity: .5;
+  --anim-delay: 3.2s;
+  cursor: pointer;
+}
+
+body #logout-btn.show {
+  z-index: 5;
+  pointer-events: auto;
+  animation: 600ms var(--anim-delay) buttonPopUp forwards;
+}
+
+body #logout-btn.hide {
+  z-index: 1;
   pointer-events: none;
-  z-index: 0;
+  animation: 600ms buttonPopOut forwards;
+}
+
+body .header {
+  pointer-events: none;
+  z-index: -5;
   position: absolute;
   height: 100%;
   width: 100%;
+  display: flex;
   background: url("../img/bg-top.svg"), url("../img/bg-bottom.svg");
   background-attachment: fixed;
   background-size: contain;
@@ -52,7 +87,8 @@ body .overlay {
   animation: hideHomeBg 1.5s 1.5s ease forwards;
 }
 
-.header h1 {
+body .header h1 {
+  z-index: -3;
   font-size: 10em;
   text-align: center;
   font-weight: 700;
@@ -65,7 +101,8 @@ body .overlay {
   animation: hideHomeTitle 1.5s 1.5s ease forwards;
 }
 
-.header img {
+body .header #cooking-illustation {
+  z-index: -3;
   position: absolute;
   top: 48%;
   left: 50%;
@@ -75,6 +112,7 @@ body .overlay {
 
 .main-container,
 .main-container-random {
+  z-index: 1;
   position: absolute;
   box-sizing: border-box;
   top: 0;
@@ -87,6 +125,7 @@ body .overlay {
   align-items: center;
   pointer-events: none;
   display: none;
+  visibility: hidden;
 }
 
 .main-container .btn,
@@ -134,7 +173,8 @@ body .overlay {
 .main-container-random.show {
   z-index: 2;
   display: flex;
-  pointer-events: all;
+  visibility: visible;
+  pointer-events: auto;
 }
 
 .main-container.show .btn,
@@ -152,9 +192,9 @@ body .overlay {
 .main-container.hide,
 .main-container-random.hide {
   z-index: 1;
-  animation: turnOffDisplay 600ms ease-in-out forwards;
-  pointer-events: none;
   display: flex;
+  visibility: visible;
+  pointer-events: none;
 }
 
 .main-container.hide .btn,
@@ -171,6 +211,7 @@ body .overlay {
 
 .main-container-login {
   --anim-delay: 600ms;
+  z-index: 1;
   position: absolute;
   box-sizing: border-box;
   top: 50%;
@@ -183,6 +224,7 @@ body .overlay {
   align-items: center;
   pointer-events: none;
   display: none;
+  visibility: hidden;
 }
 
 .main-container-login h1 {
@@ -207,9 +249,10 @@ body .overlay {
 }
 
 .main-container-login.show {
-  display: flex;
   z-index: 2;
-  pointer-events: all;
+  display: flex;
+  visibility: visible;
+  pointer-events: auto;
 }
 
 .main-container-login.show h1 {
@@ -222,8 +265,8 @@ body .overlay {
 
 .main-container-login.hide {
   z-index: 1;
-  animation: turnOffDisplay 700ms ease-in-out forwards;
   display: flex;
+  visibility: visible;
   pointer-events: none;
 }
 
@@ -240,28 +283,27 @@ body .overlay {
   z-index: 1;
 }
 
+.main-container .user-info {
+  display: flex;
+  pointer-events: none;
+  position: absolute;
+  top: 35px;
+  padding: 30px 0;
+  margin: 0;
+  width: 100%;
+  height: 50px;
+  font-size: 2.2em;
+  color: #222;
+  opacity: 0;
+  font-weight: 500;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  --end-opacity: 0.5;
+}
+
 .main-container .btn {
   visibility: hidden;
-}
-
-.main-container #logout-btn {
-  z-index: 10;
-  position: absolute;
-  top: 25px;
-  right: 25px;
-  width: 50px;
-  padding: 30px;
-  opacity: 0;
-  --end-opacity: 0.5;
-  cursor: pointer;
-}
-
-.main-container #logout-btn.show {
-  animation: 600ms var(--anim-delay) buttonPopUp forwards;
-}
-
-.main-container #logout-btn.hide {
-  animation: 600ms buttonPopOut forwards;
 }
 
 .main-container.show .btn {
@@ -272,8 +314,13 @@ body .overlay {
   animation-delay: calc(var(--anim-delay) + 0.1s);
 }
 
-.main-container-random {
-  z-index: 1;
+.main-container.show .user-info {
+  animation: buttonPopUp 600ms var(--anim-delay) ease-in-out forwards;
+}
+
+.main-container.hide .user-info {
+  visibility: visible;
+  animation: buttonPopOut 600ms ease-in-out forwards;
 }
 
 .main-container-random img#random-back-btn {
@@ -291,12 +338,6 @@ body .overlay {
   visibility: hidden;
 }
 
-.main-container-random.show {
-  z-index: 2;
-  display: flex;
-  pointer-events: all;
-}
-
 .main-container-random.show .btn {
   animation-delay: 600ms;
 }
@@ -307,13 +348,6 @@ body .overlay {
 
 .main-container-random.show img#random-back-btn {
   animation: buttonPopUp 600ms 700ms ease-in-out forwards;
-}
-
-.main-container-random.hide {
-  z-index: 1;
-  animation: turnOffDisplay 600ms ease-in-out forwards;
-  pointer-events: none;
-  display: flex;
 }
 
 .main-container-random.hide img#random-back-btn {
@@ -334,6 +368,7 @@ body .overlay {
   align-items: center;
   pointer-events: none;
   display: none;
+  visibility: hidden;
 }
 
 .main-container-search img#search-back-btn {
@@ -434,7 +469,8 @@ body .overlay {
 .main-container-search.show {
   z-index: 2;
   display: flex;
-  pointer-events: all;
+  visibility: visible;
+  pointer-events: auto;
 }
 
 .main-container-search.show .input-container {
@@ -451,8 +487,8 @@ body .overlay {
 
 .main-container-search.hide {
   z-index: 1;
-  animation: turnOffDisplay 600ms ease-in-out forwards;
   display: flex;
+  visibility: visible;
   pointer-events: none;
 }
 
@@ -481,6 +517,7 @@ body .overlay {
   align-items: center;
   pointer-events: none;
   display: none;
+  visibility: hidden;
 }
 
 .main-container-list .top {
@@ -677,7 +714,8 @@ body .overlay {
 .main-container-list.show {
   z-index: 2;
   display: flex;
-  pointer-events: all;
+  visibility: visible;
+  pointer-events: auto;
 }
 
 .main-container-list.show .top {
@@ -685,14 +723,14 @@ body .overlay {
 }
 
 .main-container-list.show li {
-  pointer-events: all;
+  pointer-events: auto;
   animation: buttonPopUp 600ms 900ms ease-in-out forwards;
 }
 
 .main-container-list.hide {
   z-index: 1;
-  animation: turnOffDisplay 600ms ease-in-out forwards;
   display: flex;
+  visibility: visible;
   pointer-events: none;
 }
 
@@ -748,7 +786,7 @@ body .overlay {
     pointer-events: none;
   }
   100% {
-    pointer-events: all;
+    pointer-events: auto;
     opacity: var(--end-opacity, 1);
     transform: scale(1);
   }
@@ -832,17 +870,5 @@ body .overlay {
   100% {
     opacity: 0;
     transform: translateY(-100%);
-  }
-}
-
-@keyframes turnOffDisplay {
-  0% {
-    display: flex;
-  }
-  99% {
-    display: flex;
-  }
-  100% {
-    display: none;
   }
 }

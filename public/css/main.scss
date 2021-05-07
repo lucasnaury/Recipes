@@ -27,6 +27,8 @@ body {
 
   .overlay{
     pointer-events: none;
+    display: none;
+    visibility: hidden;
     opacity: 0;
     position: absolute;
     top: 0;
@@ -35,15 +37,45 @@ body {
     bottom: 0;
     z-index: 10;
     background: $dark-color;
+
+    &.show{
+      display: flex;
+      visibility: visible;
+      animation: showOverlay 1.5s ease-in-out forwards;
+    }
   }
+  #logout-btn{
+    pointer-events: auto;
+    z-index: 100;
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    width: 50px;
+    padding: 30px;
+    opacity: 0;
+    --end-opacity: .5;
+    --anim-delay : 3.2s;
+    cursor: pointer;
+
+    &.show{
+      z-index: 5;
+      pointer-events: auto;
+      animation: 600ms var(--anim-delay) buttonPopUp forwards;
+    }
+    &.hide{
+      z-index: 1;
+      pointer-events: none;
+      animation: 600ms buttonPopOut forwards;
+    }
 
 }
 .header{
   pointer-events: none;
-  z-index: 0;
+  z-index: -5;
   position: absolute;
   height: 100%;
   width: 100%;
+  display: flex;
 
   background: url("../img/bg-top.svg"),url("../img/bg-bottom.svg");//Accent max-color:fde3e3
   background-attachment: fixed;
@@ -54,6 +86,7 @@ body {
   animation: hideHomeBg 1.5s 1.5s ease forwards;
 
   h1{
+    z-index: -3;
     font-size: 10em;
     text-align: center;
     font-weight: 700;
@@ -66,7 +99,8 @@ body {
 
     animation: hideHomeTitle 1.5s 1.5s ease forwards;
   }
-  img{
+  #cooking-illustation{
+    z-index: -3;
     position: absolute;
     top: 48%;
     left: 50%;
@@ -74,9 +108,11 @@ body {
 
     animation: hideHomeImg 1.5s 1.5s ease forwards;
   }
+  }
 }
 .main-container,
 .main-container-random {
+  z-index: 1;
   position: absolute;
   box-sizing: border-box;
   top: 0;
@@ -87,9 +123,10 @@ body {
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-
+  //Hide element by default
   pointer-events: none;
   display: none;
+  visibility: hidden;
 
   .btn{
     position: relative;
@@ -107,7 +144,7 @@ body {
     cursor: pointer;
 
     transition: box-shadow 150ms ease-in-out;
-    &:hover{
+    &:hover,{
       box-shadow: 0 0 20px rgba(0,0,0,.1),0 0 0 5px $accent-color;//Alternative to border
     }
 
@@ -130,7 +167,8 @@ body {
   &.show{
     z-index: 2;
     display: flex;
-    pointer-events: all;
+    visibility: visible;
+    pointer-events: auto;
     .btn{
       visibility: visible;
       animation: buttonPopUp 600ms 3.2s ease-in-out forwards;
@@ -142,9 +180,9 @@ body {
   }
   &.hide{
     z-index: 1;
-    animation: turnOffDisplay 600ms ease-in-out forwards;
-    pointer-events: none;
     display: flex;
+    visibility: visible;
+    pointer-events: none;
     .btn{
       pointer-events: none;
       animation: buttonPopOut 600ms ease-in-out forwards;
@@ -159,6 +197,7 @@ body {
 
 .main-container-login{
   --anim-delay: 600ms;
+  z-index: 1;
   position: absolute;
   box-sizing: border-box;
   top: 50%;
@@ -173,6 +212,7 @@ body {
 
   pointer-events: none;
   display: none;
+  visibility: hidden;
 
   h1{
     opacity: 0;
@@ -195,9 +235,10 @@ body {
     }
   }
   &.show{
-    display: flex;
     z-index: 2;
-    pointer-events: all;
+    display: flex;
+    visibility: visible;
+    pointer-events: auto;
     h1{
       animation: buttonPopUp 600ms var(--anim-delay) forwards;
     }
@@ -207,8 +248,8 @@ body {
   }
   &.hide{
     z-index: 1;
-    animation: turnOffDisplay 700ms ease-in-out forwards;
     display: flex;
+    visibility: visible;
     pointer-events: none;
     h1{
       animation: buttonPopOut 600ms 0.1s forwards;
@@ -222,26 +263,26 @@ body {
 .main-container{
   --anim-delay : 3.2s;
   z-index: 1;
+  .user-info{
+    display: flex;
+    pointer-events: none;
+    position: absolute;
+    top: 35px;
+    padding: 30px 0;
+    margin: 0;
+    width: 100%;
+    height: 50px;
+    font-size: 2.2em;
+    color: #222;
+    opacity: 0;
+    font-weight: 500;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    --end-opacity: 0.5;
+  }
   .btn{
     visibility: hidden;
-  }
-  #logout-btn{
-    z-index: 10;
-    position: absolute;
-    top: 25px;
-    right: 25px;
-    width: 50px;
-    padding: 30px;
-    opacity: 0;
-    --end-opacity: 0.5;
-    cursor: pointer;
-
-    &.show{
-      animation: 600ms var(--anim-delay) buttonPopUp forwards;
-    }
-    &.hide{
-      animation: 600ms buttonPopOut forwards;
-    }
   }
   &.show{
     .btn{
@@ -251,12 +292,19 @@ body {
         animation-delay: calc(var(--anim-delay) + 0.1s);
       }
     }
-
+    .user-info{
+      animation: buttonPopUp 600ms var(--anim-delay) ease-in-out forwards;
+    }
+  }
+  &.hide{
+    .user-info{
+      visibility: visible;
+      animation: buttonPopOut 600ms ease-in-out forwards;
+    }
   }
 }
 
 .main-container-random{
-  z-index: 1;
   img#random-back-btn{
     z-index: 10;
     position: absolute;
@@ -272,9 +320,6 @@ body {
     visibility: hidden;
   }
   &.show{
-    z-index: 2;
-    display: flex;
-    pointer-events: all;
     .btn{
       animation-delay: 600ms;
       &:first-of-type,
@@ -288,10 +333,6 @@ body {
 
   }
   &.hide{
-    z-index: 1;
-    animation: turnOffDisplay 600ms ease-in-out forwards;
-    pointer-events: none;
-    display: flex;
     img#random-back-btn{
       animation: buttonPopOut 600ms ease-in-out forwards;
     }
@@ -313,6 +354,7 @@ body {
 
   pointer-events: none;
   display: none;
+  visibility: hidden;
 
   img#search-back-btn{
     z-index: 10;
@@ -413,7 +455,8 @@ body {
   &.show{
     z-index: 2;
     display: flex;
-    pointer-events: all;
+    visibility: visible;
+    pointer-events: auto;
     .input-container{
       animation: buttonPopUp 600ms 600ms ease-in-out forwards;
     }
@@ -426,8 +469,8 @@ body {
   }
   &.hide{
     z-index: 1;
-    animation: turnOffDisplay 600ms ease-in-out forwards;
     display: flex;
+    visibility: visible;
     pointer-events: none;
     .input-container{
       animation: buttonPopOut 600ms ease-in-out forwards;
@@ -458,6 +501,7 @@ body {
 
   pointer-events: none;
   display: none;
+  visibility: hidden;
 
   .top{
     position: static;
@@ -635,19 +679,20 @@ body {
   &.show{
     z-index: 2;
     display: flex;
-    pointer-events: all;
+    visibility: visible;
+    pointer-events: auto;
     .top{
       animation: tabsSlideDown 300ms 600ms ease-in-out forwards;
     }
     li{
-      pointer-events: all;
+      pointer-events: auto;
       animation: buttonPopUp 600ms 900ms ease-in-out forwards;
     }
   }
   &.hide{
     z-index: 1;
-    animation: turnOffDisplay 600ms ease-in-out forwards;
     display: flex;
+    visibility: visible;
     pointer-events: none;
     .top{
       animation: tabsSlideUp 300ms ease-in-out forwards;
@@ -702,7 +747,7 @@ body {
     pointer-events: none;
   }
   100%{
-    pointer-events: all;
+    pointer-events: auto;
     opacity: var(--end-opacity,1);
     transform: scale(1);
   }
@@ -782,17 +827,5 @@ body {
   100%{
     opacity: 0;
     transform: translateY(-100%);
-  }
-}
-//Display
-@keyframes turnOffDisplay{
-  0%{
-    display: flex;
-  }
-  99%{
-    display: flex;
-  }
-  100%{
-    display: none;
   }
 }
