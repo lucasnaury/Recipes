@@ -38,22 +38,12 @@ body {
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  &::after{
-    content: "";
-    z-index: -10;
-    pointer-events: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url("../img/bg-top.svg"),url("../img/bg-bottom.svg");//Accent max-color:fde3e3
-    background-attachment: fixed;
-    background-size: contain;
-    background-position: center -50%, center 150%;
-    background-repeat: no-repeat;
-  }
 
+  background: url("../img/bg-top.svg"),url("../img/bg-bottom.svg");//Accent max-color:fde3e3
+  background-attachment: fixed;
+  background-size: contain;
+  background-position: center -50%, center 150%;
+  background-repeat: no-repeat;
   //Hide element by default
   /*pointer-events: none;
   display: none;
@@ -108,6 +98,7 @@ body {
       flex-direction: row;
       justify-content: space-between;
       button{
+        position: relative;
         box-sizing: border-box;
         width: 230px;
         height: 230px;
@@ -116,6 +107,16 @@ body {
         transition: border 300ms ease;
         background: $bg-color;
 
+        input{
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          height: 100%;
+          width: 100%;
+          opacity: 0;
+        }
         img{
           width: 30%;
         }
