@@ -94,9 +94,19 @@ $(document).ready(function () {
 });
 
 function removeEmptyInputs (elements){
-  for(i=0;i<elements.length - 1;i++){
+  var length = elements.length;
+  for(i=0;i<length - 1;i++){
     if(elements.eq(i).val() == ""){
       elements.eq(i).remove();
+    }
+  }
+  for(i=0;i<elements.length;i++){
+    console.log(elements.length);
+    if(elements.attr("class") == "ingredient-input"){
+      console.log("test");
+      elements.eq(i).attr("placeholder","Ingrédient " + (i+1) );
+    }else{
+      elements.eq(i).attr("placeholder","étape " + (i + 1));
     }
   }
 }
