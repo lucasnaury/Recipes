@@ -101,6 +101,11 @@ body {
 .main-container form .btns button {
   position: relative;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 80px 0 50px;
   width: 230px;
   height: 230px;
   border-radius: 10px;
@@ -122,6 +127,12 @@ body {
 
 .main-container form .btns button img {
   width: 30%;
+  margin-bottom: 30px;
+}
+
+.main-container form .btns button span {
+  font-size: 2.5em;
+  color: rgba(34, 34, 34, 0.5);
 }
 
 .main-container form .btns button:hover {
