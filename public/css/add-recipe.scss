@@ -44,14 +44,12 @@ body {
   background-size: contain;
   background-position: center -50%, center 150%;
   background-repeat: no-repeat;
-  //Hide element by default
-  /*pointer-events: none;
-  display: none;
-  visibility: hidden;*/
   h1{
     font-size: 6em;
     margin: 0 auto 100px auto;
-    text-align: center
+    text-align: center;
+
+    animation: show 300ms ease-in-out forwards;
   }
   form{
     min-height: 100%;
@@ -62,12 +60,17 @@ body {
     margin: 0 auto;
     flex: 1 1 auto;
 
+    animation: show 300ms ease-in-out forwards;
+
     label{
       width: 100%;
       margin-bottom: 20px;
       font-size: 2.3em;
       font-weight: 600;
-      text-transform: capitalize;
+
+      &::first-letter{
+        text-transform: uppercase;
+      }
     }
 
     input{
@@ -83,7 +86,6 @@ body {
 
       &::placeholder{
         color: transparentize($dark-color,0.8);
-        text-transform: capitalize;
       }
       &.ingredient-input,
       &.step-input{
@@ -136,7 +138,7 @@ body {
         }
       }
     }
-    
+
     button[type="submit"]{
       outline: none;
       //opacity: 0;
@@ -160,5 +162,15 @@ body {
     }
 
 
+  }
+}
+
+
+@keyframes show{
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
   }
 }

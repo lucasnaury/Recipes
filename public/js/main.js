@@ -71,7 +71,7 @@ $(document).ready(function () {
     if(user){//if signed in
       recipesRef = db.collection("recipes");
       var types = ["entree","plate","dessert"];
-      $("#add-btn").click(()=>{
+      /*$("#add-btn").click(()=>{
         var type = types[Math.floor(Math.random() * types.length)];
         recipesRef.add({
           uid: user.uid,
@@ -93,6 +93,9 @@ $(document).ready(function () {
           ],
           createdAt: firebase.firestore.Timestamp.now().toDate()
         });
+      });*/
+      $("#add-btn").click(()=>{
+        loadAddRecipePage();
       });
     }else{
       $("#add-btn").click(()=>{
@@ -203,7 +206,15 @@ function hide(container){
 }
 
 
-
+function loadAddRecipePage(){
+  //Hide active menu
+  hide($(".show"));
+  $(".header").css("animation","hideBgEnd 1.5s ease-in-out forwards");
+  //Load page after animations
+  setTimeout(()=>{
+    window.location.href = "add-recipe.html";
+  },1500);
+}
 
 function loadRecipePage(type,searchValue,id){
   //Hide active menu

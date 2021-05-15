@@ -9,7 +9,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/add-recipe.css">
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.min.js"></script>
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/8.4.2/firebase-app.js"></script>
     <!-- SDKs -->
@@ -33,8 +32,8 @@
       firebase.analytics();
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link href="../node_modules/pickerjs/dist/picker.css" rel="stylesheet">
-    <script src="../node_modules/pickerjs/dist/picker.js"></script>
+    <link href="node_modules/pickerjs/dist/picker.css" rel="stylesheet">
+    <script src="node_modules/pickerjs/dist/picker.js"></script>
     <script type="text/javascript" src="js/add-recipe.js" defer></script>
   </head>
   <body>
@@ -42,9 +41,11 @@
       <h1>Ajouter</h1>
       <form action="">
         <label for="title">Nom du plat</label>
-        <input type="text" required placeholder="Nom du plat" name="title">
+        <input type="text" required placeholder="Nom du plat" name="title" autocomplete="off" id="title-input">
         <label for="subtitle">Sous-titre</label>
-        <input type="text" placeholder="Sous titre" name="subtitle">
+        <input type="text" placeholder="Sous titre" name="subtitle" autocomplete="off" id="subtitle-input">
+        <label for="subtitle">Type</label>
+        <input type="text" placeholder="Type" name="subtitle" autocomplete="off" id="type-input">
         <label for="">Paramètres</label>
         <div class="btns">
           <button type="button">
@@ -64,10 +65,10 @@
           </button>
         </div>
         <label for="">Ingrédients</label>
-        <input type="text" required placeholder="Ingrédient 1" class="ingredient-input">
+        <input type="text" required placeholder="Ingrédient 1" class="ingredient-input" autocomplete="off">
         <label for="">étapes</label>
-        <input type="text" required placeholder="étape 1" class="step-input" id="testing">
-        <button type="submit"><img src="img/add.svg" alt=""></button>
+        <input type="text" required placeholder="Étape 1" class="step-input" autocomplete="off">
+        <button type="submit" id="add-btn"><img src="img/add.svg" alt=""></button>
       </form>
     </section>
 

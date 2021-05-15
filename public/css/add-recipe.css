@@ -43,15 +43,13 @@ body {
   background-size: contain;
   background-position: center -50%, center 150%;
   background-repeat: no-repeat;
-  /*pointer-events: none;
-  display: none;
-  visibility: hidden;*/
 }
 
 .main-container h1 {
   font-size: 6em;
   margin: 0 auto 100px auto;
   text-align: center;
+  animation: show 300ms ease-in-out forwards;
 }
 
 .main-container form {
@@ -62,6 +60,7 @@ body {
   align-items: center;
   margin: 0 auto;
   flex: 1 1 auto;
+  animation: show 300ms ease-in-out forwards;
 }
 
 .main-container form label {
@@ -69,7 +68,10 @@ body {
   margin-bottom: 20px;
   font-size: 2.3em;
   font-weight: 600;
-  text-transform: capitalize;
+}
+
+.main-container form label::first-letter {
+  text-transform: uppercase;
 }
 
 .main-container form input {
@@ -86,7 +88,6 @@ body {
 
 .main-container form input::placeholder {
   color: rgba(34, 34, 34, 0.2);
-  text-transform: capitalize;
 }
 
 .main-container form .btns {
@@ -157,4 +158,13 @@ body {
 
 .main-container form button[type="submit"] img {
   width: 50%;
+}
+
+@keyframes show {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
