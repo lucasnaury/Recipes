@@ -183,7 +183,10 @@ function updatedPlaceholders(elementClass){
 function getParams(){
   var params = {};
 
-  if ($("#type-input").val())   params.type =  $("#type-input").val();
+  if ($("#type-input").val() == "Entrée")   params.type = "entree";
+  if ($("#type-input").val() == "Plat")   params.type = "plate";
+  if ($("#type-input").val() == "Dessert")   params.type = "dessert";
+
   if ($("#title-input").val())   params.title = $("#title-input").val();
   if ($("#subtitle-input").val())   params.subtitle = $("#subtitle-input").val();
   if ($("#time-input ~ span").html())   params.time = $("#time-input ~ span").html();

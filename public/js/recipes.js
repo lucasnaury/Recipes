@@ -49,17 +49,18 @@ $(document).ready(function () {
           });
         })
         .catch((error)=>{
-          console.log("Error : " + error);
+          console.log("ID Request - Error : " + error);
         });
 
     }
     else if(params.type){
       recipesRef.where("type","==", params.type).get()
         .then((querySnapshot)=>{
+          console.log(querySnapshot);
           processQuerySnapshot(querySnapshot);
         })
         .catch((error)=>{
-          console.log("Error : " + error);
+          console.log("Type Request - Error : " + error);
         });
 
     }
