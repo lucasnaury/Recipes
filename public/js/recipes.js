@@ -50,17 +50,18 @@ $(document).ready(function () {
         })
         .catch((error)=>{
           console.log("ID Request - Error : " + error);
+          showError(error);
         });
 
     }
     else if(params.type){
       recipesRef.where("type","==", params.type).get()
         .then((querySnapshot)=>{
-          console.log(querySnapshot);
           processQuerySnapshot(querySnapshot);
         })
         .catch((error)=>{
           console.log("Type Request - Error : " + error);
+          showError(error);
         });
 
     }
@@ -105,6 +106,16 @@ $(document).ready(function () {
       return `<li><h2 class="step-name">étape ${index +1}</h2><p class="step">${step}</p></li>`;
     });
     $(".preparation ul").html(steps.join(''));
+  }
+  function showError(error){
+    $(".header").css("animation","none");
+    $(".header .titles").css("animation","none");
+    //Load the informations on the HTML page
+    $(".header .titles h1").html("Erreur");
+    $(".header .titles h2").html(error);
+    $(".header ul").remove();
+    $(".ingredients ul").html("<li></li>");
+    $(".preparation ul").html("<li></li>");
   }
 });
 
