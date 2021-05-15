@@ -4,4 +4,4 @@ It also has a special feature that shows you random recipes to choose from when 
 
 You can see it online at https://livrerecettes.netlify.app/public/
 
-It was built using HTML, CSS and JQ(jQuery) for the front-end and Google's Firebase back-end service.
+It was built using HTML, CSS and JQ (jQuery) for the front-end and Google's Firebase back-end service.
