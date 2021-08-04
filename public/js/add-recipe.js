@@ -15,7 +15,7 @@ $(document).ready(function () {
     increment: {
       month: 4,
     },
-    rows: 1
+    rows: 3
   });
   var timePicker = new Picker(document.getElementById('time-input'),{
     format: 'Hhmm',
@@ -49,7 +49,7 @@ $(document).ready(function () {
     increment: {
       month: 4,
     },
-    rows: 1
+    rows: 3
   });
   var nbPeoplePicker = new Picker(document.getElementById('nbPeople-input'),{
     format: 'S',

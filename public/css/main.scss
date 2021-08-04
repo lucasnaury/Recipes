@@ -48,10 +48,10 @@ body {
     pointer-events: auto;
     z-index: 100;
     position: absolute;
-    top: 25px;
-    right: 25px;
-    width: 50px;
-    padding: 30px;
+    top: 15px;
+    right: 20px;
+    width: 20px;
+    padding: 10px;
     opacity: 0;
     --end-opacity: .5;
     --anim-delay : 3.2s;
@@ -80,14 +80,14 @@ body {
   background: url("../img/bg-top.svg"),url("../img/bg-bottom.svg");//Accent max-color:fde3e3
   background-attachment: fixed;
   background-size: contain;
-  background-position: center -200px, center bottom;
+  background-position: center -120px, center bottom;
   background-repeat: no-repeat;
 
   animation: hideHomeBg 1.5s 1.5s ease forwards;
 
   h1{
     z-index: -3;
-    font-size: 10em;
+    font-size: 3.5em;
     text-align: center;
     font-weight: 700;
     position: absolute;
@@ -102,8 +102,9 @@ body {
   #cooking-illustation{
     z-index: -3;
     position: absolute;
-    top: 48%;
+    top: 50%;
     left: 50%;
+    width: 70%;
     transform: translate(-50%,0);
 
     animation: hideHomeImg 1.5s 1.5s ease forwards;
@@ -134,18 +135,18 @@ body {
     opacity: 0;
     min-width: 20vh;
     min-height: 20vh;
-    border-radius: 25px;
+    border-radius: 10px;
     box-sizing: border-box;
     background: $bg-color;
-    margin: 50px 0;
-    box-shadow: 0 0 20px rgba(0,0,0,.1),0 0 0 2px $accent-color; //Alternative to border
+    margin: 20px 0;
+    box-shadow: 0 0 20px rgba(0,0,0,.1),0 0 0 1px $accent-color; //Alternative to border
 
     outline: none;
     cursor: pointer;
 
     transition: box-shadow 150ms ease-in-out;
     &:hover,{
-      box-shadow: 0 0 20px rgba(0,0,0,.1),0 0 0 5px $accent-color;//Alternative to border
+      box-shadow: 0 0 20px rgba(0,0,0,.1),0 0 0 2px $accent-color;//Alternative to border
     }
 
     img{
@@ -160,7 +161,7 @@ body {
       position: absolute;
       bottom: 10%;
       width: 100%;
-      font-size: 2vh;
+      font-size: 2.2vh;
       text-align: center;
     }
   }
@@ -216,16 +217,16 @@ body {
 
   h1{
     opacity: 0;
-    font-size: 5em;
+    font-size: 2.5em;
   }
 
   button#login-btn{
     outline: none;
     opacity: 0;
-    box-shadow: 0 0 25px transparentize($accent-color,0.5);
+    box-shadow: 0 0 10px transparentize($accent-color,0.5);
     border: none;
-    height: 150px;
-    width: 150px;
+    height: 60px;
+    width: 60px;
     border-radius: 50%;
     background: $accent-color;
     cursor: pointer;
@@ -267,12 +268,12 @@ body {
     display: flex;
     pointer-events: none;
     position: absolute;
-    top: 35px;
-    padding: 30px 0;
+    top: 10px;
+    padding: 20px 0;
     margin: 0;
     width: 100%;
-    height: 50px;
-    font-size: 2.2em;
+    height: 30px;
+    font-size: 1.1em;
     color: #222;
     opacity: 0;
     font-weight: 500;
@@ -308,10 +309,10 @@ body {
   img#random-back-btn{
     z-index: 10;
     position: absolute;
-    top: 25px;
-    left: 25px;
-    width: 50px;
-    padding: 30px;
+    top: 15px;
+    left: 20px;
+    width: 20px;
+    padding: 10px;
 
     opacity: 0;
     --end-opacity: 0.5;
@@ -359,10 +360,10 @@ body {
   img#search-back-btn{
     z-index: 10;
     position: absolute;
-    top: 25px;
-    left: 25px;
-    width: 50px;
-    padding: 30px;
+    top: 15px;
+    left: 20px;
+    width: 20px;
+    padding: 10px;
 
     opacity: 0;
     --end-opacity: 0.5;
@@ -394,20 +395,20 @@ body {
       outline: none;
       border: 1px solid $accent-color;
       border-radius: 1000px;
-      width: calc(100% - 100px);
-      height: 100px;
-      font-size: 2.8em;
+      width: calc(100% - 40px);
+      height: 30px;
+      font-size: 1.2em;
       color: transparentize($dark-color,.2);
-      padding: 10px 50px;
+      padding: 10px 20px;
     }
     img{
       outline: none;
       pointer-events: none;
       position: absolute;
       opacity: .2;
-      left: 50px;
+      left: 20px;
       top: 50%;
-      height: 50px;
+      height: 20px;
       transform: translateY(-50%);
       transition: left 600ms ease;
       padding: 15px;
@@ -415,16 +416,16 @@ body {
     input:focus + img,
     input:active + img,
     input:valid + img{
-      left: calc(100% - 100px);
+      left: calc(100% - 60px);
     }
 
     p{
       margin: 0;
       position: absolute;
-      top: calc(100% + 20px);
+      top: calc(100% + 10px);
       width: 100%;
       text-align: center;
-      font-size: 1.8em;
+      font-size: .8em;
       //color: transparentize(red,0.5);
       color: $accent-color;
 
@@ -436,12 +437,12 @@ body {
 
   button#search-btn{
     opacity: 0;
-    box-shadow: 0 0 25px transparentize($accent-color,0.5);
+    box-shadow: 0 0 10px transparentize($accent-color,0.5);
     position: absolute;
-    bottom: 200px;
+    bottom: 80px;
     border: none;
-    width: 150px;
-    height: 150px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     background: $accent-color;
     cursor: pointer;
@@ -519,14 +520,14 @@ body {
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
-        left: 10px;
-        width: 50px;
-        height: 50px;
-        padding: 30px;
+        left: 20px;
+        width: 20px;
+        height: 20px;
+        padding: 10px;
       }
       h1{
         text-align: center;
-        font-size: 3em;
+        font-size: 1.5em;
         //color: $dark-color;
       }
     }
@@ -535,12 +536,12 @@ body {
       width: 100%;
       display: flex;
       h2{
-        margin: 30px 0 0 0;
-        padding: 0px 0 30px 0;
+        margin: 15px 0 0 0;
+        padding: 0px 0 15px 0;
         width: 50%;
-        font-size: 2.5em;
+        font-size: 1.1em;
         text-align: center;
-        border-bottom: 4px solid lightgrey;
+        border-bottom: 1px solid lightgrey;
 
         &::after{
           content: "";
@@ -549,7 +550,7 @@ body {
           left: 0;
           width: 50%;
           height: 0;
-          border-bottom: 4px solid $accent-color;
+          border-bottom: 1px solid $accent-color;
           transition: transform 300ms ease;
         }
       }
@@ -585,14 +586,14 @@ body {
         li.recipe-item{
           opacity: 0; //For animation
           box-sizing: border-box;
-          width: calc(100% - 60px);
-          height: 180px;
+          width: calc(100% - 30px);
+          //height: 80px;
           background: $bg-color;
           display: flex;
           align-items: center;
-          padding: 35px 35px;
-          margin: 30px 30px 30px 30px;
-          border-radius: 10px;
+          padding: 10px 20px;
+          margin: 15px 15px 15px 15px;
+          border-radius: 5px;
           border: 1px solid lightgrey;
           //box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
           box-shadow: rgba(0, 0, 0, 0.1) 0px 18px 35px -10px;
@@ -600,16 +601,17 @@ body {
           pointer-events: none;
 
           img{
-            height: 100px;
-            width: 100px;
+            height: 50px;
+            width: 50px;
             flex: 1 1 1;
             object-fit: cover;
-            border-radius: 10px;
+            border-radius: 5px;
           }
           .content{
             box-sizing: border-box;
-            padding: 0 35px;
+            padding-left: 20px;
             height: 100%;
+            gap: 6px;
             display: flex;
             flex-direction: column;
             justify-content: space-around;
@@ -619,13 +621,16 @@ body {
               display: flex;
               align-items: center;
               h4{
-                font-size: 2.4em;
+                font-size: .9em;
+                margin: 0;
                 display: inline-block;
-                margin: 0 15px 0 0;
+
+                span{
+                  font-weight: 500;
+                  font-size: .8em;
+                }
               }
-              span{
-                font-size: 1.9em;
-              }
+
             }
             .desc{
               ul{
@@ -638,34 +643,46 @@ body {
                   pointer-events: none;
                   display: flex;
                   justify-content: center;
-                  margin: 0 25px 0 0;
+                  margin: 0 15px 0 0;
                   img{
-                    width: 30px;
-                    height: 30px;
-                    margin-right: 10px;
+                    width: 12px;
+                    height: 12px;
+                    margin-right: 5px;
                   }
                   span{
-                    transform: translateY(-2px);
-                    font-size: 1.7em;
+                    font-size: .7em;
                   }
                 }
               }
             }
           }
         }
+
+        &>p{
+          opacity: 0;//For animation
+          text-align: center;
+          padding-top: 10px;
+          color: transparentize($dark-color,.6);
+        }
       }
     }
     .my-panel{
+
       button#add-btn{
-        margin: 30px auto 50px auto;
-        //opacity: 0;
-        box-shadow: 0 0 25px transparentize($accent-color,0.5);
+        opacity: 0; //For animation
+        z-index: 10;
+        position: fixed;
+        bottom: 15px;
+        right: calc(100vw + 15px);
+        margin: 10px;
+        box-shadow: 0 0 10px transparentize($accent-color,0.5);
         border: none;
-        min-width: 120px;
-        min-height: 120px;
+        width: 60px;
+        height: 60px;
         border-radius: 100px;
         background: $accent-color;
         cursor: pointer;
+        pointer-events: none;
 
         img{
           height: 50%;
@@ -684,7 +701,11 @@ body {
     .top{
       animation: tabsSlideDown 300ms 600ms ease-in-out forwards;
     }
-    li{
+    li,p{
+      pointer-events: auto;
+      animation: buttonPopUp 600ms 900ms ease-in-out forwards;
+    }
+    button#add-btn{
       pointer-events: auto;
       animation: buttonPopUp 600ms 900ms ease-in-out forwards;
     }
@@ -700,6 +721,9 @@ body {
     li{
       animation: buttonPopOut 600ms ease-in-out forwards;
     }
+    button#add-btn{
+      animation: buttonPopOut 600ms ease-in-out forwards;
+    }
   }
 }
 
@@ -707,7 +731,7 @@ body {
 @keyframes hideHomeBg{
   0%{
     opacity: 1;
-    background-position: center -200px, center bottom;
+    background-position: center -120px, center bottom;
   }
   100%{
     //opacity: 0;

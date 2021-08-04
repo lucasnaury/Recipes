@@ -50,10 +50,10 @@ body #logout-btn {
   pointer-events: auto;
   z-index: 100;
   position: absolute;
-  top: 25px;
-  right: 25px;
-  width: 50px;
-  padding: 30px;
+  top: 15px;
+  right: 20px;
+  width: 20px;
+  padding: 10px;
   opacity: 0;
   --end-opacity: .5;
   --anim-delay: 3.2s;
@@ -82,14 +82,14 @@ body .header {
   background: url("../img/bg-top.svg"), url("../img/bg-bottom.svg");
   background-attachment: fixed;
   background-size: contain;
-  background-position: center -200px, center bottom;
+  background-position: center -120px, center bottom;
   background-repeat: no-repeat;
   animation: hideHomeBg 1.5s 1.5s ease forwards;
 }
 
 body .header h1 {
   z-index: -3;
-  font-size: 10em;
+  font-size: 3.5em;
   text-align: center;
   font-weight: 700;
   position: absolute;
@@ -104,8 +104,9 @@ body .header h1 {
 body .header #cooking-illustation {
   z-index: -3;
   position: absolute;
-  top: 48%;
+  top: 50%;
   left: 50%;
+  width: 70%;
   transform: translate(-50%, 0);
   animation: hideHomeImg 1.5s 1.5s ease forwards;
 }
@@ -135,11 +136,11 @@ body .header #cooking-illustation {
   opacity: 0;
   min-width: 20vh;
   min-height: 20vh;
-  border-radius: 25px;
+  border-radius: 10px;
   box-sizing: border-box;
   background: white;
-  margin: 50px 0;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1), 0 0 0 2px #FF6B6B;
+  margin: 20px 0;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1), 0 0 0 1px #FF6B6B;
   outline: none;
   cursor: pointer;
   transition: box-shadow 150ms ease-in-out;
@@ -147,7 +148,7 @@ body .header #cooking-illustation {
 
 .main-container .btn:hover,
 .main-container-random .btn:hover {
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1), 0 0 0 5px #FF6B6B;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1), 0 0 0 2px #FF6B6B;
 }
 
 .main-container .btn img,
@@ -165,7 +166,7 @@ body .header #cooking-illustation {
   position: absolute;
   bottom: 10%;
   width: 100%;
-  font-size: 2vh;
+  font-size: 2.2vh;
   text-align: center;
 }
 
@@ -229,16 +230,16 @@ body .header #cooking-illustation {
 
 .main-container-login h1 {
   opacity: 0;
-  font-size: 5em;
+  font-size: 2.5em;
 }
 
 .main-container-login button#login-btn {
   outline: none;
   opacity: 0;
-  box-shadow: 0 0 25px rgba(255, 107, 107, 0.5);
+  box-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
   border: none;
-  height: 150px;
-  width: 150px;
+  height: 60px;
+  width: 60px;
   border-radius: 50%;
   background: #FF6B6B;
   cursor: pointer;
@@ -287,12 +288,12 @@ body .header #cooking-illustation {
   display: flex;
   pointer-events: none;
   position: absolute;
-  top: 35px;
-  padding: 30px 0;
+  top: 10px;
+  padding: 20px 0;
   margin: 0;
   width: 100%;
-  height: 50px;
-  font-size: 2.2em;
+  height: 30px;
+  font-size: 1.1em;
   color: #222;
   opacity: 0;
   font-weight: 500;
@@ -326,10 +327,10 @@ body .header #cooking-illustation {
 .main-container-random img#random-back-btn {
   z-index: 10;
   position: absolute;
-  top: 25px;
-  left: 25px;
-  width: 50px;
-  padding: 30px;
+  top: 15px;
+  left: 20px;
+  width: 20px;
+  padding: 10px;
   opacity: 0;
   --end-opacity: 0.5;
 }
@@ -374,10 +375,10 @@ body .header #cooking-illustation {
 .main-container-search img#search-back-btn {
   z-index: 10;
   position: absolute;
-  top: 25px;
-  left: 25px;
-  width: 50px;
-  padding: 30px;
+  top: 15px;
+  left: 20px;
+  width: 20px;
+  padding: 10px;
   opacity: 0;
   --end-opacity: 0.5;
 }
@@ -410,11 +411,11 @@ body .header #cooking-illustation {
   outline: none;
   border: 1px solid #FF6B6B;
   border-radius: 1000px;
-  width: calc(100% - 100px);
-  height: 100px;
-  font-size: 2.8em;
+  width: calc(100% - 40px);
+  height: 30px;
+  font-size: 1.2em;
   color: rgba(34, 34, 34, 0.8);
-  padding: 10px 50px;
+  padding: 10px 20px;
 }
 
 .main-container-search .input-container img {
@@ -422,9 +423,9 @@ body .header #cooking-illustation {
   pointer-events: none;
   position: absolute;
   opacity: .2;
-  left: 50px;
+  left: 20px;
   top: 50%;
-  height: 50px;
+  height: 20px;
   transform: translateY(-50%);
   transition: left 600ms ease;
   padding: 15px;
@@ -433,16 +434,16 @@ body .header #cooking-illustation {
 .main-container-search .input-container input:focus + img,
 .main-container-search .input-container input:active + img,
 .main-container-search .input-container input:valid + img {
-  left: calc(100% - 100px);
+  left: calc(100% - 60px);
 }
 
 .main-container-search .input-container p {
   margin: 0;
   position: absolute;
-  top: calc(100% + 20px);
+  top: calc(100% + 10px);
   width: 100%;
   text-align: center;
-  font-size: 1.8em;
+  font-size: .8em;
   color: #FF6B6B;
   opacity: 0;
   transition: opacity 300ms ease;
@@ -450,12 +451,12 @@ body .header #cooking-illustation {
 
 .main-container-search button#search-btn {
   opacity: 0;
-  box-shadow: 0 0 25px rgba(255, 107, 107, 0.5);
+  box-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
   position: absolute;
-  bottom: 200px;
+  bottom: 80px;
   border: none;
-  width: 150px;
-  height: 150px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   background: #FF6B6B;
   cursor: pointer;
@@ -539,15 +540,15 @@ body .header #cooking-illustation {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  left: 10px;
-  width: 50px;
-  height: 50px;
-  padding: 30px;
+  left: 20px;
+  width: 20px;
+  height: 20px;
+  padding: 10px;
 }
 
 .main-container-list .top .title h1 {
   text-align: center;
-  font-size: 3em;
+  font-size: 1.5em;
 }
 
 .main-container-list .top .tabs {
@@ -556,12 +557,12 @@ body .header #cooking-illustation {
 }
 
 .main-container-list .top .tabs h2 {
-  margin: 30px 0 0 0;
-  padding: 0px 0 30px 0;
+  margin: 15px 0 0 0;
+  padding: 0px 0 15px 0;
   width: 50%;
-  font-size: 2.5em;
+  font-size: 1.1em;
   text-align: center;
-  border-bottom: 4px solid lightgrey;
+  border-bottom: 1px solid lightgrey;
 }
 
 .main-container-list .top .tabs h2::after {
@@ -571,7 +572,7 @@ body .header #cooking-illustation {
   left: 0;
   width: 50%;
   height: 0;
-  border-bottom: 4px solid #FF6B6B;
+  border-bottom: 1px solid #FF6B6B;
   transition: transform 300ms ease;
 }
 
@@ -611,14 +612,13 @@ body .header #cooking-illustation {
 .main-container-list .panels .favorites-panel ul.recipe-list li.recipe-item {
   opacity: 0;
   box-sizing: border-box;
-  width: calc(100% - 60px);
-  height: 180px;
+  width: calc(100% - 30px);
   background: white;
   display: flex;
   align-items: center;
-  padding: 35px 35px;
-  margin: 30px 30px 30px 30px;
-  border-radius: 10px;
+  padding: 10px 20px;
+  margin: 15px 15px 15px 15px;
+  border-radius: 5px;
   border: 1px solid lightgrey;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 18px 35px -10px;
   cursor: pointer;
@@ -627,18 +627,19 @@ body .header #cooking-illustation {
 
 .main-container-list .panels .my-panel ul.recipe-list li.recipe-item img,
 .main-container-list .panels .favorites-panel ul.recipe-list li.recipe-item img {
-  height: 100px;
-  width: 100px;
+  height: 50px;
+  width: 50px;
   flex: 1 1 1;
   object-fit: cover;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 .main-container-list .panels .my-panel ul.recipe-list li.recipe-item .content,
 .main-container-list .panels .favorites-panel ul.recipe-list li.recipe-item .content {
   box-sizing: border-box;
-  padding: 0 35px;
+  padding-left: 20px;
   height: 100%;
+  gap: 6px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -653,14 +654,15 @@ body .header #cooking-illustation {
 
 .main-container-list .panels .my-panel ul.recipe-list li.recipe-item .content .titles h4,
 .main-container-list .panels .favorites-panel ul.recipe-list li.recipe-item .content .titles h4 {
-  font-size: 2.4em;
+  font-size: .9em;
+  margin: 0;
   display: inline-block;
-  margin: 0 15px 0 0;
 }
 
-.main-container-list .panels .my-panel ul.recipe-list li.recipe-item .content .titles span,
-.main-container-list .panels .favorites-panel ul.recipe-list li.recipe-item .content .titles span {
-  font-size: 1.9em;
+.main-container-list .panels .my-panel ul.recipe-list li.recipe-item .content .titles h4 span,
+.main-container-list .panels .favorites-panel ul.recipe-list li.recipe-item .content .titles h4 span {
+  font-weight: 500;
+  font-size: .8em;
 }
 
 .main-container-list .panels .my-panel ul.recipe-list li.recipe-item .content .desc ul,
@@ -676,31 +678,44 @@ body .header #cooking-illustation {
   pointer-events: none;
   display: flex;
   justify-content: center;
-  margin: 0 25px 0 0;
+  margin: 0 15px 0 0;
 }
 
 .main-container-list .panels .my-panel ul.recipe-list li.recipe-item .content .desc ul li img,
 .main-container-list .panels .favorites-panel ul.recipe-list li.recipe-item .content .desc ul li img {
-  width: 30px;
-  height: 30px;
-  margin-right: 10px;
+  width: 12px;
+  height: 12px;
+  margin-right: 5px;
 }
 
 .main-container-list .panels .my-panel ul.recipe-list li.recipe-item .content .desc ul li span,
 .main-container-list .panels .favorites-panel ul.recipe-list li.recipe-item .content .desc ul li span {
-  transform: translateY(-2px);
-  font-size: 1.7em;
+  font-size: .7em;
+}
+
+.main-container-list .panels .my-panel ul.recipe-list > p,
+.main-container-list .panels .favorites-panel ul.recipe-list > p {
+  opacity: 0;
+  text-align: center;
+  padding-top: 10px;
+  color: rgba(34, 34, 34, 0.4);
 }
 
 .main-container-list .panels .my-panel button#add-btn {
-  margin: 30px auto 50px auto;
-  box-shadow: 0 0 25px rgba(255, 107, 107, 0.5);
+  opacity: 0;
+  z-index: 10;
+  position: fixed;
+  bottom: 15px;
+  right: calc(100vw + 15px);
+  margin: 10px;
+  box-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
   border: none;
-  min-width: 120px;
-  min-height: 120px;
+  width: 60px;
+  height: 60px;
   border-radius: 100px;
   background: #FF6B6B;
   cursor: pointer;
+  pointer-events: none;
 }
 
 .main-container-list .panels .my-panel button#add-btn img {
@@ -722,7 +737,12 @@ body .header #cooking-illustation {
   animation: tabsSlideDown 300ms 600ms ease-in-out forwards;
 }
 
-.main-container-list.show li {
+.main-container-list.show li, .main-container-list.show p {
+  pointer-events: auto;
+  animation: buttonPopUp 600ms 900ms ease-in-out forwards;
+}
+
+.main-container-list.show button#add-btn {
   pointer-events: auto;
   animation: buttonPopUp 600ms 900ms ease-in-out forwards;
 }
@@ -742,10 +762,14 @@ body .header #cooking-illustation {
   animation: buttonPopOut 600ms ease-in-out forwards;
 }
 
+.main-container-list.hide button#add-btn {
+  animation: buttonPopOut 600ms ease-in-out forwards;
+}
+
 @keyframes hideHomeBg {
   0% {
     opacity: 1;
-    background-position: center -200px, center bottom;
+    background-position: center -120px, center bottom;
   }
   100% {
     background-position: center -50%, center 150%;

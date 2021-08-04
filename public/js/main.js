@@ -1,9 +1,11 @@
 $(document).ready(function () {
   //console.log(firebase);
-  //console.log(faker);
-  //AUTHENTICATION
+
+  //FIREBASE AUTHENTICATION
   const auth = firebase.auth();
   const provider = new firebase.auth.GoogleAuthProvider();
+
+
   //Buttons
   $("#login-btn").click(()=>{
     auth.signInWithPopup(provider);
@@ -51,9 +53,13 @@ $(document).ready(function () {
         //Reset animation delays
         $(".main-container-login").css("--anim-delay","600ms");
         $(".main-container").css("--anim-delay","600ms");
-        //Hide and show elements
+        //Hide every tab
         hide($("#logout-btn"));
         hide($(".main-container"));
+        hide($(".main-container-search"));
+        hide($(".main-container-list"));
+        hide($(".main-container-random"));
+        //Show login page
         show($(".main-container-login"));
       }
     }
@@ -71,31 +77,12 @@ $(document).ready(function () {
     if(user){//if signed in
       recipesRef = db.collection("recipes");
       var types = ["entree","plate","dessert"];
-      /*$("#add-btn").click(()=>{
-        var type = types[Math.floor(Math.random() * types.length)];
-        recipesRef.add({
-          uid: user.uid,
-          type: type,
-          title: faker.commerce.productName(),
-          subtitle: "généré par faker",
-          preparationTime: faker.random.number(),
-          difficulty: "Facile",
-          nbPeople: faker.random.number(),
-          ingredients:[
-            "150g de "+faker.commerce.productName(),
-            "200mL de "+faker.commerce.productName(),
-            "50g de "+faker.commerce.productName()
-          ],
-          steps: [
-            "Mélanger 1 + 2",
-            "Mélanger 2 + 4",
-            "Mettre au four pendant "+ faker.random.number() + " minutes"
-          ],
-          createdAt: firebase.firestore.Timestamp.now().toDate()
-        });
-      });*/
+
       $("#add-btn").click(()=>{
         loadAddRecipePage();
+      });
+      $("#list").click(()=>{ //Show serach bar + filters
+        queryMyRecipes(db,user.uid);
       });
     }else{
       $("#add-btn").click(()=>{
@@ -161,11 +148,16 @@ $(document).ready(function () {
     showMainBtns();
   });
   //List items
-  $(".recipe-item").click((event)=>{
+  /*$(".recipe-item").click((event)=>{
+    console.log("clicked");
     var id= event.currentTarget.dataset.id; //Get the data-id element in HTML
     loadRecipePage(null,null,id);
+  });*/
+  $('.recipe-list').on('click', '.recipe-item', (event)=>{//using on event to handle click on appended elements
+    var id = event.currentTarget.dataset.id; //Get the data-id element in HTML
+    console.log(id);
+    loadRecipePage(null,null,id);
   });
-  //Add recipe btn
 
   //RANDOM
   $("#entree").click(()=>{
@@ -185,28 +177,31 @@ $(document).ready(function () {
   });
 });
 
-
+//UI
 function showMainBtns(){
   $(".main-container").css("--anim-delay","600ms");
   show($(".main-container"));
 }
-
 function show(container){
   container.css("display","flex");
   container.addClass("show");
   container.removeClass("hide");
 }
 function hide(container){
-  container.addClass("hide");
-  container.removeClass("show");
-  var transitionDuration = 700;
-  setTimeout(()=>{
-    container.css("display","none");
-  },transitionDuration);
+  if(container.hasClass("show") || (container == $(".main-container") && !container.hasClass("show"))){
+    container.addClass("hide");
+    container.removeClass("show");
+    var transitionDuration = 700;
+    setTimeout(()=>{
+      container.css("display","none");
+    },transitionDuration);
+  }
 }
 
-
+//Add recipe
 function loadAddRecipePage(){
+  //Prevent user from logging out when loading
+  $("#logout-btn").css("pointer-events","none");
   //Hide active menu
   hide($(".show"));
   $(".header").css("animation","hideBgEnd 1.5s ease-in-out forwards");
@@ -216,7 +211,10 @@ function loadAddRecipePage(){
   },1500);
 }
 
+//Load recipe
 function loadRecipePage(type,searchValue,id){
+  //Prevent user from logging out when loading
+  $("#logout-btn").css("pointer-events","none");
   //Hide active menu
   hide($(".show"));
   //Make the overlay + BG fade out
@@ -232,4 +230,70 @@ function loadRecipePage(type,searchValue,id){
   setTimeout(()=>{
     window.location.href = "recipes.html" + query;
   },1500);
+}
+
+
+
+//Query my recipes
+function queryMyRecipes(db, userID){
+  let recipesRef = db.collection("recipes");
+  let query;
+
+  recipesRef.where("uid","==", userID).get()
+    .then((querySnapshot)=>{
+      processQuerySnapshot(querySnapshot);
+    })
+    .catch((error)=>{
+      console.log("Type Request - Error : " + error);
+      $(".my-panel .recipe-list").html("<p>Aucune recette trouvée.</p>");//Remove already existing items
+    });
+
+}
+
+function processQuerySnapshot (querySnapshot){
+  var docs = [];
+  querySnapshot.forEach((doc) => {
+    docs.push({
+      id : doc.id,//Recipe unique ID
+      data : doc.data()//Recipe data
+    });
+  });
+
+  appendMyRecipes(docs);
+}
+
+function appendMyRecipes(myRecipes){
+  if(myRecipes.length>0){
+
+    myRecipes = jQuery.map(myRecipes,(element)=>{//Replace each doc by the corresponding list item html element
+      return `<li class="recipe-item" data-id="${element.id}">
+                <img src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=653&q=80" alt="">
+                <div class="content">
+                  <div class="titles">
+                    <h4>${element.data.title} <span>${element.data.subtitle}</span></h4>
+                  </div>
+                  <div class="desc">
+                    <ul>
+                      <li id=time>
+                        <img src="img/time-dark.svg" alt="">
+                        <span>${element.data.preparationTime}</span>
+                      </li>
+                      <li id="difficulty">
+                        <img src="img/difficulty-dark.svg" alt="">
+                        <span>${element.data.difficulty}</span>
+                      </li>
+                      <li id="number-of-people">
+                        <img src="img/nb-people-many-dark.svg" alt="">
+                        <span>${element.data.nbPeople} Pers.</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </li>`;
+    });
+    $(".my-panel .recipe-list").html(myRecipes.join("")); //Join array to append all list items at the same time (not using append to overwrite already existing items)
+  }else{
+    $(".my-panel .recipe-list").html("<p>Aucune recette trouvée.</p>");//Remove already existing items
+  }
+
 }

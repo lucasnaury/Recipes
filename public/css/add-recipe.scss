@@ -34,7 +34,7 @@ body {
   left: 0;
   width: 100%;
   min-height: 100%;
-  padding: 150px 0 calc((80px - 50px) + 150px + 80px);
+  padding: 80px 0 calc(30px * 2 + 50px - 20px); //30px = bottom pos of btn, 50px = height, 20px = input bottom margin
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
@@ -45,8 +45,8 @@ body {
   background-position: center -50%, center 150%;
   background-repeat: no-repeat;
   h1{
-    font-size: 6em;
-    margin: 0 auto 100px auto;
+    font-size: 2.5em;
+    margin: 0 auto 40px auto;
     text-align: center;
 
     animation: show 300ms ease-in-out forwards;
@@ -64,8 +64,8 @@ body {
 
     label{
       width: 100%;
-      margin-bottom: 20px;
-      font-size: 2.3em;
+      margin-bottom: 8px;
+      font-size: 1em;
       font-weight: 600;
 
       &::first-letter{
@@ -76,13 +76,14 @@ body {
     input{
       outline: none;
       box-sizing: border-box;
-      height: 100px;
+      font-family: "Montserrat", sans-serif;
+      height: 38px;
       width: 100%;
-      border: solid 1px transparentize($dark-color,0.5);
-      padding: 20px 30px;
-      margin-bottom: 50px;
-      font-size: 2.5em;
-      border-radius: 10px;
+      border: solid 1px transparentize($dark-color,0.6);
+      padding: 5px 10px;
+      margin-bottom: 20px;
+      font-size: .9em;
+      border-radius: 5px;
 
       &::placeholder{
         color: transparentize($dark-color,0.8);
@@ -93,8 +94,7 @@ body {
       }
     }
     .btns{
-      margin: 20px 0 50px;
-      margin: 0 0 50px;
+      margin: 0 0 20px;
       display: flex;
       width: 100%;
       flex-direction: row;
@@ -106,11 +106,11 @@ body {
         flex-direction: column;
         justify-content: space-around;
         align-items: center;
-        padding: 80px 0 50px;
-        width: 230px;
-        height: 230px;
-        border-radius: 10px;
-        border: solid 2px transparentize($dark-color,0.8);
+        padding: 25px 0 15px;
+        width: 90px;
+        height: 90px;
+        border-radius: 5px;
+        border: solid 1px transparentize($dark-color,0.6);
         transition: border 300ms ease;
         background: $bg-color;
 
@@ -126,33 +126,35 @@ body {
         }
         img{
           width: 30%;
-          margin-bottom: 30px;
         }
         span{
-          font-size: 2.5em;
-          color: transparentize($dark-color,.5);
+          font-family: "Montserrat", sans-serif;
+          font-size: 1em;
+          color: transparentize($dark-color,.4);
+          margin-top: 10px;
         }
 
         &:hover{
-          border: solid 2px $accent-color;
+          border: solid 1px $accent-color;
         }
       }
     }
 
     button[type="submit"]{
       outline: none;
+      padding: 0;
       //opacity: 0;
-      box-shadow: 0 0 25px transparentize($accent-color,0.5);
+      box-shadow: 0 0 10px transparentize($accent-color,0.5);
       border: none;
-      height: 150px;
-      width: 150px;
-      margin-top: 50px;
+      height: 50px;
+      width: 50px;
+      //margin-top: 30px;
       border-radius: 50%;
       background: $accent-color;
       cursor: pointer;
 
       position: absolute;
-      bottom: 80px;
+      bottom: 30px;
       left: 50%;
       transform: translateX(-50%);
 
