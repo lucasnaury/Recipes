@@ -194,9 +194,7 @@ $(document).ready(function () {
   });
 
   //Trigger on list element hold
-  var mouseIsHolding = false;
   var held = false;
-  var mouseHoldTimeout;
   var selectingRecipes = false;
 
   //List items
@@ -237,7 +235,7 @@ $(document).ready(function () {
       console.log("Load recipe clicked");
       var id = event.currentTarget.dataset.id; //Get the data-id element in HTML
       ////COMMENTED FOR DEBUG
-      //loadRecipePage(null,null,id);
+      loadRecipePage(null,null,id);
     }
     held = false;//Reset
   });
@@ -423,7 +421,7 @@ function appendRecipes(recipes,appendParent){
     });
     appendParent.html(recipes.join("")); //Join array to append all list items at the same time (not using append to overwrite already existing items)
   }else{
-    appendParent.html("<p>Aucune recette trouvée.</p>");//Remove already existing items
+    appendParent.html("<p>Aucune recette trouvée.</p>"); //Remove already existing items
   }
 
 }
