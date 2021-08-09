@@ -195,39 +195,35 @@ $(document).ready(function () {
 
   //Trigger on list element hold
   var mouseIsHolding = false;
+  var held = false;
   var mouseHoldTimeout;
   var selectingRecipes = false;
 
   //List items
-  $('.recipe-list').on('mousedown', '.recipe-item', (event)=>{
-    if(selectingRecipes == false){//If not selecting
-      mouseIsHolding = true;
+  $.event.special.tap.tapholdThreshold = 300;
+  $('.recipe-list').on('taphold','.recipe-item',event=>{//taphold from jquery mobile
+    held = true;
+    if(selectingRecipes == false){
+      selectingRecipes = true;//Allow the selection
+      //console.log("Selecting");
 
-      mouseHoldTimeout = setTimeout(()=>{
-        if(mouseIsHolding){//If still holding after 300ms
-          selectingRecipes = true;//Allow the selection
-          console.log("Selecting");
+      $('.checkbox').addClass("visible");
+      $("#more-actions-btn").addClass("visible");
 
-          $('.checkbox').addClass("visible");
-          $("#more-actions-btn").addClass("visible");
-          //console.log("Held for 300ms");
+      //Add first item to the selection
+      //console.log("Add to selection first");
+      addRecipeToSelection($(event.currentTarget));
+    }
 
-          //Add first item to the selection
-          console.log("Add to selection first");
-          addRecipeToSelection($(event.currentTarget));
-        }
-      },300);
-
-    }else{//If already selecting
-
+  });
+  $('.recipe-list').on('mouseup', '.recipe-item', event=>{//"Click" event
+    if(selectingRecipes && !held){//If selecting (and prevent from happening at the same time as taphold)
       if($(event.currentTarget).hasClass("selected")){
         //If already selected, deselect it
-        //console.log("Remove from selection");
         removeRecipeFromSelection($(event.currentTarget));
 
         //Stop selecting if no element selected
         if($(".recipe-item.selected").length == 0){
-          //console.log("Reset");
           selectingRecipes = false;
           $('.checkbox').removeClass("visible");
           $('#more-actions-btn').removeClass("visible");
@@ -237,24 +233,15 @@ $(document).ready(function () {
         //console.log("Add to selection");
         addRecipeToSelection($(event.currentTarget));
       }
-
+    }else if(!selectingRecipes && !held){//If not selecting (and not tapheld), load recipe
+      console.log("Load recipe clicked");
+      var id = event.currentTarget.dataset.id; //Get the data-id element in HTML
+      ////COMMENTED FOR DEBUG
+      //loadRecipePage(null,null,id);
     }
-
+    held = false;//Reset
   });
 
-  $('.recipe-list').on('mouseup', '.recipe-item', (event)=>{//using "on" event to handle click on appended elements
-
-    mouseIsHolding = false;//Not holding any more
-    clearTimeout(mouseHoldTimeout);//Reset the timer
-
-
-    if(selectingRecipes == false){//If not selecting recipes
-       //console.log("Load recipe clicked");
-       var id = event.currentTarget.dataset.id; //Get the data-id element in HTML
-       ////COMMENTED FOR DEBUG
-       //loadRecipePage(null,null,id);
-    }
-  });
 
   //RANDOM
   $("#entree").click(()=>{
