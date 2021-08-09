@@ -200,8 +200,8 @@ $(document).ready(function () {
   //List items
   $.event.special.tap.tapholdThreshold = 300;
   $('.recipe-list').on('taphold','.recipe-item',event=>{//taphold from jquery mobile
-    held = true;
     if(selectingRecipes == false){
+      held = true;
       selectingRecipes = true;//Allow the selection
       //console.log("Selecting");
 
@@ -454,7 +454,7 @@ function deleteRecipes(db,recipes){
     });
   });
 }
-function addRecipesToFavorites(db,userID,recipes){//PROBLEM : not working when adding multiple recipes
+function addRecipesToFavorites(db,userID,recipes){
   let usersRef = db.collection("users");
 
   db.collection('users').doc(userID).get()
