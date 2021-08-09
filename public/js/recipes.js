@@ -70,7 +70,7 @@ $(document).ready(function () {
     }
     else{
       //No data provided, so go back to main page
-      //window.location.href = "index.html";
+      window.location.href = "index.html";
     }
   }
 
@@ -107,7 +107,7 @@ $(document).ready(function () {
     });
     $(".preparation ul").html(steps.join(''));
   }
-  
+
   function showError(error){
     $(".header").css("animation","none");
     $(".header .titles").css("animation","none");

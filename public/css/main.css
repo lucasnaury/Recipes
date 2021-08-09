@@ -106,7 +106,7 @@ body .header #cooking-illustation {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 70%;
+  height: 40%;
   transform: translate(-50%, 0);
   animation: hideHomeImg 1.5s 1.5s ease forwards;
 }
@@ -331,6 +331,7 @@ body .header #cooking-illustation {
   left: 20px;
   width: 20px;
   padding: 10px;
+  cursor: pointer;
   opacity: 0;
   --end-opacity: 0.5;
 }
@@ -379,6 +380,7 @@ body .header #cooking-illustation {
   left: 20px;
   width: 20px;
   padding: 10px;
+  cursor: pointer;
   opacity: 0;
   --end-opacity: 0.5;
 }
@@ -522,6 +524,7 @@ body .header #cooking-illustation {
 }
 
 .main-container-list .top {
+  z-index: 6;
   position: static;
   display: flex;
   flex-direction: column;
@@ -535,7 +538,8 @@ body .header #cooking-illustation {
   position: relative;
 }
 
-.main-container-list .top .title img {
+.main-container-list .top .title #list-back-btn,
+.main-container-list .top .title #more-actions-btn {
   z-index: 2;
   position: absolute;
   top: 50%;
@@ -544,11 +548,68 @@ body .header #cooking-illustation {
   width: 20px;
   height: 20px;
   padding: 10px;
+  cursor: pointer;
 }
 
 .main-container-list .top .title h1 {
   text-align: center;
   font-size: 1.5em;
+}
+
+.main-container-list .top .title #more-actions-btn {
+  left: auto;
+  right: 20px;
+  width: 22px;
+  height: 22px;
+  opacity: 0;
+  transform: translateY(-50%) scale(0.8);
+  transition: transform 300ms ease-in-out, opacity 300ms ease-in-out;
+}
+
+.main-container-list .top .title #more-actions-btn.visible {
+  opacity: 1;
+  transform: translateY(-50%) scale(1);
+}
+
+.main-container-list .top .title .more-actions-popup {
+  z-index: 10;
+  position: absolute;
+  top: calc(50% + 20px/2);
+  right: calc(20px + 20px/4 + 10px);
+  background: white;
+  border-radius: 5px;
+  border: solid 1px lightgrey;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 8px;
+  opacity: 0;
+  transform: scale(0.8);
+  transform-origin: middle top;
+  transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
+  pointer-events: none;
+}
+
+.main-container-list .top .title .more-actions-popup.visible {
+  pointer-events: auto;
+  opacity: 1;
+  transform: scale(1);
+}
+
+.main-container-list .top .title .more-actions-popup ul {
+  list-style-type: none;
+  padding: 5px 12px;
+  margin: 0;
+}
+
+.main-container-list .top .title .more-actions-popup ul li {
+  padding: 10px 10px;
+  margin: 5px 0;
+  font-size: .85em;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background 300ms ease-in-out;
+}
+
+.main-container-list .top .title .more-actions-popup ul li:hover {
+  background: rgba(34, 34, 34, 0.05);
 }
 
 .main-container-list .top .tabs {
@@ -557,12 +618,13 @@ body .header #cooking-illustation {
 }
 
 .main-container-list .top .tabs h2 {
-  margin: 15px 0 0 0;
-  padding: 0px 0 15px 0;
+  padding: 15px 0;
+  margin: 0;
   width: 50%;
   font-size: 1.1em;
   text-align: center;
   border-bottom: 1px solid lightgrey;
+  cursor: pointer;
 }
 
 .main-container-list .top .tabs h2::after {
@@ -587,17 +649,22 @@ body .header #cooking-illustation {
   width: 200vw;
   height: 150%;
   transition: transform 300ms ease;
-  transform: translateX(25%);
-  overflow-y: scroll;
+  transform: translateX(50vw);
+  overflow-y: hidden;
 }
 
 .main-container-list .panels .my-panel,
 .main-container-list .panels .favorites-panel {
   width: 50%;
   min-height: 100%;
+  box-sizing: border-box;
+  padding: 0;
   overflow-y: scroll;
   display: flex;
   flex-direction: column;
+  /* width */
+  /* Track */
+  /* Handle */
 }
 
 .main-container-list .panels .my-panel ul.recipe-list,
@@ -615,18 +682,20 @@ body .header #cooking-illustation {
   width: calc(100% - 30px);
   background: white;
   display: flex;
+  overflow: hidden;
   align-items: center;
   padding: 10px 20px;
-  margin: 15px 15px 15px 15px;
+  margin: 15px 15px 15px calc(15px + 3px);
   border-radius: 5px;
   border: 1px solid lightgrey;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 18px 35px -10px;
   cursor: pointer;
   pointer-events: none;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 8px 18px -5px;
+  transition: background 300ms ease-in-out, box-shadow 300ms ease-in-out;
 }
 
-.main-container-list .panels .my-panel ul.recipe-list li.recipe-item img,
-.main-container-list .panels .favorites-panel ul.recipe-list li.recipe-item img {
+.main-container-list .panels .my-panel ul.recipe-list li.recipe-item .recipeImg,
+.main-container-list .panels .favorites-panel ul.recipe-list li.recipe-item .recipeImg {
   height: 50px;
   width: 50px;
   flex: 1 1 1;
@@ -639,6 +708,8 @@ body .header #cooking-illustation {
   box-sizing: border-box;
   padding-left: 20px;
   height: 100%;
+  margin-right: auto;
+  max-width: calc(100% - 2*20px - 50px - 16px);
   gap: 6px;
   display: flex;
   flex-direction: column;
@@ -681,6 +752,11 @@ body .header #cooking-illustation {
   margin: 0 15px 0 0;
 }
 
+.main-container-list .panels .my-panel ul.recipe-list li.recipe-item .content .desc ul li#number-of-people,
+.main-container-list .panels .favorites-panel ul.recipe-list li.recipe-item .content .desc ul li#number-of-people {
+  margin: 0;
+}
+
 .main-container-list .panels .my-panel ul.recipe-list li.recipe-item .content .desc ul li img,
 .main-container-list .panels .favorites-panel ul.recipe-list li.recipe-item .content .desc ul li img {
   width: 12px;
@@ -693,12 +769,67 @@ body .header #cooking-illustation {
   font-size: .7em;
 }
 
+.main-container-list .panels .my-panel ul.recipe-list li.recipe-item .checkbox,
+.main-container-list .panels .favorites-panel ul.recipe-list li.recipe-item .checkbox {
+  width: 12px;
+  height: 12px;
+  padding: 2px;
+  margin-left: 10px;
+  border-radius: 50%;
+  border: solid 2px #FF6B6B;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 300ms ease-in-out,transform 300ms ease-in-out,background 300ms ease-in-out;
+  pointer-events: none;
+}
+
+.main-container-list .panels .my-panel ul.recipe-list li.recipe-item .checkbox.visible,
+.main-container-list .panels .favorites-panel ul.recipe-list li.recipe-item .checkbox.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.main-container-list .panels .my-panel ul.recipe-list li.recipe-item.selected,
+.main-container-list .panels .favorites-panel ul.recipe-list li.recipe-item.selected {
+  background: #fce8e8;
+  box-shadow: #fce8e8 0px 8px 18px -5px;
+}
+
+.main-container-list .panels .my-panel ul.recipe-list li.recipe-item.selected .checkbox,
+.main-container-list .panels .favorites-panel ul.recipe-list li.recipe-item.selected .checkbox {
+  background: #FF6B6B;
+}
+
 .main-container-list .panels .my-panel ul.recipe-list > p,
 .main-container-list .panels .favorites-panel ul.recipe-list > p {
   opacity: 0;
   text-align: center;
   padding-top: 10px;
   color: rgba(34, 34, 34, 0.4);
+}
+
+.main-container-list .panels .my-panel::-webkit-scrollbar,
+.main-container-list .panels .favorites-panel::-webkit-scrollbar {
+  width: 6px;
+}
+
+.main-container-list .panels .my-panel::-webkit-scrollbar-track,
+.main-container-list .panels .favorites-panel::-webkit-scrollbar-track {
+  background: transparent;
+  box-shadow: inset 0 0 6px 6px transparent;
+  border: solid 2px transparent;
+}
+
+.main-container-list .panels .my-panel::-webkit-scrollbar-thumb,
+.main-container-list .panels .favorites-panel::-webkit-scrollbar-thumb {
+  border-radius: 1000px;
+  box-shadow: inset 0 0 6px 6px rgba(34, 34, 34, 0.3);
+  border: solid 2px transparent;
+}
+
+.main-container-list .panels .my-panel::-webkit-scrollbar-thumb:hover,
+.main-container-list .panels .favorites-panel::-webkit-scrollbar-thumb:hover {
+  box-shadow: inset 0 0 6px 6px rgba(34, 34, 34, 0.4);
 }
 
 .main-container-list .panels .my-panel button#add-btn {
@@ -727,7 +858,7 @@ body .header #cooking-illustation {
 }
 
 .main-container-list.show {
-  z-index: 2;
+  z-index: 6;
   display: flex;
   visibility: visible;
   pointer-events: auto;
@@ -737,7 +868,7 @@ body .header #cooking-illustation {
   animation: tabsSlideDown 300ms 600ms ease-in-out forwards;
 }
 
-.main-container-list.show li, .main-container-list.show p {
+.main-container-list.show .recipe-item, .main-container-list.show p {
   pointer-events: auto;
   animation: buttonPopUp 600ms 900ms ease-in-out forwards;
 }

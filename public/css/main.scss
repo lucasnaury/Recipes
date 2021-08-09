@@ -1,4 +1,5 @@
 $accent-color : #FF6B6B;
+$light-accent-color: #fce8e8;
 $bg-color: white;
 $dark-color: #222;
 
@@ -104,7 +105,7 @@ body {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 70%;
+    height: 40%;
     transform: translate(-50%,0);
 
     animation: hideHomeImg 1.5s 1.5s ease forwards;
@@ -313,6 +314,7 @@ body {
     left: 20px;
     width: 20px;
     padding: 10px;
+    cursor: pointer;
 
     opacity: 0;
     --end-opacity: 0.5;
@@ -364,6 +366,7 @@ body {
     left: 20px;
     width: 20px;
     padding: 10px;
+    cursor: pointer;
 
     opacity: 0;
     --end-opacity: 0.5;
@@ -505,6 +508,7 @@ body {
   visibility: hidden;
 
   .top{
+    z-index: 6;//Above logout btn
     position: static;
     display: flex;
     flex-direction: column;
@@ -515,7 +519,8 @@ body {
 
     .title{
       position: relative;
-      img{
+      #list-back-btn,
+      #more-actions-btn{
         z-index: 2;
         position: absolute;
         top: 50%;
@@ -524,11 +529,66 @@ body {
         width: 20px;
         height: 20px;
         padding: 10px;
+        cursor: pointer;
       }
       h1{
         text-align: center;
         font-size: 1.5em;
         //color: $dark-color;
+      }
+      #more-actions-btn{
+        left: auto;
+        right: 20px;
+        width: 22px;
+        height: 22px;
+
+        opacity: 0;
+        transform: translateY(-50%) scale(.8);
+        transition: transform 300ms ease-in-out, opacity 300ms ease-in-out;
+        &.visible{
+          opacity: 1;
+          transform: translateY(-50%) scale(1);
+        }
+      }
+      .more-actions-popup{
+        z-index: 10;
+        position: absolute;
+        top: calc(50% + 20px/2);//+img height/2
+        right: calc(20px + 20px/4 + 10px);//left + img size/4 + padding
+        background: $bg-color;
+        border-radius: 5px;
+        border: solid 1px lightgrey;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 8px;
+
+        opacity: 0;
+        transform: scale(.8);
+        transform-origin: middle top;
+        transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
+        pointer-events: none;
+        &.visible{
+          pointer-events: auto;
+          opacity: 1;
+          transform: scale(1);
+        }
+
+        ul{
+          list-style-type: none;
+          padding: 5px 12px;
+          margin: 0;
+          li{
+            padding: 10px 10px;
+            margin: 5px 0;
+            font-size: .85em;
+            cursor: pointer;
+            border-radius: 5px;
+
+            transition: background 300ms ease-in-out;
+            &:hover{
+              background: transparentize($dark-color, .95);
+            }
+          }
+        }
+
       }
     }
 
@@ -536,12 +596,13 @@ body {
       width: 100%;
       display: flex;
       h2{
-        margin: 15px 0 0 0;
-        padding: 0px 0 15px 0;
+        padding: 15px 0;
+        margin: 0;
         width: 50%;
         font-size: 1.1em;
         text-align: center;
         border-bottom: 1px solid lightgrey;
+        cursor: pointer;
 
         &::after{
           content: "";
@@ -567,13 +628,15 @@ body {
     width: 200vw;
     height: 150%;
     transition: transform 300ms ease;
-    transform: translateX(25%);
-    overflow-y: scroll;
+    transform: translateX(50vw);
+    overflow-y: hidden;
 
     .my-panel,
     .favorites-panel{
       width: 50%;
       min-height: 100%;
+      box-sizing: border-box;
+      padding: 0;
       overflow-y: scroll;
       display: flex;
       flex-direction: column;
@@ -590,17 +653,18 @@ body {
           //height: 80px;
           background: $bg-color;
           display: flex;
+          overflow: hidden;
           align-items: center;
           padding: 10px 20px;
-          margin: 15px 15px 15px 15px;
+          margin: 15px 15px 15px calc(15px + 3px); //+scrollbar width/2
           border-radius: 5px;
           border: 1px solid lightgrey;
           //box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
-          box-shadow: rgba(0, 0, 0, 0.1) 0px 18px 35px -10px;
+
           cursor: pointer;
           pointer-events: none;
 
-          img{
+          .recipeImg{
             height: 50px;
             width: 50px;
             flex: 1 1 1;
@@ -611,6 +675,9 @@ body {
             box-sizing: border-box;
             padding-left: 20px;
             height: 100%;
+            //width: 100%;
+            margin-right: auto;
+            max-width: calc(100% - 2*20px - 50px - 16px); //- padd - img size - check size with padd
             gap: 6px;
             display: flex;
             flex-direction: column;
@@ -644,6 +711,9 @@ body {
                   display: flex;
                   justify-content: center;
                   margin: 0 15px 0 0;
+                  &#number-of-people{
+                    margin: 0;
+                  }
                   img{
                     width: 12px;
                     height: 12px;
@@ -656,6 +726,34 @@ body {
               }
             }
           }
+          .checkbox{
+            width: 12px;
+            height: 12px;
+            padding: 2px;
+            margin-left: 10px;
+            border-radius: 50%;
+            border: solid 2px $accent-color;
+
+            opacity: 0;
+            transform: scale(.8);
+            transition: opacity 300ms ease-in-out,transform 300ms ease-in-out,background 300ms ease-in-out;
+            pointer-events: none;
+
+            &.visible{
+              opacity: 1;
+              transform: scale(1);
+            }
+          }
+          box-shadow: rgba(0, 0, 0, 0.1) 0px 8px 18px -5px;
+          transition: background 300ms ease-in-out, box-shadow 300ms ease-in-out;
+          &.selected{
+            background: #fce8e8;
+            box-shadow: transparentize($light-accent-color,0) 0px 8px 18px -5px;
+
+            .checkbox{
+              background: $accent-color;
+            }
+          }
         }
 
         &>p{
@@ -663,6 +761,26 @@ body {
           text-align: center;
           padding-top: 10px;
           color: transparentize($dark-color,.6);
+        }
+      }
+
+      /* width */
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
+      /* Track */
+      &::-webkit-scrollbar-track {
+        background: transparent;
+        box-shadow: inset 0 0 6px 6px transparent;
+        border: solid 2px transparent;
+      }
+      /* Handle */
+      &::-webkit-scrollbar-thumb {
+        border-radius: 1000px;
+        box-shadow: inset 0 0 6px 6px transparentize($dark-color,.7);//Thumb bg color
+        border: solid 2px transparent;
+        &:hover{
+          box-shadow: inset 0 0 6px 6px transparentize($dark-color,.6);//Thumb bg color
         }
       }
     }
@@ -694,14 +812,14 @@ body {
     }
   }
   &.show{
-    z-index: 2;
+    z-index: 6;//above logout btn
     display: flex;
     visibility: visible;
     pointer-events: auto;
     .top{
       animation: tabsSlideDown 300ms 600ms ease-in-out forwards;
     }
-    li,p{
+    .recipe-item,p{
       pointer-events: auto;
       animation: buttonPopUp 600ms 900ms ease-in-out forwards;
     }

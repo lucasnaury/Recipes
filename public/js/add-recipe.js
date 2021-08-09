@@ -129,7 +129,7 @@ $(document).ready(function () {
 
       $("form").on("submit",(event)=>{
         event.preventDefault(); // cancel the default submit
-        console.log(getParams());
+        //console.log(getParams());
 
         var params = getParams();
 
@@ -146,6 +146,9 @@ $(document).ready(function () {
             steps: params.steps,
             createdAt: firebase.firestore.Timestamp.now().toDate()
           });
+
+          window.location.href = "index.html";//go back to the main page
+
         }
 
 
