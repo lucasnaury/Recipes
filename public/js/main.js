@@ -201,6 +201,7 @@ $(document).ready(function () {
   $.event.special.tap.tapholdThreshold = 300;
   $('.recipe-list').on('taphold','.recipe-item',event=>{//taphold from jquery mobile
     if(selectingRecipes == false){
+      console.log("taphold")
       held = true;
       selectingRecipes = true;//Allow the selection
       //console.log("Selecting");
@@ -214,7 +215,7 @@ $(document).ready(function () {
     }
 
   });
-  $('.recipe-list').on('mouseup', '.recipe-item', event=>{//"Click" event
+  $('.recipe-list').on('vmouseup', '.recipe-item', event=>{//"Click" event, refers to mouseup and touchend
     if(selectingRecipes && !held){//If selecting (and prevent from happening at the same time as taphold)
       if($(event.currentTarget).hasClass("selected")){
         //If already selected, deselect it
