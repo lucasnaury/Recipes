@@ -201,10 +201,8 @@ $(document).ready(function () {
   $.event.special.tap.tapholdThreshold = 300;
   $('.recipe-list').on('taphold','.recipe-item',event=>{//taphold from jquery mobile
     if(selectingRecipes == false){
-      console.log("taphold")
       held = true;
       selectingRecipes = true;//Allow the selection
-      //console.log("Selecting");
 
       $('.checkbox').addClass("visible");
       $("#more-actions-btn").addClass("visible");
@@ -453,9 +451,17 @@ function deleteRecipes(db,recipes){
     $(recipe).fadeOut(600,function(){//call the function at the end of the fadeout
         $(recipe).css({"visibility":"hidden",display:'block'}).slideUp(600);//Hide element and slide others up for 600ms
     });
+    setTimeout(()=>{
+      if($(".favorites-panel .recipe-list .recipe-item").length == 1){//If it was the last element
+        $(".favorites-panel .recipe-list").append("<p>Aucune recette trouvée.</p>");//Append it
+        $(".favorites-panel .recipe-list>p").css("animation-delay","0s");//remove anim delay
+      }
+      //Remove the HTML element
+      $(recipe).remove();
+    },600+600);
   });
 }
-function addRecipesToFavorites(db,userID,recipes){
+function addRecipesToFavorites(db,userID,recipes){//PROBLEM : Make sure it's not already in the favorites before appending it to the tab
   let usersRef = db.collection("users");
 
   db.collection('users').doc(userID).get()
@@ -470,7 +476,6 @@ function addRecipesToFavorites(db,userID,recipes){
 
   recipes.each((i,recipe)=>{
     var recipeId = $(recipe).data("id");
-    console.log("Add to favorites, id=" + recipeId);
 
     //Add to favorite database
     db.collection('users').doc(userID).get()
@@ -483,8 +488,18 @@ function addRecipesToFavorites(db,userID,recipes){
 
         //Add to the favorites panel list if success
         $(".favorites-panel .recipe-list").children("p").remove();//Remove empty list paragraph
-        var recipeClone = $(recipe).clone().removeClass("selected").removeClass("visible");
-        recipeClone.appendTo($(".favorites-panel .recipe-list"));
+
+        var favoritesIDs = $.map( $(".favorites-panel .recipe-item"),item=>{
+          return $(item).data("id"); //Get all IDs in favorites list
+        });
+
+        if( $.inArray($(recipe).data("id"), favoritesIDs) == -1 ){//If ID not already in favorites list, append it
+          console.log("Add to favorites, id=" + recipeId);
+
+          var recipeClone = $(recipe).clone().removeClass("selected").removeClass("visible");
+          recipeClone.appendTo($(".favorites-panel .recipe-list"));
+        }
+
       })
       .catch(error=>{
         console.log("Couldn't add favorite - " + error);
@@ -496,7 +511,7 @@ function removeRecipesFromFavorites(db,userID,recipes){
 
   recipes.each((i,recipe)=>{
     var recipeId = $(recipe).data("id");
-    console.log("remove from favorites, id=" + recipeId);
+    console.log("Remove from favorites, id=" + recipeId);
 
     //Remove from favorite database
     usersRef.doc(userID).update({//Update the doc with the id=userID
@@ -504,10 +519,19 @@ function removeRecipesFromFavorites(db,userID,recipes){
     })
     .then(()=>{
       //Remove from HTML if success
-      recipe.remove();
-      if($(".favorites-panel .recipe-list .recipe-item").length == 0){
-        $(".favorites-panel .recipe-list").html("<p>Aucune recette trouvée.</p>");
-      }
+      $(recipe).css("animation","buttonPopOut 600ms ease-in-out forwards");
+      //animate orecipe and others to slideup when deleted
+      $(recipe).fadeOut(600,function(){//call the function at the end of the fadeout
+          $(recipe).css({"visibility":"hidden",display:'block'}).slideUp(600);//Hide element and slide others up for 600ms
+      });
+      setTimeout(()=>{
+        if($(".favorites-panel .recipe-list .recipe-item").length == 1){//If it was the last element
+          $(".favorites-panel .recipe-list").append("<p>Aucune recette trouvée.</p>");//Append it
+          $(".favorites-panel .recipe-list>p").css("animation-delay","0s");//remove anim delay
+        }
+        //Remove the HTML element
+        $(recipe).remove();
+      },600+600);
     });
 
 
