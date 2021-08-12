@@ -8,10 +8,10 @@ $(document).ready(function () {
 
 
   //Buttons
-  $("#login-btn").click(()=>{
+  $("#login-btn").on("vclick",()=>{
     auth.signInWithPopup(provider);
   });
-  $("#logout-btn").click(()=>{
+  $("#logout-btn").on("vclick",()=>{
     auth.signOut();
   });
   //Check if logged in on page load (only once)
@@ -72,7 +72,7 @@ $(document).ready(function () {
   //FIRESTORE DATABASE
   const db = firebase.firestore();
 
-  $("#list").click(()=>{ //Show recipe list
+  $("#list").on("vclick",()=>{ //Show recipe list
     //Reset first tab opened to left tab :
     $(".top").removeClass("active");
     $(".panels").removeClass("active");
@@ -81,7 +81,7 @@ $(document).ready(function () {
     queryMyRecipes(db,currentUser.uid);
     queryFavoriteRecipes(db,currentUser.uid);
   });
-  $("#delete").click(()=>{
+  $("#delete").on("vclick",()=>{
     deleteRecipes(db,$(".recipe-item.selected"));
 
     hideActionsPopup();
@@ -99,12 +99,12 @@ $(document).ready(function () {
     hideActionsPopup();
     selectingRecipes = false;
   });
-  $("#add-btn").click(()=>{
+  $("#add-btn").on("vclick",()=>{
     loadAddRecipePage();
   });
 
   //MORE OPTIONS POPUP
-  $("#more-actions-btn").click(()=>{
+  $("#more-actions-btn").on("vclick",()=>{
     $(".more-actions-popup").toggleClass("visible");
   });
 
@@ -112,7 +112,7 @@ $(document).ready(function () {
     if(user){//if signed in
       currentUser = user;
 
-      $("#log-out").click(()=>{
+      $("#log-out").on("vclick",()=>{
         auth.signOut();
 
         hideActionsPopup();
@@ -120,7 +120,7 @@ $(document).ready(function () {
       });
     }else{
       currentUser = null;
-      $("#add-btn").click(()=>{
+      $("#add-btn").on("vclick",()=>{
         console.log("Error - User not signed in");
       });
     }
@@ -132,22 +132,22 @@ $(document).ready(function () {
 
 
   //MAIN BUTTONS
-  $("#search").click(()=>{ //Show serach bar + filters
+  $("#search").on("vclick",()=>{ //Show serach bar + filters
     hide($(".main-container"));
     show($(".main-container-search"));
   });
-  $("#list").click(()=>{ //Show list
+  $("#list").on("vclick",()=>{ //Show list
     hide($(".main-container"));
     show($(".main-container-list"));
   });
-  $("#random").click(()=>{ //Show random btns
+  $("#random").on("vclick",()=>{ //Show random btns
     hide($(".main-container"));
     show($(".main-container-random"));
   });
 
 
   //SEARCH
-  $("#search-btn").click(()=>{
+  $("#search-btn").on("vclick",()=>{
     value = $("#search-input").val();
     if(value){
       $(".main-container-search .input-container p").css("opacity",0);
@@ -159,7 +159,7 @@ $(document).ready(function () {
       },5000);
     }
   });
-  $("#search-back-btn").click(()=>{
+  $("#search-back-btn").on("vclick",()=>{
     //Hide search btns
     hide($(".main-container-search"));
     //Show main btns
@@ -168,7 +168,7 @@ $(document).ready(function () {
 
   //MY RECIPES
   //Top tab buttons
-  $("#my-recipes-btn").click(()=>{
+  $("#my-recipes-btn").on("vclick",()=>{
     //Switch to left tab
     $(".top").removeClass("active");
     $(".panels").removeClass("active");
@@ -177,7 +177,7 @@ $(document).ready(function () {
     hideActionsPopup();
     $(".more-actions-popup ul li:nth-child(2)").replaceWith('<li id="add-favorites">Ajouter aux favoris</li>');
   });
-  $("#favorites-btn").click(()=>{
+  $("#favorites-btn").on("vclick",()=>{
     //Switch to right tab
     $(".top").addClass("active");
     $(".panels").addClass("active");
@@ -186,7 +186,7 @@ $(document).ready(function () {
     hideActionsPopup();
     $(".more-actions-popup ul li:nth-child(2)").replaceWith('<li id="remove-favorites">Retirer des favoris</li>');
   });
-  $("#list-back-btn").click(()=>{
+  $("#list-back-btn").on("vclick",()=>{
     //Hide list
     hide($(".main-container-list"));
     //Show main btns
@@ -241,16 +241,16 @@ $(document).ready(function () {
 
 
   //RANDOM
-  $("#entree").click(()=>{
+  $("#entree").on("vclick",()=>{
     loadRecipePage("entree");
   });
-  $("#plate").click(()=>{
+  $("#plate").on("vclick",()=>{
     loadRecipePage("plate");
   });
-  $("#dessert").click(()=>{
+  $("#dessert").on("vclick",()=>{
     loadRecipePage("dessert");
   });
-  $("#random-back-btn").click(()=>{
+  $("#random-back-btn").on("vclick",()=>{
     //Hide search btns
     hide($(".main-container-random"));
     //Show main btns
