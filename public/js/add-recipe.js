@@ -143,8 +143,8 @@ $(document).ready(function () {
             createdAt: firebase.firestore.Timestamp.now().toDate()
           })
           .then(()=>{
-           alert("Successfully added")
-            //window.location.href = "index.html";//go back to the main page if success
+           //alert("Successfully added")
+            window.location.href = "index.html";//go back to the main page if success
           })
           .catch(error=>{
             console.log("Error while adding : " + error);
