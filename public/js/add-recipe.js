@@ -122,10 +122,6 @@ $(document).ready(function () {
   auth.onAuthStateChanged(user=>{ //Show user logged in or ask him to log in
     if(user){//if signed in
       recipesRef = db.collection("recipes");
-      //DEBUG
-      $("#add-btn").click(()=>{
-
-      });
 
       $("form").on("submit",(event)=>{
         event.preventDefault(); // cancel the default submit
@@ -137,17 +133,24 @@ $(document).ready(function () {
           recipesRef.add({
             uid: user.uid,
             type: params.type,
-            title: params.title,
-            subtitle: params.subtitle,
+            title: params.title + "", //Convert to string
+            subtitle: params.subtitle + "", //Convert to string
             preparationTime: params.time,
             difficulty: params.difficulty,
             nbPeople: params.nbPeople,
             ingredients: params.ingredients,
             steps: params.steps,
             createdAt: firebase.firestore.Timestamp.now().toDate()
+          })
+          .then(()=>{
+           alert("Successfully added")
+            //window.location.href = "index.html";//go back to the main page if success
+          })
+          .catch(error=>{
+            console.log("Error while adding : " + error);
+            alert(error);
           });
 
-          window.location.href = "index.html";//go back to the main page
 
         }
 
