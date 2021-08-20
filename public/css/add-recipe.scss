@@ -62,9 +62,10 @@ body {
 
     animation: show 300ms ease-in-out forwards;
 
-    label{
+    label:not(#choose-image-btn),h2{
       width: 100%;
-      margin-bottom: 8px;
+      padding-bottom: 8px;
+      margin: 0;
       font-size: 1em;
       font-weight: 600;
 
@@ -73,7 +74,7 @@ body {
       }
     }
 
-    input{
+    input[type="text"]{
       outline: none;
       box-sizing: border-box;
       font-family: "Montserrat", sans-serif;
@@ -88,17 +89,69 @@ body {
       &::placeholder{
         color: transparentize($dark-color,0.8);
       }
+      &:focus{
+        border: solid 1px $accent-color;
+      }
       &.ingredient-input,
       &.step-input{
         //margin-bottom: 25px;
       }
     }
+    input[type="file"]{
+      position: absolute;
+      left: -1000px;
+
+      & + .img-infos{
+        width: 100%;
+        margin-bottom: 20px;
+        display: flex;
+        //flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+
+
+        label#choose-image-btn{
+          outline: none;
+          box-sizing: border-box;
+          font-family: "Montserrat", sans-serif;
+          height: 38px;
+          width: auto;
+          padding: 5px 10px;
+          border: solid 1px transparentize($dark-color,0.6);
+          background: white;
+          display: flex;
+          flex-grow: auto;
+          align-items: center;
+          justify-content: flex-start;
+          align-self: baseline;
+          font-size: .9em;
+          border-radius: 5px;
+        }
+        span{
+          //margin-top: 10px;
+          margin-left: 15px;
+          font-size: .8em;
+
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+      &:hover + .img-infos label#choose-image-btn,
+      &:focus + .img-infos label#choose-image-btn{
+        border: solid 1px $accent-color;
+      }
+
+    }
+
+
     .btns{
       margin: 0 0 20px;
       display: flex;
       width: 100%;
       flex-direction: row;
       justify-content: space-between;
+
       button{
         position: relative;
         box-sizing: border-box;
@@ -123,6 +176,7 @@ body {
           height: 100%;
           width: 100%;
           opacity: 0;
+          cursor: pointer;
         }
         img{
           width: 30%;

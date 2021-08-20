@@ -15,6 +15,7 @@
     <!-- SDKs -->
     <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-storage.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.4.2/firebase-analytics.js"></script>
     <script>
       // Your web app's Firebase configuration
@@ -41,13 +42,19 @@
     <section class="main-container">
       <h1>Ajouter</h1>
       <form action="">
-        <label for="title">Nom du plat</label>
+        <label for="title-input">Nom du plat</label>
         <input type="text" required placeholder="Nom du plat" name="title" autocomplete="off" id="title-input">
-        <label for="subtitle">Sous-titre</label>
+        <label for="subtitle-input">Sous-titre</label>
         <input type="text" placeholder="Sous titre" name="subtitle" autocomplete="off" id="subtitle-input">
-        <label for="subtitle">Type</label>
-        <input type="text" placeholder="Type" name="subtitle" autocomplete="off" id="type-input">
-        <label for="">Paramètres</label>
+        <h2>Image</h2>
+        <input type="file" name="recipe-img" accept="image/png, image/jpeg" id="recipe-img-input">
+        <div class="img-infos">
+          <label for="recipe-img-input" id="choose-image-btn">Ajouter</label>
+          <span>Aucune image sélectionnée</span>
+        </div>
+        <label for="type-input">Type</label>
+        <input type="text" placeholder="Type" name="type" autocomplete="off" id="type-input">
+        <label for="time-input">Paramètres</label>
         <div class="btns">
           <button type="button">
             <input type="text" id="time-input" required>
@@ -65,10 +72,10 @@
             <span></span>
           </button>
         </div>
-        <label for="">Ingrédients</label>
-        <input type="text" required placeholder="Ingrédient 1" class="ingredient-input" autocomplete="off">
-        <label for="">étapes</label>
-        <input type="text" required placeholder="Étape 1" class="step-input" autocomplete="off">
+        <label for="first-ingredient-input">Ingrédients</label>
+        <input type="text" required placeholder="Ingrédient 1" class="ingredient-input" autocomplete="off" id="first-ingredient-input">
+        <label for="first-step-input">étapes</label>
+        <input type="text" required placeholder="Étape 1" class="step-input" autocomplete="off" id="first-step-input">
         <button type="submit" id="add-btn"><img src="img/add.svg" alt=""></button>
       </form>
     </section>

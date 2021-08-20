@@ -564,14 +564,16 @@ body .header #cooking-illustation {
   opacity: 0;
   transform: translateY(-50%) scale(0.8);
   transition: transform 300ms ease-in-out, opacity 300ms ease-in-out;
+  pointer-events: none;
 }
 
 .main-container-list .top .title #more-actions-btn.visible {
+  pointer-events: auto;
   opacity: 1;
   transform: translateY(-50%) scale(1);
 }
 
-.main-container-list .top .title .more-actions-popup {
+.main-container-list .top .title #more-actions-popup {
   z-index: 10;
   position: absolute;
   top: calc(50% + 20px/2);
@@ -587,19 +589,19 @@ body .header #cooking-illustation {
   pointer-events: none;
 }
 
-.main-container-list .top .title .more-actions-popup.visible {
+.main-container-list .top .title #more-actions-popup.visible {
   pointer-events: auto;
   opacity: 1;
   transform: scale(1);
 }
 
-.main-container-list .top .title .more-actions-popup ul {
+.main-container-list .top .title #more-actions-popup ul {
   list-style-type: none;
   padding: 5px 12px;
   margin: 0;
 }
 
-.main-container-list .top .title .more-actions-popup ul li {
+.main-container-list .top .title #more-actions-popup ul li {
   padding: 10px 10px;
   margin: 5px 0;
   font-size: .85em;
@@ -608,7 +610,7 @@ body .header #cooking-illustation {
   transition: background 300ms ease-in-out;
 }
 
-.main-container-list .top .title .more-actions-popup ul li:hover {
+.main-container-list .top .title #more-actions-popup ul li:hover {
   background: rgba(34, 34, 34, 0.05);
 }
 
@@ -659,7 +661,7 @@ body .header #cooking-illustation {
   min-height: 100%;
   box-sizing: border-box;
   padding: 0;
-  overflow-y: scroll;
+  overflow-y: overlay;
   display: flex;
   flex-direction: column;
   /* width */
@@ -696,11 +698,22 @@ body .header #cooking-illustation {
 
 .main-container-list .panels .my-panel ul.recipe-list li.recipe-item .recipeImg,
 .main-container-list .panels .favorites-panel ul.recipe-list li.recipe-item .recipeImg {
+  box-sizing: border-box;
+  position: relative;
   height: 50px;
   width: 50px;
   flex: 1 1 1;
   object-fit: cover;
   border-radius: 5px;
+  overflow: hidden;
+}
+
+.main-container-list .panels .my-panel ul.recipe-list li.recipe-item .recipeImg[src="img/entree.svg"], .main-container-list .panels .my-panel ul.recipe-list li.recipe-item .recipeImg[src="img/plate.svg"], .main-container-list .panels .my-panel ul.recipe-list li.recipe-item .recipeImg[src="img/dessert.svg"],
+.main-container-list .panels .favorites-panel ul.recipe-list li.recipe-item .recipeImg[src="img/entree.svg"],
+.main-container-list .panels .favorites-panel ul.recipe-list li.recipe-item .recipeImg[src="img/plate.svg"],
+.main-container-list .panels .favorites-panel ul.recipe-list li.recipe-item .recipeImg[src="img/dessert.svg"] {
+  padding: 6px;
+  filter: invert(63%) sepia(67%) saturate(1882%) hue-rotate(313deg) brightness(96%) contrast(135%);
 }
 
 .main-container-list .panels .my-panel ul.recipe-list li.recipe-item .content,
@@ -708,8 +721,8 @@ body .header #cooking-illustation {
   box-sizing: border-box;
   padding-left: 20px;
   height: 100%;
+  width: auto;
   margin-right: auto;
-  max-width: calc(100% - 2*20px - 50px - 16px);
   gap: 6px;
   display: flex;
   flex-direction: column;

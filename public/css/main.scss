@@ -545,12 +545,14 @@ body {
         opacity: 0;
         transform: translateY(-50%) scale(.8);
         transition: transform 300ms ease-in-out, opacity 300ms ease-in-out;
+        pointer-events: none;
         &.visible{
+          pointer-events: auto;
           opacity: 1;
           transform: translateY(-50%) scale(1);
         }
       }
-      .more-actions-popup{
+      #more-actions-popup{
         z-index: 10;
         position: absolute;
         top: calc(50% + 20px/2);//+img height/2
@@ -637,7 +639,7 @@ body {
       min-height: 100%;
       box-sizing: border-box;
       padding: 0;
-      overflow-y: scroll;
+      overflow-y: overlay;
       display: flex;
       flex-direction: column;
 
@@ -665,19 +667,31 @@ body {
           pointer-events: none;
 
           .recipeImg{
+            box-sizing: border-box;
+            position: relative;
             height: 50px;
             width: 50px;
             flex: 1 1 1;
             object-fit: cover;
             border-radius: 5px;
+            overflow: hidden;
+
+            &[src="img/entree.svg"],
+            &[src="img/plate.svg"],
+            &[src="img/dessert.svg"]{
+              padding: 6px;
+              //https://codepen.io/sosuke/pen/Pjoqqp
+              //Filter mimics the color of $accent-color
+              filter: invert(63%) sepia(67%) saturate(1882%) hue-rotate(313deg) brightness(96%) contrast(135%);
+            }
           }
           .content{
             box-sizing: border-box;
             padding-left: 20px;
             height: 100%;
-            //width: 100%;
+            width: auto;
             margin-right: auto;
-            max-width: calc(100% - 2*20px - 50px - 16px); //- padd - img size - check size with padd
+            //max-width: calc(100% - 2*20px - 50px - 30px); //- padd - img size - check size with padd
             gap: 6px;
             display: flex;
             flex-direction: column;

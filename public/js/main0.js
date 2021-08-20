@@ -81,47 +81,32 @@ $(document).ready(function () {
     queryMyRecipes(db,currentUser.uid);
     queryFavoriteRecipes(db,currentUser.uid);
   });
-
-  //MORE ACTIONS POPUP
-  //Popup
-  $("#more-actions-btn").on("vclick",()=>{
-    $("#more-actions-popup").toggleClass("visible");
-  });
-  $(document).on("vclick",e=>{
-    if(e.target.id != "more-actions-popup" && e.target.id !="more-actions-btn"//If you click outside
-    && $("#more-actions-popup").hasClass("visible")){//But the popup is already shown
-      e.preventDefault();
-      $("#more-actions-popup").removeClass("visible");//Hide popup when clicking outside
-    }
-  });
-  $("body").scroll(()=>{
-    $("#more-actions-popup").removeClass("visible");//Hide popup when clicking outside
-  })
-  //Popup btns
   $("#delete").on("vclick",()=>{
     deleteRecipes(db,currentUser.uid,$(".recipe-item.selected"));
 
     hideActionsPopup();
     selectingRecipes = false;
   });
-  $("#more-actions-popup").on("vclick", "#add-favorites", ()=>{//using "on" event to handle click on appended elements
+  $(".more-actions-popup").on("click", "#add-favorites", ()=>{//using "on" event to handle click on appended elements
     addRecipesToFavorites(db,currentUser.uid,$(".recipe-item.selected"));
 
     hideActionsPopup();
     selectingRecipes = false;
   });
-  $("#more-actions-popup").on("vclick", "#remove-favorites", ()=>{
+  $(".more-actions-popup").on("click", "#remove-favorites", ()=>{
     removeRecipesFromFavorites(db,currentUser.uid,$(".recipe-item.selected"));
 
     hideActionsPopup();
     selectingRecipes = false;
   });
   $("#add-btn").on("vclick",()=>{
-    if($("#more-actions-popup").hasClass("visible") == false){//If popup is not visible
-      loadAddRecipePage();
-    }
+    loadAddRecipePage();
   });
 
+  //MORE OPTIONS POPUP
+  $("#more-actions-btn").on("vclick",()=>{
+    $(".more-actions-popup").toggleClass("visible");
+  });
 
   auth.onAuthStateChanged(user=>{
     if(user){//if signed in
@@ -190,26 +175,22 @@ $(document).ready(function () {
 
     selectingRecipes = false;//Stop selecting recipes
     hideActionsPopup();
-    $("#more-actions-popup ul li:nth-child(2)").replaceWith('<li id="add-favorites">Ajouter aux favoris</li>');
+    $(".more-actions-popup ul li:nth-child(2)").replaceWith('<li id="add-favorites">Ajouter aux favoris</li>');
   });
   $("#favorites-btn").on("vclick",()=>{
-    if($("#more-actions-popup").hasClass("visible") == false){//If popup is not visible
-      //Switch to right tab
-      $(".top").addClass("active");
-      $(".panels").addClass("active");
+    //Switch to right tab
+    $(".top").addClass("active");
+    $(".panels").addClass("active");
 
-      selectingRecipes = false;//Stop selecting recipes
-      hideActionsPopup();
-      $("#more-actions-popup ul li:nth-child(2)").replaceWith('<li id="remove-favorites">Retirer des favoris</li>');
-    }
+    selectingRecipes = false;//Stop selecting recipes
+    hideActionsPopup();
+    $(".more-actions-popup ul li:nth-child(2)").replaceWith('<li id="remove-favorites">Retirer des favoris</li>');
   });
   $("#list-back-btn").on("vclick",()=>{
-    if($("#more-actions-popup").hasClass("visible") == false){//If popup is not visible
-      //Hide list
-      hide($(".main-container-list"));
-      //Show main btns
-      showMainBtns();
-    }
+    //Hide list
+    hide($(".main-container-list"));
+    //Show main btns
+    showMainBtns();
   });
 
   //Trigger on list element hold
@@ -233,32 +214,29 @@ $(document).ready(function () {
 
   });
   $('.recipe-list').on('vmouseup', '.recipe-item', event=>{//"Click" event, refers to mouseup and touchend
-    if($("#more-actions-popup").hasClass("visible") == false){//If popup is not visible
-      if(selectingRecipes && !held){//If selecting (and prevent from happening at the same time as taphold)
-        if($(event.currentTarget).hasClass("selected")){
-          //If already selected, deselect it
-          removeRecipeFromSelection($(event.currentTarget));
+    if(selectingRecipes && !held){//If selecting (and prevent from happening at the same time as taphold)
+      if($(event.currentTarget).hasClass("selected")){
+        //If already selected, deselect it
+        removeRecipeFromSelection($(event.currentTarget));
 
-          //Stop selecting if no element selected
-          if($(".recipe-item.selected").length == 0){
-            selectingRecipes = false;
-            $('.checkbox').removeClass("visible");
-            $('#more-actions-btn').removeClass("visible");
-          }
-        }else{
-          //If not selected, select it
-          //console.log("Add to selection");
-          addRecipeToSelection($(event.currentTarget));
+        //Stop selecting if no element selected
+        if($(".recipe-item.selected").length == 0){
+          selectingRecipes = false;
+          $('.checkbox').removeClass("visible");
+          $('#more-actions-btn').removeClass("visible");
         }
-      }else if(!selectingRecipes && !held){//If not selecting (and not tapheld), load recipe
-        console.log("Load recipe clicked");
-        var id = event.currentTarget.dataset.id; //Get the data-id element in HTML
-        ////COMMENTED FOR DEBUG
-        loadRecipePage(null,null,id);
+      }else{
+        //If not selected, select it
+        //console.log("Add to selection");
+        addRecipeToSelection($(event.currentTarget));
       }
-      held = false;//Reset
+    }else if(!selectingRecipes && !held){//If not selecting (and not tapheld), load recipe
+      console.log("Load recipe clicked");
+      var id = event.currentTarget.dataset.id; //Get the data-id element in HTML
+      ////COMMENTED FOR DEBUG
+      loadRecipePage(null,null,id);
     }
-
+    held = false;//Reset
   });
 
 
@@ -475,26 +453,29 @@ function deleteRecipes(db,userID,recipes){
 
     recipesRef.doc(recipeId).delete()//Remove from DB
       .then(()=>{
-        console.log("Recipe removed from DB, ID=" + recipeId);
-        //On success, remove HTML
-        var myRecipeHTML = $(".my-panel .recipe-list .recipe-item").filter(i=>{
-          return $(".my-panel .recipe-list .recipe-item")[i].dataset.id === recipeId;//Get all recipe <li>s that have the right ID dataR
-        })
-        var favRecipeHtml = $(".favorites-panel .recipe-list .recipe-item").filter(i=>{
-          return $(".favorites-panel .recipe-list .recipe-item")[i].dataset.id === recipeId;//Get all recipe <li>s that have the right ID data
-        })
-        //Remove HTML from both panels
-        removeRecipeFromHTML(myRecipeHTML);
-        removeRecipeFromHTML(favRecipeHtml);
+        console.log("Recipe removed, id=" + recipeId);
       })
       .catch(error=>{
-        console.log("Recipe not removed from DB, ID=" + recipeID);
+        console.log("Recipe not removed, id = " + recipeID);
       });
 
+    //Remove actual HTML element
+    $(recipe).css("animation","buttonPopOut 600ms ease-in-out forwards");
+
+    $(recipe).fadeOut(600,function(){//call the function at the end of the fadeout
+        $(recipe).css({"visibility":"hidden",display:'block'}).slideUp(600);//Hide element and slide others up for 600ms
+    });
+    setTimeout(()=>{
+      if($(".favorites-panel .recipe-list .recipe-item").length == 1){//If it was the last element
+        $(".favorites-panel .recipe-list").append("<p>Aucune recette trouvée.</p>");//Append it
+        $(".favorites-panel .recipe-list>p").css("animation-delay","0s");//remove anim delay
+      }
+      //Remove the HTML element
+      $(recipe).remove();
+    },600+600);
   });
-  removeRecipesFromFavorites(db,userID,recipes);
 }
-function addRecipesToFavorites(db,userID,recipes){
+function addRecipesToFavorites(db,userID,recipes){//PROBLEM : Make sure it's not already in the favorites before appending it to the tab
   let usersRef = db.collection("users");
 
   db.collection('users').doc(userID).get()
@@ -527,7 +508,7 @@ function addRecipesToFavorites(db,userID,recipes){
         });
 
         if( $.inArray($(recipe).data("id"), favoritesIDs) == -1 ){//If ID not already in favorites list, append it
-          console.log("Recipe added to favorites DB, ID=" + recipeId);
+          console.log("Add to favorites, id=" + recipeId);
 
           var recipeClone = $(recipe).clone().removeClass("selected").removeClass("visible");
           recipeClone.appendTo($(".favorites-panel .recipe-list"));
@@ -544,42 +525,39 @@ function removeRecipesFromFavorites(db,userID,recipes){
 
   recipes.each((i,recipe)=>{
     var recipeId = $(recipe).data("id");
+    console.log("Remove from favorites, id=" + recipeId);
 
     //Remove from favorite database
     usersRef.doc(userID).update({//Update the doc with the id=userID
         favorites: firebase.firestore.FieldValue.arrayRemove(recipeId)//Remove the recipe ID from the "favorites" array field.
     })
     .then(()=>{
-      console.log("Recipe removed from favorites DB, ID=" + recipeId);
-      removeRecipeFromHTML(recipe);
+      //Remove from HTML if success
+      $(recipe).css("animation","buttonPopOut 600ms ease-in-out forwards");
+      //animate orecipe and others to slideup when deleted
+      $(recipe).fadeOut(600,function(){//call the function at the end of the fadeout
+          $(recipe).css({"visibility":"hidden",display:'block'}).slideUp(600);//Hide element and slide others up for 600ms
+      });
+      setTimeout(()=>{
+        if($(".favorites-panel .recipe-list .recipe-item").length == 1){//If it was the last element
+          $(".favorites-panel .recipe-list").append("<p>Aucune recette trouvée.</p>");//Append it
+          $(".favorites-panel .recipe-list>p").css("animation-delay","0s");//remove anim delay
+        }
+        //Remove the HTML element
+        $(recipe).remove();
+      },600+600);
     });
 
 
   });
 }
 
-function removeRecipeFromHTML(recipe){
-  //Remove actual HTML element
-  $(recipe).css("animation","buttonPopOut 600ms ease-in-out forwards");
 
-  $(recipe).fadeOut(600,function(){//call the function at the end of the fadeout
-      $(recipe).css({"visibility":"hidden",display:'block'}).slideUp(600);//Hide element and slide others up for 600ms
-  });
-  setTimeout(()=>{
-    var recipeList = $(recipe).parent().parent().children(".recipe-list");
-    if(recipeList.children(".recipe-item").length == 1){//If it was the last element in the .recipe-list
-      recipeList.append("<p>Aucune recette trouvée.</p>");//Append it
-      recipeList.children(">p").css("animation-delay","0s");//remove anim delay
-    }
-    //Remove the HTML element
-    $(recipe).remove();
-  },600+600);
-}
 
 
 
 function hideActionsPopup(){
-  $("#more-actions-popup").removeClass("visible");//Hide popup
+  $(".more-actions-popup").removeClass("visible");//Hide popup
   $(".checkbox").removeClass("visible");//Hide checkboxes
   $("#more-actions-btn").removeClass("visible");//Hide more actions btn
   $(".recipe-item.selected").removeClass("selected");//Deselect items

@@ -33,11 +33,26 @@
       firebase.analytics();
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="//code.jquery.com/mobile/1.5.0-alpha.1/jquery.mobile-1.5.0-alpha.1.min.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/overlayscrollbars/1.13.1/css/OverlayScrollbars.min.css" integrity="sha512-jN4O0AUkRmE6Jwc8la2I5iBmS+tCDcfUd1eq8nrZIBnDKTmCp5YxxNN1/aetnAH32qT+dDbk1aGhhoaw5cJNlw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/overlayscrollbars/1.13.1/js/jquery.overlayScrollbars.min.js" integrity="sha512-3Ofi0j25Ar6Hyqk2sdvfuoVCvvN6nE6Dh/eoMc8RQ/bnCvO8wpE+M5KyJz6T08T7pl/x82I/3Y5Amz9n3T9Esw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script type="text/javascript" src="js/recipes.js" defer></script>
   </head>
   <body>
     <section class="main-container">
       <div class="header">
+        <nav>
+          <img id="back-btn" src="img/back-arrow.svg" alt="">
+          <img id="more-actions-btn" src="img/more-vert.svg" alt="">
+          <div id="more-actions-popup">
+            <ul>
+              <li id="delete">Supprimer</li>
+              <li id="add-favorite">Ajouter aux favoris</li>
+              <li id="log-out">Déconnexion</li>
+            </ul>
+          </div>
+        </nav>
         <div class="titles">
           <h1><!--Blanquette de veau--></h1>
           <h2><!--de Cyril Lignac--></h2>

@@ -63,18 +63,19 @@ body {
   animation: show 300ms ease-in-out forwards;
 }
 
-.main-container form label {
+.main-container form label:not(#choose-image-btn), .main-container form h2 {
   width: 100%;
-  margin-bottom: 8px;
+  padding-bottom: 8px;
+  margin: 0;
   font-size: 1em;
   font-weight: 600;
 }
 
-.main-container form label::first-letter {
+.main-container form label:not(#choose-image-btn)::first-letter, .main-container form h2::first-letter {
   text-transform: uppercase;
 }
 
-.main-container form input {
+.main-container form input[type="text"] {
   outline: none;
   box-sizing: border-box;
   font-family: "Montserrat", sans-serif;
@@ -87,8 +88,56 @@ body {
   border-radius: 5px;
 }
 
-.main-container form input::placeholder {
+.main-container form input[type="text"]::placeholder {
   color: rgba(34, 34, 34, 0.2);
+}
+
+.main-container form input[type="text"]:focus {
+  border: solid 1px #FF6B6B;
+}
+
+.main-container form input[type="file"] {
+  position: absolute;
+  left: -1000px;
+}
+
+.main-container form input[type="file"] + .img-infos {
+  width: 100%;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.main-container form input[type="file"] + .img-infos label#choose-image-btn {
+  outline: none;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+  height: 38px;
+  width: auto;
+  padding: 5px 10px;
+  border: solid 1px rgba(34, 34, 34, 0.4);
+  background: white;
+  display: flex;
+  flex-grow: auto;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: baseline;
+  font-size: .9em;
+  border-radius: 5px;
+}
+
+.main-container form input[type="file"] + .img-infos span {
+  margin-left: 15px;
+  font-size: .8em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.main-container form input[type="file"]:hover + .img-infos label#choose-image-btn,
+.main-container form input[type="file"]:focus + .img-infos label#choose-image-btn {
+  border: solid 1px #FF6B6B;
 }
 
 .main-container form .btns {
@@ -124,6 +173,7 @@ body {
   height: 100%;
   width: 100%;
   opacity: 0;
+  cursor: pointer;
 }
 
 .main-container form .btns button img {

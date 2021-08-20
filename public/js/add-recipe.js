@@ -85,33 +85,51 @@ $(document).ready(function () {
     $("#nbPeople-input").siblings().html($("#nbPeople-input").val() + " Pers.");
   });
 
-  //Remove all empty inputs
-  removeEmptyInputs(".ingredient-input");
-  removeEmptyInputs(".step-input");
 
   //Add inputs when all filled
-  $(document).on("input",$(".ingredient-input"),()=>{
-    if($(".ingredient-input").last().val()){
-      //Append new input when previous one is filled
-      $(".ingredient-input").last().after(`<input type="text" placeholder="Ingrédient ${$('.ingredient-input').length +1}" class="ingredient-input">`);
-    }else{
-      //Remove all empty inputs
-      removeEmptyInputs(".ingredient-input");
+  $(document).on("input",$(".ingredient-input"),e=>{
+    if($(e.target).attr("class") == "ingredient-input"){//If it's a ingredient-input
+      if($(e.target).val()){
+        appendInputAtBottom(".ingredient-input")//If not empty, add one at the bottom
+      } else {
+        $(e.target).remove();//If becomes empty, remove it
+      }
+      //Update placeholders to show the right index
+      updatePlaceholders(".ingredient-input");
     }
   });
-  $(document).on("input",$(".step-input"),()=>{
-    if($(".step-input").last().val()){
-      //Append new input when previous one is filled
-      $(".step-input").last().after(`<input type="text" placeholder="étape ${$('.step-input').length +1}" class="step-input">`);
-    }else{
-      //Remove all empty inputs
-      removeEmptyInputs(".step-input");
+  $(document).on("input",$(".step-input"),e=>{
+    if($(e.target).attr("class") == "step-input"){//If it's a step-input
+      if($(e.target).val()){
+        appendInputAtBottom(".step-input")//If not empty, add one at the bottom
+      } else {
+        $(e.target).remove();//If becomes empty, remove it
+      }
+      //Update placeholders to show the right index
+      updatePlaceholders(".step-input");
     }
   });
+
+  $("#recipe-img-input").on('change', event=>{
+		var fileName = event.target.value.split("\\").pop(); //Here, \\ = \
+
+		if( fileName ){
+      $(".img-infos span").html(fileName);
+      $("#choose-image-btn").html("Remplacer")
+    }else{
+      $(".img-infos span").html("Aucune image sélectionnée");
+      $("#choose-image-btn").html("Ajouter")
+    }
+	});
 
   //FIREBASE
   const auth = firebase.auth();
   const provider = new firebase.auth.GoogleAuthProvider();
+
+  //FIREBASE STORAGE
+  var storageRef = firebase.storage().ref();
+  var imagesRef = storageRef.child('recipe-imgs/');
+
 
   //FIRESTORE DATABASE
   const db = firebase.firestore();
@@ -123,34 +141,47 @@ $(document).ready(function () {
     if(user){//if signed in
       recipesRef = db.collection("recipes");
 
+      //ADD 10 RECIPES FOR TESTING
+      /* for(i=0; i<10;i++){
+        var paramsTest = {
+          title: "Recipe n°" + i,
+          type: "plate",
+          time: "45 min",
+          difficulty: "Moyen",
+          nbPeople: 6,
+          ingredients: ["Ingrédient A","Ingrédient B","Ingrédient C","Ingrédient D","Ingrédient E","Ingrédient F","Ingrédient G","Ingrédient H","Ingrédient I"],
+          steps: ["Ajouter ingrédient A","Ajouter ingrédient B","Ajouter ingrédient C","Ajouter ingrédient D","Ajouter ingrédient E","Ajouter ingrédient F","Ajouter ingrédient G","Ajouter ingrédient H","Ajouter ingrédient I"],
+        }
+        console.log("Added recipe " + i);
+        addRecipeToFirestore(recipesRef,user,paramsTest);
+      }*/
+
+
       $("form").on("submit",(event)=>{
         event.preventDefault(); // cancel the default submit
-        //console.log(getParams());
 
         var params = getParams();
 
-        if(params){
-          recipesRef.add({
-            uid: user.uid,
-            type: params.type,
-            title: params.title + "", //Convert to string
-            subtitle: params.subtitle + "", //Convert to string
-            preparationTime: params.time,
-            difficulty: params.difficulty,
-            nbPeople: params.nbPeople,
-            ingredients: params.ingredients,
-            steps: params.steps,
-            createdAt: firebase.firestore.Timestamp.now().toDate()
-          })
-          .then(()=>{
-           //alert("Successfully added")
-            window.location.href = "index.html";//go back to the main page if success
-          })
-          .catch(error=>{
-            console.log("Error while adding : " + error);
-            alert(error);
-          });
+        //Get random auto generated ID
+        var randomFirestoreID = firebase.firestore().collection("tmp").doc().id;
 
+        if(params){
+          if(params.imgFile){
+            var imageRef = firebase.storage().ref('recipe-imgs/' + randomFirestoreID);
+
+            imageRef.put(params.imgFile)//Push the img to the storage under the recipe-imgs folder
+              .then(snapshot=>{//On success
+                snapshot.ref.getDownloadURL().then(downloadURL => {//Get the url of the img
+                  params.imgUrl = downloadURL;
+                  addRecipeToFirestore(recipesRef, user, params);//Upload recipe to firestore with img
+                });
+              })
+              .catch(error=>{
+                alert("Error during image upload - " + error);
+              });
+          }else{
+            addRecipeToFirestore(recipesRef, user, params);//Upload recipe to firestore without img
+          }
 
         }
 
@@ -163,62 +194,106 @@ $(document).ready(function () {
 
 });
 
-function removeEmptyInputs (elementClass){
-  for(i=1;i<$(elementClass).length -1;i++){
-    if($(elementClass).eq(i).val() == ""){//If empty input between first and last
-        $(elementClass).eq(i).remove();
-    }
+function getNbEmptyInputs(elementClass){
+  var count = 0;
+  for(i=0; i<$(elementClass).length; i++){
+    if($(elementClass).eq(i).val() == false) count++;
   }
-  if($(elementClass).eq(0).val() == "" && $(elementClass).eq($(elementClass).length - 1).val() =="" //If empty and first one too
-    && $(elementClass).length > 1){ //If not only one input
-    $(elementClass).eq($(elementClass).length - 1).remove(); //Remove last input
+
+  return count
+}
+function appendInputAtBottom(elementClass){
+  if(getNbEmptyInputs(elementClass) == 0){//If no empty inputs
+    $(elementClass).last().after(`<input type="text" placeholder="étape ${$(elementClass).length +1}" class="${elementClass.split(".")[1]}" autocomplete="off">`);
   }
-  updatedPlaceholders(elementClass);
 }
 
-function updatedPlaceholders(elementClass){
-  for(j=0;j<$(elementClass).length;j++){
+function updatePlaceholders(elementClass){
+  for(j=0; j<$(elementClass).length; j++){
+    $(elementClass).removeAttr("id").removeAttr("required");//By default, input not required
+
     if(elementClass == ".ingredient-input"){
       $(elementClass).eq(j).attr("placeholder","Ingrédient " + (j+1) );
-    }else{
+    }else{//.step-input
       $(elementClass).eq(j).attr("placeholder","Étape " + (j+1));
     }
   }
+  //User must at least put the 1st element
+  $(elementClass).eq(0).attr('id', 'first-step-input').attr('required','true');//First element required
 }
 
-function getParams(){
-  var params = {};
+  function getParams(){
+    var params = {};
 
-  if ($("#type-input").val() == "Entrée")   params.type = "entree";
-  if ($("#type-input").val() == "Plat")   params.type = "plate";
-  if ($("#type-input").val() == "Dessert")   params.type = "dessert";
+    if ($("#type-input").val() == "Entrée")   params.type = "entree";
+    if ($("#type-input").val() == "Plat")   params.type = "plate";
+    if ($("#type-input").val() == "Dessert")   params.type = "dessert";
 
-  if ($("#title-input").val())   params.title = $("#title-input").val();
-  if ($("#subtitle-input").val())   params.subtitle = $("#subtitle-input").val();
-  if ($("#time-input ~ span").html())   params.time = $("#time-input ~ span").html();
-  if ($("#difficulty-input ~ span").html())   params.difficulty = $("#difficulty-input ~ span").html();
-  if (parseInt($("#nbPeople-input ~ span").html().split(" ")[0]))   params.nbPeople = parseInt($("#nbPeople-input ~ span").html().split(" ")[0]);
+    if ($("#title-input").val())   params.title = $("#title-input").val() + ""; //Convert to string
+    if ($("#subtitle-input").val())   params.subtitle = $("#subtitle-input").val() + ""; //Convert to string
 
-  if($(".ingredient-input")){
-    params.ingredients = [];
-    //Get all input values
-    for(i=0; i<$(".ingredient-input").length; i++){
-      if($(".ingredient-input").eq(i).val()){ //If input not empty
-        params.ingredients.push($(".ingredient-input").eq(i).val());
+    if($("#recipe-img-input").prop('files').length >0){
+      params.imgFile = $("#recipe-img-input").prop('files')[0];
+      //console.log(params.imgFile);
+    }
+
+
+    if ($("#time-input ~ span").html())   params.time = $("#time-input ~ span").html();
+    if ($("#difficulty-input ~ span").html())   params.difficulty = $("#difficulty-input ~ span").html();
+    if (parseInt($("#nbPeople-input ~ span").html().split(" ")[0]))   params.nbPeople = parseInt($("#nbPeople-input ~ span").html().split(" ")[0]);
+
+    if($(".ingredient-input")){
+      params.ingredients = [];
+      //Get all input values
+      for(i=0; i<$(".ingredient-input").length; i++){
+        if($(".ingredient-input").eq(i).val()){ //If input not empty
+          params.ingredients.push($(".ingredient-input").eq(i).val());
+        }
       }
     }
-  }
-  if($(".step-input")){
-    params.steps = [];
-    //Get all input values
-    for(i=0; i<$(".step-input").length; i++){
-      if($(".step-input").eq(i).val()){ //If input not empty
-        params.steps.push($(".step-input").eq(i).val());
+    if($(".step-input")){
+      params.steps = [];
+      //Get all input values
+      for(i=0; i<$(".step-input").length; i++){
+        if($(".step-input").eq(i).val()){ //If input not empty
+          params.steps.push($(".step-input").eq(i).val());
+        }
+
       }
-
     }
+
+    return params;
+
   }
 
-  return params;
 
+
+  function addRecipeToFirestore(recipesRef, user, params){
+
+    //Required values
+    var recipe = {
+      uid: user.uid,
+      title: params.title,
+      type: params.type,
+      preparationTime: params.time,
+      difficulty: params.difficulty,
+      nbPeople: params.nbPeople,
+      ingredients: params.ingredients,
+      steps: params.steps,
+      createdAt: firebase.firestore.Timestamp.now().toDate()
+    }
+    //Optional values
+    if(params.subtitle) recipe.subtitle = params.subtitle;
+    if(params.imgUrl) recipe.imgUrl = params.imgUrl;
+
+
+
+    recipesRef.add(recipe)
+    .then(()=>{
+     //alert("Successfully added")
+      window.location.href = "index.html";//go back to the main page if success
+    })
+    .catch(error=>{
+      alert("Error while adding recipe to DB : " + error);
+    });
   }
