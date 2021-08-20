@@ -1,6 +1,7 @@
 $(document).ready(function () {
+  //CSS FALLBACK
   if(CSS.supports("overflow-y", "overlay") == false){
-    //$(".main-container").css("--scrollbar-width","0px")//If not supported, hide the scrollbar
+    $(".main-container").css("--scrollbar-width","0px")//If not supported, hide the scrollbar
   }
 
   var animationDuration = 4000;
@@ -79,24 +80,24 @@ $(document).ready(function () {
     if(user){
       currentUser = user;
       //console.log(user.displayName);
-      queryRecipe(params);
+      queryRecipe(params,user.uid);
     }else{
       currentUser = null;
       console.log("Not logged in");
     }
   });
 
-  function queryRecipe(params){
+  function queryRecipe(params,userID){
     recipesRef = db.collection("recipes");
     let query;
 
     if(params.id){
       recipesRef.doc(params.id).get()
-        .then((result)=>{
+        .then(result=>{
           loadRecipe({
             id : result.id,
             data : result.data()
-          });
+          },userID);
         })
         .catch((error)=>{
           console.log("ID Request - Error : " + error);
@@ -117,7 +118,7 @@ $(document).ready(function () {
             loadRecipe({
               id: querySnapshot.docs[0].id,
               data: querySnapshot.docs[0].data()
-            })
+            },userID)
           }else{
             recipesRef.where("__name__", "<", randomFirestoreID).orderBy("__name__", "desc").limit(1)
                         .get()
@@ -126,14 +127,14 @@ $(document).ready(function () {
                             loadRecipe({
                               id: querySnapshot.docs[0].id,
                               data: querySnapshot.docs[0].data()
-                            })
+                            },userID)
                           }else{
                             console.log("No recipe found.")
                           }
                         })
           }
         })
-        .catch((error)=>{
+        .catch(error=>{
           console.log("Type Request - Error : " + error);
           showError(error);
         });
@@ -148,19 +149,8 @@ $(document).ready(function () {
     }
   }
 
-  function processQuerySnapshot (querySnapshot){
-    var docs = [];
-    querySnapshot.forEach((doc) => {
-      docs.push({
-        id : doc.id,
-        data : doc.data()
-      });
-    });
-    var randomIndex = Math.floor(Math.random() * docs.length);
-    loadRecipe(docs[randomIndex]);
-  }
 
-  function loadRecipe(recipe){
+  function loadRecipe(recipe,userID){
     //Set url hash to this recipe so that when you refresh you get the same recipe
     window.location.hash = "id=" + recipe.id;
     recipeID = recipe.id;
@@ -195,6 +185,9 @@ $(document).ready(function () {
     });
     $(".preparation ul").html(steps.join(''));
 
+    //If in fav, replace popup item to "Remove from favorites"
+    checkIfFav(db,userID,recipe.id);
+
   }
 
   function showError(error){
@@ -208,6 +201,25 @@ $(document).ready(function () {
     $(".preparation ul").html("<li></li>");
   }
 });
+
+
+function checkIfFav(db,userID,recipeID){
+  var usersRef = db.collection("users");
+
+  usersRef.doc(userID).get()
+    .then(doc=>{
+      if(doc.exists){
+        if( $.inArray(recipeID,doc.data().favorites) != -1 ){//If in favorites
+          $("#more-actions-popup ul li:nth-child(2)").replaceWith('<li id="remove-favorite">Retirer des favoris</li>');//Replace popup item
+        }
+      }
+    })
+    .catch(error=>{
+      alert(error);
+    })
+}
+
+
 
 
 
