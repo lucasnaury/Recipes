@@ -345,7 +345,7 @@ function queryMyRecipes(db, userID){
 
   let recipesRef = db.collection("recipes");
 
-  recipesRef.where("uid","==", userID).get()
+  recipesRef.where("uid","==", userID).orderBy("title", "asc").get()
     .then((querySnapshot)=>{
       processQuerySnapshot(querySnapshot, appendParent);
     })
