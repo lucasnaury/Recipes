@@ -167,6 +167,7 @@ $(document).ready(function () {
 
         if(params){
           if(params.imgFile){
+            params.imgName = randomFirestoreID;
             var imageRef = firebase.storage().ref('recipe-imgs/' + randomFirestoreID);
 
             imageRef.put(params.imgFile)//Push the img to the storage under the recipe-imgs folder
@@ -284,7 +285,10 @@ function updatePlaceholders(elementClass){
     }
     //Optional values
     if(params.subtitle) recipe.subtitle = params.subtitle;
-    if(params.imgUrl) recipe.imgUrl = params.imgUrl;
+    if(params.imgUrl){
+       recipe.imgUrl = params.imgUrl;
+       recipe.imgName = params.imgName;
+    }
 
 
 

@@ -169,6 +169,7 @@ $(document).ready(function () {
     if(recipe.data.imgUrl){
       //Set header:after bg img by appending a style tag because you can't access :after with jquery
       $("head").append(`<style>.header:after { background-image: linear-gradient(rgba(0, 0, 0, 0.45),rgba(0, 0, 0, 0.75)), url('${recipe.data.imgUrl}') !important}`);
+      $(".header").data("img-name",recipe.data.imgName);//store img name to be able to delete it from storage
     }else{
       //https://images.unsplash.com/photo-1470290449668-02dd93d9420a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80
       $("head").append(`<style>.header:after { background-image: linear-gradient(rgb(0 0 0 / 0%),rgb(0 0 0 / 30%)), url(img/bg/default-recipe-bg.png) !important;}`);
@@ -232,6 +233,9 @@ function deleteRecipe(db,userID,recipeID){
     .then(()=>{
       console.log("Recipe removed from DB, id=" + recipeID);
       window.location.href = "";//Go back to main page
+
+      //Remove img from storage
+      removeImgFromStorage(db,userID, $(".header").data("img-name"))
     })
     .catch(error=>{
       console.log("Recipe not removed from DB, id = " + recipeID);
@@ -240,6 +244,25 @@ function deleteRecipe(db,userID,recipeID){
 
   removeRecipeFromFavorites(db,userID,recipeID);
 }
+
+function removeImgFromStorage(db,userID,imgName){
+  var imageRef = firebase.storage().ref('recipe-imgs/' + imgName);
+
+  if(imgName){//If in storage
+    imageRef.delete()//Delete it
+      .then(()=>{
+        console.log("Recipe img successfully deleted from storage")
+      })
+      .catch(error => {//Didn't exist /error
+        console.log("Couldn't delete img from storage - " + error)
+      })
+  }
+}
+
+
+
+
+
 function addRecipeToFavorites(db,userID,recipeID){
   let usersRef = db.collection("users");
 

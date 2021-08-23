@@ -424,7 +424,7 @@ function appendRecipes(recipes,appendParent){
       //defaultImgUrl = "img/bg-top0.svg";
 
       return `<li class="recipe-item" data-id="${element.id}">
-                <img class="recipeImg" src=${element.data.imgUrl ? element.data.imgUrl : defaultImgUrl} alt="">
+                <img class="recipeImg" ${element.data.imgName ? `data-img-name="${element.data.imgName}"` : ""} src=${element.data.imgUrl ? element.data.imgUrl : defaultImgUrl} alt="">
                 <div class="content">
                   <div class="titles">
                     <h4>${element.data.title}${element.data.subtitle ? ` <span>${element.data.subtitle}</span>` : ""}</h4>
@@ -472,6 +472,8 @@ function deleteRecipes(db,userID,recipes){
   recipes.each((i,recipe)=>{
     //Remove from recipe database
     var recipeId = $(recipe).data("id");
+    var recipeImg = $(recipe).children(".recipeImg").eq(0);
+    var recipeImgName = recipeImg.data("img-name") ? recipeImg.data("img-name") : null;
 
     recipesRef.doc(recipeId).delete()//Remove from DB
       .then(()=>{
@@ -486,9 +488,11 @@ function deleteRecipes(db,userID,recipes){
         //Remove HTML from both panels
         removeRecipeFromHTML(myRecipeHTML);
         removeRecipeFromHTML(favRecipeHtml);
+        //Remove img from storage
+        removeImgFromStorage(db,userID,recipeImgName)
       })
       .catch(error=>{
-        console.log("Recipe not removed from DB, ID=" + recipeID);
+        console.log("Recipe not removed from DB, ID=" + recipeId + " - Error : "+error);
       });
 
   });
@@ -557,6 +561,23 @@ function removeRecipesFromFavorites(db,userID,recipes){
 
   });
 }
+
+function removeImgFromStorage(db,userID,imgName){
+  var imageRef = firebase.storage().ref('recipe-imgs/' + imgName);
+
+  if(imgName){//If in storage
+    imageRef.delete()//Delete it
+      .then(()=>{
+        console.log("Recipe img successfully deleted from storage")
+      })
+      .catch(error => {//Didn't exist /error
+        console.log("Couldn't delete img from storage - " + error)
+      })
+  }
+}
+
+
+
 
 function removeRecipeFromHTML(recipe){
   //Remove actual HTML element
