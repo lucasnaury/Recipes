@@ -2,6 +2,9 @@ $accent-color : #FF6B6B;
 $dark-color : #222;
 $bg-color: white;
 
+:root{
+  --dark-color: $dark-color;
+}
 
 /* width */
 *::-webkit-scrollbar {
@@ -16,10 +19,10 @@ $bg-color: white;
 /* Handle */
 *::-webkit-scrollbar-thumb {
   border-radius: 1000px;
-  box-shadow: inset 0 0 6px 6px transparentize($dark-color,.7);//Thumb bg color
+  box-shadow: inset 0 0 6px 6px rgba(34,34,34,var(--scrollbar-opacity));//Thumb bg color rgb(34,34,34) = #222
   border: solid 2px transparent;
   &:hover{
-    box-shadow: inset 0 0 6px 6px transparentize($dark-color,.6);//Thumb bg color
+    --scrollbar-opacity: .2;
   }
 }
 
@@ -64,6 +67,7 @@ html, body {
    overflow-y: hidden;
    animation: overflow 50ms 3.95s ease forwards;
    --scrollbar-width: 6px;
+   --scrollbar-opacity: .3;
 
    .header{
      position: relative;
@@ -326,7 +330,7 @@ html, body {
  }
 @keyframes overflow {
   100%{
-    overflow-y: var(--overflow-value,overlay);
+    overflow-y: overlay;
   }
 }
 

@@ -1,8 +1,4 @@
 $(document).ready(function () {
-  //CSS FALLBACK
-  if(CSS.supports("overflow-y", "overlay") == false){
-    $(".main-container").css("--scrollbar-width","0px")//If not supported, hide the scrollbar
-  }
 
   var animationDuration = 4000;
   //console.log(firebase);
