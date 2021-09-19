@@ -106,9 +106,14 @@ $(document).ready(function () {
       //Get random auto generated ID
       var randomFirestoreID = firebase.firestore().collection("tmp").doc().id;
 
-      var queryRef = recipesRef.where("__name__", ">=", randomFirestoreID).orderBy("__name__", "asc").limit(1)
+      var queryRefUp = recipesRef.where("type","==",params.type)
+                               .where("__name__", ">=", randomFirestoreID)
+                               .orderBy("__name__", "asc").limit(1)
+      var queryRefDown = recipesRef.where("type","==",params.type)
+                               .where("__name__", "<", randomFirestoreID)
+                               .orderBy("__name__", "asc").limit(1)
 
-      queryRef.get()
+      queryRefUp.get()
         .then((querySnapshot)=>{
           if(querySnapshot.docs.length >= 1){//If there is a document
             loadRecipe({
@@ -116,18 +121,17 @@ $(document).ready(function () {
               data: querySnapshot.docs[0].data()
             },userID)
           }else{
-            recipesRef.where("__name__", "<", randomFirestoreID).orderBy("__name__", "desc").limit(1)
-                        .get()
-                        .then((querySnapshot)=>{
-                          if(querySnapshot.docs.length >= 1){//If there is a document
-                            loadRecipe({
-                              id: querySnapshot.docs[0].id,
-                              data: querySnapshot.docs[0].data()
-                            },userID)
-                          }else{
-                            console.log("No recipe found.")
-                          }
-                        })
+            queryRefDown.get()
+              .then((querySnapshot)=>{
+                if(querySnapshot.docs.length >= 1){//If there is a document
+                  loadRecipe({
+                    id: querySnapshot.docs[0].id,
+                    data: querySnapshot.docs[0].data()
+                  },userID)
+                }else{
+                  console.log("No recipe found.")
+                }
+              })
           }
         })
         .catch(error=>{
