@@ -1,3 +1,8 @@
+.ui-loader-header {
+  display: none !important;
+  visibility: hidden !important;
+}
+
 html, body {
   margin: 0;
   padding: 0;
@@ -910,6 +915,16 @@ body .header #cooking-illustation {
   animation: buttonPopOut 600ms ease-in-out forwards;
 }
 
+#not-responsive {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5vw;
+  margin: 0;
+}
+
 @keyframes hideHomeBg {
   0% {
     opacity: 1;
@@ -1038,5 +1053,22 @@ body .header #cooking-illustation {
   100% {
     opacity: 0;
     transform: translateY(-100%);
+  }
+}
+
+@media (min-width: 650px) {
+  #not-responsive {
+    display: block;
+  }
+  .header,
+  .overlay,
+  #logout-btn,
+  .main-container,
+  .main-container-login,
+  .main-container-search,
+  .main-container-list,
+  .main-container-random {
+    display: none !important;
+    pointer-events: none !important;
   }
 }
