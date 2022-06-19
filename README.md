@@ -7,6 +7,6 @@ However, this is not the only feature of the app :
 - You will be able to share your recipes to your friends by just copying the link to it.
 
 
-You can see it online at https://livrerecettes.netlify.app/
+You can see it online at https://recipes.lucasnaury.fr  or at  https://livrerecettes.netlify.app/
 
 It was built using only HTML, SCSS and JS (jQuery) for the front-end and Google's Firebase back-end service.
